@@ -1,71 +1,70 @@
 ---
-const themeScript = '
-( function() {
-  const theme = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefer-color-scheme: dark)').matches;
+ // src/components/ThemeToggle.astro
+ ---
 
-  if (theme === 'dark' || (!theme && prefersDark)) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-  })();'
-;
----
+ <!-- Script untuk prevent flash -->
+<script is:inline>
+  (function() {
+    const theme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-<script set:html={themeScript} />
-
-  <div class="theme-toggle" onclick="toggleTheme()" >
-    <button class="
-    w-10 h-10 rounded-full flex items-center justify-center
-    bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200
-    hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors
-    ">
-
-    <span class="sun-icon">☀️</span>
-    <span class="moon-icon hidden">🌙</span>
-
-    </button>
-  </div>
-
-<script>
-  function toggleTheme() {
-    const html = document.documentElement;
-    const isDark = html.classList.contains('dark');
-  
-    if (isDark){
-      html.classList.remove('dark');
-      localStorage.setItem('theme','light');
-    } else {
-      html.classList.add('dark');
-      localStorage.setItem('theme','dark');
-    }
-
-    const sunIcon = document.querySelector('.sun-icon');
-    const moonIcon = document.querySelector('.moon-icon');
-
-    if (isDark){
-      sunIcon.classList.remove('hidden');
-      moonIcon.classList.add('hidden');
+    if ( theme === 'dark' || ( !theme && prefersDark)) {
+      document.documentElement.classList.add('dark'); 
     } else { 
-      sunIcon.classList.add('hidden');
-      moonIcon.classList.remove('hidden');
+      document.documentElement.classList.remove('dark');
     }
-  }
+  })();
 </script>
 
-<style>
-  .dark .sun-icon { 
-    display: none;
-  }
-  .dark .moon-icon {
-    display: inline;
-  }
-  .sun-icon {
-    display: inline;
-  }
-  .moon-icon{
-    display: none;
-  }
-</style>
+  <button
+  id="theme-toggle"
+  class="w-10 h-10 rounded-full flex items-center justify-center
+         bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200
+         hover:bg-gray-300 hover:dark:bg-gray-600 transition-colors
+         focus:outline-none focus:ring-2 focus:ring-blue-500"
+  aria-label="Toggle Theme"
+  >
 
+  <span class="sun-icon text-xl">☀️</span>
+  <span class="moon-icon text-xl hidden">🌙</span>
+  </button>
+
+  <script>
+        
+    function updateIcons() {
+      const isDark = document.documentElement.classList.contains('dark');
+      const sunIcon = document.querySelector('.sun-icon');
+      const moonIcon = document.querySelector('.moon-icon');
+
+      if (isDark) {
+        sunIcon?.classList.add('hidden');
+        moonIcon?.classList.remove('hidden');
+      } else {
+        sunIcon?.classList.remove('hidden');
+        moonIcon?.classList.add('hidden');
+      }
+    }
+
+    function toggleTheme() { 
+      const html = document.documentElement;
+      const isDark = html.classList.contains('dark');
+
+      if (isDark) { 
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      updateIcons();
+    }
+
+
+    // set icon on page Load
+    document.addEventListener ('DOMContentLoaded', () => { 
+      updateIcons();
+
+      const toggleBtn = document.getElementById('theme-toggle');
+      toggleBtn?.addEventListener('click', toggleTheme);
+    });
+</script>
