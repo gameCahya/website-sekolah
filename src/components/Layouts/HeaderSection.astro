@@ -1,0 +1,35 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+
+<header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
+            🕌
+          </div>
+          <div>
+            <h1 class="text-lg font-bold text-primary-700 dark:text-primary-400">ABBS Surakarta</h1>
+            <p class="text-xs text-gray-600 dark:text-gray-400">Al Abidin Boarding School</p>
+          </div>
+        </div>
+        
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="/" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
+            Beranda
+          </a>
+          <a href="/tentang" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
+            Tentang
+          </a>
+          <a href="/program" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
+            Program
+          </a>
+          <a href="/kontak" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
+            Kontak
+          </a>
+        </nav>
+        
+      <ThemeToggle />
+    </div>
+</header>

@@ -1,7 +1,8 @@
 ---
 // src/layouts/Layout.astro
 import '../styles/global.css';
-import ThemeToggle from '../components/ThemeToggle.astro';
+import HeaderSection from '../components/Layouts/HeaderSection.astro';
+import FooterSection from '../components/Layouts/FooterSection.astro';
 
 interface Props {
   title?: string;
@@ -19,73 +20,14 @@ const { title = 'ABBS Surakarta' } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300">
-    <header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm">
-      <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
-            🕌
-          </div>
-          <div>
-            <h1 class="text-lg font-bold text-primary-700 dark:text-primary-400">ABBS Surakarta</h1>
-            <p class="text-xs text-gray-600 dark:text-gray-400">Al Abidin Boarding School</p>
-          </div>
-        </div>
-        
-        <nav class="hidden md:flex items-center gap-6">
-          <a href="/" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
-            Beranda
-          </a>
-          <a href="/tentang" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
-            Tentang
-          </a>
-          <a href="/program" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
-            Program
-          </a>
-          <a href="/kontak" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
-            Kontak
-          </a>
-        </nav>
-        
-        <ThemeToggle />
-      </div>
-    </header>
+    
+    <HeaderSection />
     
     <main>
       <slot />
     </main>
+
+    <FooterSection />
     
-    <footer class="bg-dark-700 text-white py-12 mt-16">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <h3 class="font-bold text-xl mb-4 text-primary-400">ABBS Surakarta</h3>
-            <p class="text-gray-300 mb-4">
-              Sekolah Menengah Pertama Al Abidin Bilingual Boarding School
-            </p>
-            <p class="text-gray-300 text-sm italic">
-              Bring Excellence Beyond the Limits
-            </p>
-          </div>
-          <div>
-            <h4 class="font-bold mb-4">Kontak</h4>
-            <p class="text-gray-300 mb-2">📍 Surakarta, Jawa Tengah</p>
-            <p class="text-gray-300 mb-2">📞 (0271) XXX-XXXX</p>
-            <p class="text-gray-300">✉️ info@abbs-surakarta.sch.id</p>
-          </div>
-          <div>
-            <h4 class="font-bold mb-4">Quick Links</h4>
-            <ul class="space-y-2 text-gray-300">
-              <li><a href="/tentang" class="hover:text-primary-400 transition-colors">Tentang Kami</a></li>
-              <li><a href="/program" class="hover:text-primary-400 transition-colors">Program</a></li>
-              <li><a href="/pendaftaran" class="hover:text-primary-400 transition-colors">Pendaftaran</a></li>
-              <li><a href="/kontak" class="hover:text-primary-400 transition-colors">Kontak</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
-          <p>&copy; 2023 SMP ABBS Surakarta. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
   </body>
 </html>
