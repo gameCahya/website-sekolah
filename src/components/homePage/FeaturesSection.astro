@@ -1,0 +1,116 @@
+---
+import { createClient } from '@sanity/client';
+
+const sanityClient = createClient({
+  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID,
+  dataset: import.meta.env.PUBLIC_SANITY_DATASET,
+  useCdn: true,
+  apiVersion: import.meta.env.PUBLIC_SANITY_API_VERSION || '2024-01-01',
+});
+
+interface Feature {
+  _id?: string;
+  order: number;
+  title: string;
+  description: string;
+  icon: string;
+  borderColor: string;
+  gradientFrom: string;
+  gradientTo: string;
+  isActive?: boolean;
+}
+
+// Fetch features dari Sanity
+const features = await sanityClient.fetch<Feature[]>(
+  `*[_type == "features" && isActive == true] | order(order asc) [0...6]`
+);
+
+// Fallback kalau belum ada data di Sanity
+const defaultFeatures: Feature[] = [
+  {
+    order: 1,
+    title: 'Kurikulum Bilingual',
+    description: 'Pembelajaran dwi bahasa (Indonesia & Inggris) dengan metode modern dan interaktif',
+    icon: '📚',
+    borderColor: 'border-primary-500',
+    gradientFrom: 'from-primary-500',
+    gradientTo: 'to-primary-600',
+  },
+  {
+    order: 2,
+    title: 'Pendidikan Islam',
+    description: 'Pemahaman agama yang kuat dengan tahfidz Al-Qur\'an dan akhlak mulia',
+    icon: '🕌',
+    borderColor: 'border-tertiary-500',
+    gradientFrom: 'from-tertiary-500',
+    gradientTo: 'to-tertiary-600',
+  },
+  {
+    order: 3,
+    title: 'Boarding School',
+    description: 'Asrama nyaman dengan pengawasan 24 jam dan pembinaan karakter terpadu',
+    icon: '🏠',
+    borderColor: 'border-secondary-400',
+    gradientFrom: 'from-secondary-400',
+    gradientTo: 'to-secondary-500',
+  },
+  {
+    order: 4,
+    title: 'Teknologi Modern',
+    description: 'Fasilitas IT lengkap dengan pembelajaran berbasis teknologi digital',
+    icon: '💻',
+    borderColor: 'border-primary-500',
+    gradientFrom: 'from-primary-500',
+    gradientTo: 'to-primary-600',
+  },
+  {
+    order: 5,
+    title: 'Ekstrakurikuler',
+    description: 'Beragam kegiatan untuk mengembangkan bakat dan minat siswa',
+    icon: '⚽',
+    borderColor: 'border-tertiary-500',
+    gradientFrom: 'from-tertiary-500',
+    gradientTo: 'to-tertiary-600',
+  },
+  {
+    order: 6,
+    title: 'Prestasi Gemilang',
+    description: 'Track record juara di berbagai kompetisi tingkat regional hingga nasional',
+    icon: '🏆',
+    borderColor: 'border-secondary-400',
+    gradientFrom: 'from-secondary-400',
+    gradientTo: 'to-secondary-500',
+  },
+];
+
+const displayFeatures = features.length > 0 ? features : defaultFeatures;
+---
+
+<section id="tentang" class="py-16 bg-gray-50 dark:bg-gray-900">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        Keunggulan ABBS Surakarta
+      </h2>
+      <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        Fasilitas dan program unggulan untuk mengembangkan potensi siswa secara maksimal
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {displayFeatures.map((feature) => (
+        <div class={`bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border-t-4 ${feature.borderColor}`}>
+          <div class={`w-16 h-16 bg-gradient-to-br ${feature.gradientFrom} ${feature.gradientTo} rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-lg`}>
+            {feature.icon}
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+            {feature.title}
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            {feature.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -3,6 +3,8 @@
 import Layout from '../layouts/Layout.astro';
 import HeroSection from '../components/hero/HeroSection.astro';
 import StatsSection from '../components/homePage/StatsSection.astro';
+import FeaturesSection from '../components/homePage/FeaturesSection.astro';
+import BeritaSection from '../components/homePage/BeritaSection.astro';
 
 // Hero Section Data
 const heroData = {
@@ -43,167 +45,11 @@ const heroData = {
   <!-- Stats Section -->
   <StatsSection />
 
-
   <!-- Features Section -->
-  <section id="tentang" class="py-16 bg-gray-50 dark:bg-gray-900">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          Keunggulan ABBS Surakarta
-        </h2>
-        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Fasilitas dan program unggulan untuk mengembangkan potensi siswa secara maksimal
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Card 1 -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border-t-4 border-primary-500">
-          <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-lg">
-            📚
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Kurikulum Bilingual</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            Pembelajaran dwi bahasa (Indonesia & Inggris) dengan metode modern dan interaktif
-          </p>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border-t-4 border-tertiary-500">
-          <div class="w-16 h-16 bg-gradient-to-br from-tertiary-500 to-tertiary-600 rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-lg">
-            🕌
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Pendidikan Islam</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            Pemahaman agama yang kuat dengan tahfidz Al-Qur'an dan akhlak mulia
-          </p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border-t-4 border-secondary-400">
-          <div class="w-16 h-16 bg-gradient-to-br from-secondary-400 to-secondary-500 rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-lg">
-            🏠
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Boarding School</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            Asrama nyaman dengan pengawasan 24 jam dan pembinaan karakter terpadu
-          </p>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border-t-4 border-primary-500">
-          <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-lg">
-            💻
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Teknologi Modern</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            Fasilitas IT lengkap dengan pembelajaran berbasis teknologi digital
-          </p>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border-t-4 border-tertiary-500">
-          <div class="w-16 h-16 bg-gradient-to-br from-tertiary-500 to-tertiary-600 rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-lg">
-            ⚽
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Ekstrakurikuler</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            Beragam kegiatan untuk mengembangkan bakat dan minat siswa
-          </p>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border-t-4 border-secondary-400">
-          <div class="w-16 h-16 bg-gradient-to-br from-secondary-400 to-secondary-500 rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-lg">
-            🏆
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Prestasi Gemilang</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            Track record juara di berbagai kompetisi tingkat regional hingga nasional
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <FeaturesSection />
 
   <!-- Berita Section -->
-  <section class="py-16 bg-white dark:bg-gray-800">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          Berita & Kegiatan Terbaru
-        </h2>
-        <p class="text-gray-600 dark:text-gray-400">
-          Update terkini seputar kegiatan dan prestasi ABBS Surakarta
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Berita Card 1 -->
-        <article class="bg-gray-50 dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-          <div class="h-48 bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-6xl">
-            📖
-          </div>
-          <div class="p-6">
-            <div class="text-sm text-primary-600 dark:text-primary-400 font-semibold mb-2">
-              25 Desember 2024
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
-              Penerimaan Siswa Baru 2025/2026
-            </h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">
-              Pendaftaran gelombang 1 dibuka dengan berbagai program beasiswa menarik
-            </p>
-            <a href="#" class="text-primary-600 dark:text-primary-400 font-semibold hover:underline inline-flex items-center gap-2">
-              Baca Selengkapnya →
-            </a>
-          </div>
-        </article>
-
-        <!-- Berita Card 2 -->
-        <article class="bg-gray-50 dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-          <div class="h-48 bg-gradient-to-br from-tertiary-400 to-tertiary-600 flex items-center justify-center text-6xl">
-            🏆
-          </div>
-          <div class="p-6">
-            <div class="text-sm text-primary-600 dark:text-primary-400 font-semibold mb-2">
-              20 Desember 2024
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
-              Juara Olimpiade Tahfidz Nasional
-            </h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">
-              Siswa ABBS meraih juara 1 kompetisi tahfidz tingkat nasional
-            </p>
-            <a href="#" class="text-primary-600 dark:text-primary-400 font-semibold hover:underline inline-flex items-center gap-2">
-              Baca Selengkapnya →
-            </a>
-          </div>
-        </article>
-
-        <!-- Berita Card 3 -->
-        <article class="bg-gray-50 dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-          <div class="h-48 bg-gradient-to-br from-secondary-400 to-secondary-500 flex items-center justify-center text-6xl">
-            🌍
-          </div>
-          <div class="p-6">
-            <div class="text-sm text-primary-600 dark:text-primary-400 font-semibold mb-2">
-              15 Desember 2024
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
-              English Camp 2024
-            </h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">
-              Kegiatan peningkatan kemampuan bahasa Inggris dengan native speaker
-            </p>
-            <a href="#" class="text-primary-600 dark:text-primary-400 font-semibold hover:underline inline-flex items-center gap-2">
-              Baca Selengkapnya →
-            </a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+  <BeritaSection />
 
   <!-- CTA Section -->
   <section id="daftar" class="py-20 bg-gradient-to-br from-primary-600 via-primary-500 to-tertiary-500 text-white relative overflow-hidden">

@@ -1,22 +1,20 @@
 ---
-import { sanityClient } from '../lib/sanity.ts';
+import { sanityClient } from "../../lib/sanity";
 
 interface Stat {
-  _id: string;
+  _id?: string;  // ← Tambah optional
   order: number;
   value: string;
   label: string;
   icon?: string;
-  isActive: boolean;
+  isActive?: boolean;  // ← Tambah optional
 }
 
-// Fetch stats dari Sanity
 const stats = await sanityClient.fetch<Stat[]>(
   `*[_type == "stats" && isActive == true] | order(order asc) [0...4]`
 );
 
-// Fallback kalau belum ada data di Sanity
-const defaultStats = [
+const defaultStats: Stat[] = [  // ← Tambah type annotation
   { order: 1, value: '500+', label: 'Siswa Aktif', icon: '👨‍🎓' },
   { order: 2, value: '50+', label: 'Guru Berpengalaman', icon: '👨‍🏫' },
   { order: 3, value: '20+', label: 'Prestasi Nasional', icon: '🏆' },
@@ -29,8 +27,9 @@ const displayStats = stats.length > 0 ? stats : defaultStats;
 <section class="py-12 bg-white dark:bg-gray-800 shadow-sm">
   <div class="max-w-7xl mx-auto px-4">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-      {displayStats.map((stat) => (
-        <div key={stat._id || stat.order}>
+      {displayStats.map((stat, index) => (
+        <div>
+          {/* ↑ Hapus 'key' attribute, ganti pakai index di map */}
           {stat.icon && (
             <div class="text-3xl mb-2">{stat.icon}</div>
           )}
@@ -45,4 +44,3 @@ const displayStats = stats.length > 0 ? stats : defaultStats;
     </div>
   </div>
 </section>
-

@@ -29,3 +29,5 @@ pnpm-debug.log*
 
 # Sanity
 .sanity/
+/sanity-studio/sanity.cli.ts
+/sanity-studio/sanity.config.ts

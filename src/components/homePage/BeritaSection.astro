@@ -1,0 +1,142 @@
+---
+import { createClient } from '@sanity/client';
+import imageUrlBuilder from '@sanity/image-url';
+
+const sanityClient = createClient({
+  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID,
+  dataset: import.meta.env.PUBLIC_SANITY_DATASET,
+  useCdn: true,
+  apiVersion: import.meta.env.PUBLIC_SANITY_API_VERSION || '2024-01-01',
+});
+
+const builder = imageUrlBuilder(sanityClient);
+
+interface Berita {
+  _id?: string;
+  title: string;
+  slug: { current: string };
+  publishedAt: string;
+  excerpt: string;
+  featuredImage?: any;
+  category: string;
+  gradientFrom: string;
+  gradientTo: string;
+  isFeatured?: boolean;
+}
+
+// Fetch berita yang featured dari Sanity
+const beritaList = await sanityClient.fetch<Berita[]>(
+  `*[_type == "berita" && isPublished == true && isFeatured == true] | order(publishedAt desc) [0...3] {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    excerpt,
+    featuredImage,
+    category,
+    gradientFrom,
+    gradientTo,
+    isFeatured
+  }`
+);
+
+// Fallback data
+const defaultBerita: Berita[] = [
+  {
+    title: 'Penerimaan Siswa Baru 2025/2026',
+    slug: { current: 'psb-2025-2026' },
+    publishedAt: '2024-12-25',
+    excerpt: 'Pendaftaran gelombang 1 dibuka dengan berbagai program beasiswa menarik',
+    category: 'Pengumuman',
+    gradientFrom: 'from-primary-400',
+    gradientTo: 'to-primary-600',
+  },
+  {
+    title: 'Juara Olimpiade Tahfidz Nasional',
+    slug: { current: 'juara-olimpiade-tahfidz' },
+    publishedAt: '2024-12-20',
+    excerpt: 'Siswa ABBS meraih juara 1 kompetisi tahfidz tingkat nasional',
+    category: 'Prestasi',
+    gradientFrom: 'from-tertiary-400',
+    gradientTo: 'to-tertiary-600',
+  },
+  {
+    title: 'English Camp 2024',
+    slug: { current: 'english-camp-2024' },
+    publishedAt: '2024-12-15',
+    excerpt: 'Kegiatan peningkatan kemampuan bahasa Inggris dengan native speaker',
+    category: 'Kegiatan',
+    gradientFrom: 'from-secondary-400',
+    gradientTo: 'to-secondary-500',
+  },
+];
+
+const displayBerita = beritaList.length > 0 ? beritaList : defaultBerita;
+
+// Helper format tanggal
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
+// Icon mapping untuk kategori
+const categoryIcons: Record<string, string> = {
+  'akademik': '📚',
+  'prestasi': '🏆',
+  'kegiatan': '🌍',
+  'pengumuman': '📢',
+};
+---
+
+<section class="py-16 bg-white dark:bg-gray-800">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        Berita & Kegiatan Terbaru
+      </h2>
+      <p class="text-gray-600 dark:text-gray-400">
+        Update terkini seputar kegiatan dan prestasi ABBS Surakarta
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {displayBerita.map((berita) => (
+        <article class="bg-gray-50 dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+          {/* Featured Image atau Gradient Placeholder */}
+          {berita.featuredImage ? (
+            <img
+              src={builder.image(berita.featuredImage).width(600).height(400).url()}
+              alt={berita.title}
+              class="h-48 w-full object-cover"
+            />
+          ) : (
+            <div class={`h-48 bg-gradient-to-br ${berita.gradientFrom} ${berita.gradientTo} flex items-center justify-center text-6xl`}>
+              {categoryIcons[berita.category] || '📖'}
+            </div>
+          )}
+          
+          <div class="p-6">
+            <div class="text-sm text-primary-600 dark:text-primary-400 font-semibold mb-2">
+              {formatDate(berita.publishedAt)}
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              {berita.title}
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+              {berita.excerpt}
+            </p>
+            <a 
+              href={`/berita/${berita.slug.current}`}
+              class="text-primary-600 dark:text-primary-400 font-semibold hover:underline inline-flex items-center gap-2"
+            >
+              Baca Selengkapnya →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
