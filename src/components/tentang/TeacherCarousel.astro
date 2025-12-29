@@ -1,6 +1,11 @@
 ---
-// src/components/sections/TeacherCarousel.astro
+// src/components/tentang/TeacherCarousel.astro
+// Refactored version using modular components
+
 import { sanityClient, urlFor } from '../../lib/sanity';
+import Carousel from '../carousel/Carousel.astro';
+import CarouselItem from '../carousel/CarouselItem.astro';
+import TeacherCard from './TeacherCard.astro';
 
 interface Teacher {
   _id: string;
@@ -39,7 +44,7 @@ try {
   console.error('Error fetching teachers:', error);
 }
 
-// Fallback data jika Sanity belum setup atau kosong
+// Fallback data
 const defaultTeachers: Teacher[] = [
   {
     _id: "1",
@@ -108,30 +113,21 @@ const defaultTeachers: Teacher[] = [
 
 const displayTeachers = teachers.length > 0 ? teachers : defaultTeachers;
 
-// Ensure proper ordering (fallback if order field is missing)
+// Sort teachers
 const sortedTeachers = [...displayTeachers].sort((a, b) => {
-  // Sort by order field if exists
   if (a.order !== undefined && b.order !== undefined) {
     return a.order - b.order;
   }
-  // Prioritize Kepala Sekolah
   if (a.position.includes('Kepala Sekolah')) return -1;
   if (b.position.includes('Kepala Sekolah')) return 1;
   return 0;
 });
 
-// Type definitions
+// Get color scheme for variety
 type ColorScheme = 'primary' | 'secondary' | 'tertiary';
-
 const getColorScheme = (index: number): ColorScheme => {
   const schemes: ColorScheme[] = ['primary', 'secondary', 'tertiary'];
   return schemes[index % 3];
-};
-
-const colorClasses: Record<ColorScheme, string> = {
-  primary: 'from-primary-500 to-primary-600',
-  secondary: 'from-secondary-400 to-secondary-500',
-  tertiary: 'from-tertiary-500 to-tertiary-600'
 };
 ---
 
@@ -150,316 +146,32 @@ const colorClasses: Record<ColorScheme, string> = {
       </p>
     </div>
 
-    <!-- Carousel Container -->
-    <div class="relative -mx-4 px-4">
-      <!-- Gradient Fades -->
-      <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent z-10 pointer-events-none hidden md:block"></div>
-      <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white dark:from-gray-800 to-transparent z-10 pointer-events-none hidden md:block"></div>
-
-      <!-- Carousel -->
-      <div class="carousel-container overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar py-8 scroll-px-4 md:scroll-px-8">
-        <div class="carousel-track flex gap-8 px-4 md:px-8">
-          {sortedTeachers.map((teacher, index) => {
-            const colorScheme = getColorScheme(index);
-            const imageUrl = teacher.photo 
-              ? urlFor(teacher.photo).width(400).height(400).url() 
-              : null;
-            
-            return (
-              <div class="carousel-item snap-center shrink-0 w-80 md:w-96 group" data-index={index}>
-                <div class="teacher-card relative bg-white dark:bg-gray-900 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 dark:border-gray-800 h-full transform hover:-translate-y-2">
-                  
-                  <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-primary-100 to-transparent dark:from-primary-900/20 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
-                  <div class={`relative bg-gradient-to-br ${colorClasses[colorScheme]} p-8 pt-12`}>
-                    <div class="relative">
-                      <div class="absolute inset-0 bg-white/30 rounded-full blur-2xl"></div>
-                      
-                      {imageUrl ? (
-                        <img 
-                          src={imageUrl} 
-                          alt={teacher.name}
-                          class="relative w-36 h-36 rounded-full mx-auto object-cover shadow-2xl border-4 border-white/50 group-hover:scale-110 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div class="relative w-36 h-36 bg-white/20 backdrop-blur-md rounded-full mx-auto flex items-center justify-center text-7xl shadow-2xl border-4 border-white/50 group-hover:scale-110 transition-transform duration-500">
-                          👤
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div class="absolute top-4 right-4 flex gap-1">
-                      <div class="w-2 h-2 bg-white/40 rounded-full"></div>
-                      <div class="w-2 h-2 bg-white/40 rounded-full"></div>
-                      <div class="w-2 h-2 bg-white/40 rounded-full"></div>
-                    </div>
-                  </div>
-                  
-                  <div class="relative p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                      {teacher.name}
-                    </h3>
-                    
-                    <div class={`inline-block px-4 py-1 rounded-full text-sm font-semibold mb-3 bg-gradient-to-r ${colorClasses[colorScheme]} text-white`}>
-                      {teacher.position}
-                    </div>
-                    
-                    {teacher.subject && (
-                      <div class="flex items-center gap-2 mb-4">
-                        <span class="text-2xl">📚</span>
-                        <span class="text-sm font-medium text-gray-600 dark:text-gray-400">
-                          {teacher.subject}
-                        </span>
-                      </div>
-                    )}
-                    
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                      {teacher.description}
-                    </p>
-                    
-                    <div class={`mt-6 h-1 w-16 bg-gradient-to-r ${colorClasses[colorScheme]} rounded-full group-hover:w-full transition-all duration-500`}></div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      <!-- Navigation Buttons -->
-      <button
-        class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white w-14 h-14 rounded-full shadow-2xl hover:shadow-primary-500/50 hover:scale-110 transition-all duration-300 z-20 flex items-center justify-center backdrop-blur-sm border border-gray-200 dark:border-gray-700 group hidden md:flex"
-        aria-label="Previous"
-      >
-        <svg class="w-6 h-6 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      
-      <button
-        class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white w-14 h-14 rounded-full shadow-2xl hover:shadow-primary-500/50 hover:scale-110 transition-all duration-300 z-20 flex items-center justify-center backdrop-blur-sm border border-gray-200 dark:border-gray-700 group hidden md:flex"
-        aria-label="Next"
-      >
-        <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-    </div>
-
-    <!-- Dots Indicator -->
-    <div class="flex justify-center gap-3 mt-12 carousel-dots">
-      {sortedTeachers.map((_, index) => (
-        <button
-          class="carousel-dot h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 hover:bg-primary-500 dark:hover:bg-primary-400 transition-all duration-300 cursor-pointer"
-          data-index={index}
-          aria-label={`Go to slide ${index + 1}`}
-        />
-      ))}
-    </div>
-
-    <!-- Mobile Swipe Hint -->
-    <div class="text-center mt-8 md:hidden">
-      <p class="text-sm text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2">
-        <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-        </svg>
-        Geser untuk melihat lebih banyak
-        <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </p>
-    </div>
+    <!-- Carousel -->
+    <Carousel
+      itemCount={sortedTeachers.length}
+      showDots={true}
+      showArrows={true}
+      ariaLabel="Teacher Carousel"
+    >
+      {sortedTeachers.map((teacher, index) => {
+        const colorScheme = getColorScheme(index);
+        const imageUrl = teacher.photo 
+          ? urlFor(teacher.photo).width(400).height(400).url() 
+          : undefined;
+        
+        return (
+          <CarouselItem index={index} className="w-80 md:w-96 group">
+            <TeacherCard
+              name={teacher.name}
+              position={teacher.position}
+              subject={teacher.subject}
+              photo={imageUrl}
+              description={teacher.description}
+              colorScheme={colorScheme}
+            />
+          </CarouselItem>
+        );
+      })}
+    </Carousel>
   </div>
 </section>
-
-<style>
-  .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .carousel-container {
-    scroll-behavior: smooth;
-  }
-
-  .carousel-dot {
-    width: 12px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .carousel-dot.active {
-    @apply bg-primary-500 dark:bg-primary-400;
-    width: 40px;
-  }
-
-  .teacher-card:hover {
-    transform: translateY(-8px) scale(1.02);
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(-50%);
-    }
-    50% {
-      transform: translateY(-50%) translateY(-4px);
-    }
-  }
-
-  .carousel-prev, .carousel-next {
-    animation: float 3s ease-in-out infinite;
-  }
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const container = document.querySelector('.carousel-container') as HTMLElement;
-    const track = container?.querySelector('.carousel-track') as HTMLElement;
-    const prevBtn = document.querySelector('.carousel-prev') as HTMLElement;
-    const nextBtn = document.querySelector('.carousel-next') as HTMLElement;
-    const dots = document.querySelectorAll('.carousel-dot');
-
-    if (!container || !track || !prevBtn || !nextBtn || dots.length === 0) return;
-
-    const originalItems = Array.from(track.querySelectorAll('.carousel-item'));
-    const itemCount = originalItems.length;
-    
-    // Clone items for infinite effect (clone last to start, first to end)
-    const firstClone = originalItems[0].cloneNode(true) as HTMLElement;
-    const lastClone = originalItems[itemCount - 1].cloneNode(true) as HTMLElement;
-    
-    track.appendChild(firstClone);
-    track.insertBefore(lastClone, track.firstChild);
-
-    let currentIndex = 0; // Real index (0-based for dots)
-    let actualIndex = 1; // Actual position in DOM (starts at 1 because of clone)
-    let isAnimating = false;
-
-    const getCardWidth = () => {
-      const card = track.querySelector('.teacher-card')?.parentElement;
-      if (!card) return 0;
-      const rect = card.getBoundingClientRect();
-      const nextCard = card.nextElementSibling as HTMLElement;
-      if (nextCard) {
-        const nextRect = nextCard.getBoundingClientRect();
-        return nextRect.left - rect.left;
-      }
-      return rect.width + 32;
-    };
-
-    const updateDots = () => {
-      dots.forEach((dot, index) => {
-        if (index === currentIndex) {
-          dot.classList.add('active');
-        } else {
-          dot.classList.remove('active');
-        }
-      });
-    };
-
-    const scrollToPosition = (position: number, smooth = true) => {
-      const cardWidth = getCardWidth();
-      
-      container.scrollTo({
-        left: position * cardWidth,
-        behavior: smooth ? 'smooth' : 'auto'
-      });
-    };
-
-    const handleTransitionEnd = () => {
-      if (actualIndex === 0) {
-        // At fake first (last item clone), jump to real last
-        actualIndex = itemCount;
-        currentIndex = itemCount - 1;
-        scrollToPosition(actualIndex, false);
-      } else if (actualIndex === itemCount + 1) {
-        // At fake last (first item clone), jump to real first
-        actualIndex = 1;
-        currentIndex = 0;
-        scrollToPosition(actualIndex, false);
-      }
-      isAnimating = false;
-      updateDots();
-    };
-
-    prevBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (isAnimating) return;
-      
-      isAnimating = true;
-      actualIndex--;
-      currentIndex = currentIndex > 0 ? currentIndex - 1 : itemCount - 1;
-      
-      scrollToPosition(actualIndex, true);
-      
-      setTimeout(handleTransitionEnd, 500);
-    });
-
-    nextBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (isAnimating) return;
-      
-      isAnimating = true;
-      actualIndex++;
-      currentIndex = currentIndex < itemCount - 1 ? currentIndex + 1 : 0;
-      
-      scrollToPosition(actualIndex, true);
-      
-      setTimeout(handleTransitionEnd, 500);
-    });
-
-    // Dot navigation
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        if (isAnimating) return;
-        
-        isAnimating = true;
-        currentIndex = index;
-        actualIndex = index + 1; // +1 because of prepended clone
-        
-        scrollToPosition(actualIndex, true);
-        
-        setTimeout(() => {
-          isAnimating = false;
-          updateDots();
-        }, 500);
-      });
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (!container.matches(':hover')) return;
-      
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        prevBtn.click();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        nextBtn.click();
-      }
-    });
-
-    // Initialize
-    currentIndex = 0;
-    actualIndex = 1;
-    
-    // Wait for DOM and layout to be ready, then scroll to first real item
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        scrollToPosition(actualIndex, false);
-        updateDots();
-      });
-    });
-
-    // Handle resize
-    let resizeTimeout: number;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = window.setTimeout(() => {
-        scrollToPosition(actualIndex, false);
-      }, 250);
-    });
-  });
-</script>

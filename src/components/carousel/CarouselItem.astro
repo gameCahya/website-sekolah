@@ -1,0 +1,17 @@
+---
+// Generic carousel item wrapper component
+
+interface Props {
+  index: number;
+  className?: string;
+}
+
+const { index, className = '' } = Astro.props;
+---
+
+<div 
+  class={`carousel-item snap-center shrink-0 ${className}`}
+  data-index={index}
+>
+  <slot />
+</div>

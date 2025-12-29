@@ -1,0 +1,142 @@
+---
+// src/components/carousel/Carousel.astro
+// Generic reusable carousel component with infinite loop
+
+interface Props {
+  itemCount: number;
+  showDots?: boolean;
+  showArrows?: boolean;
+  className?: string;
+  containerClass?: string;
+  trackClass?: string;
+  ariaLabel?: string;
+}
+
+const {
+  itemCount,
+  showDots = true,
+  showArrows = true,
+  className = '',
+  containerClass = '',
+  trackClass = '',
+  ariaLabel = 'Carousel'
+} = Astro.props;
+---
+
+<div class={`carousel-wrapper relative ${className}`} role="region" aria-label={ariaLabel}>
+  <!-- Carousel Container -->
+  <div class={`relative -mx-4 px-4 ${containerClass}`}>
+    <!-- Gradient Fades -->
+    {showArrows && (
+      <>
+        <div class="carousel-fade-left absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent z-10 pointer-events-none hidden md:block"></div>
+        <div class="carousel-fade-right absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white dark:from-gray-800 to-transparent z-10 pointer-events-none hidden md:block"></div>
+      </>
+    )}
+
+    <!-- Carousel Scroll Container -->
+    <div class="carousel-container overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar py-8">
+      <div class={`carousel-track flex gap-8 ${trackClass}`}>
+        <slot />
+      </div>
+    </div>
+
+    <!-- Navigation Arrows -->
+    {showArrows && (
+      <>
+        <button
+          class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white w-14 h-14 rounded-full shadow-2xl hover:shadow-primary-500/50 hover:scale-110 transition-all duration-300 z-20 flex items-center justify-center backdrop-blur-sm border border-gray-200 dark:border-gray-700 group hidden md:flex"
+          aria-label="Previous slide"
+        >
+          <svg class="w-6 h-6 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        
+        <button
+          class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white w-14 h-14 rounded-full shadow-2xl hover:shadow-primary-500/50 hover:scale-110 transition-all duration-300 z-20 flex items-center justify-center backdrop-blur-sm border border-gray-200 dark:border-gray-700 group hidden md:flex"
+          aria-label="Next slide"
+        >
+          <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </>
+    )}
+  </div>
+
+  <!-- Dots Indicator -->
+  {showDots && itemCount > 1 && (
+    <div class="flex justify-center gap-3 mt-12 carousel-dots">
+      {Array.from({ length: itemCount }).map((_, index) => (
+        <button
+          class="carousel-dot h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 hover:bg-primary-500 dark:hover:bg-primary-400 transition-all duration-300 cursor-pointer"
+          data-index={index}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))}
+    </div>
+  )}
+
+  <!-- Mobile Swipe Hint -->
+  <div class="text-center mt-8 md:hidden">
+    <p class="text-sm text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2">
+      <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+      </svg>
+      Geser untuk melihat lebih banyak
+      <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      </svg>
+    </p>
+  </div>
+</div>
+
+<style>
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-container {
+    scroll-behavior: smooth;
+  }
+
+  .carousel-dot {
+    width: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .carousel-dot.active {
+    @apply bg-primary-500 dark:bg-primary-400;
+    width: 40px;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(-50%);
+    }
+    50% {
+      transform: translateY(-50%) translateY(-4px);
+    }
+  }
+
+  .carousel-prev, .carousel-next {
+    animation: float 3s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  import { initializeCarousel } from './carousel-controls';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousels = document.querySelectorAll('.carousel-wrapper');
+    
+    carousels.forEach((carousel) => {
+      initializeCarousel(carousel as HTMLElement);
+    });
+  });
+</script>
