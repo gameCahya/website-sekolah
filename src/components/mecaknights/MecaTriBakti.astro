@@ -1,0 +1,35 @@
+---
+// src/components/mecaknights/MecaTriBakti.astro
+const triBaktiItems = [
+    { icon: "heart", text: "Meningkatkan keterampilan hidup sehat." },
+    { icon: "users", text: "Berkarya dan berbakti di masyarakat." },
+    { icon: "globe", text: "Mempererat persahabatan nasional dan internasional." }
+];
+---
+
+<!-- Tri Bakti Section -->
+<section class="max-w-4xl mx-auto mb-40 relative">
+    <div class="absolute inset-0 -z-10 blur-[100px] opacity-10">
+        <div class="absolute top-0 left-1/4 w-64 h-64 bg-red-600 rounded-full animate-float"></div>
+        <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-600 rounded-full animate-float-slow"></div>
+    </div>
+
+    <div class="glass-card-meca p-10 md:p-16 rounded-[40px] border-2 border-red-600/20 reveal">
+        <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">
+            <span class="text-gradient-red">Tri Bakti PMR</span>
+        </h2>
+        
+        <div class="space-y-12">
+            {triBaktiItems.map((item, i) => (
+                <div class="flex items-start gap-6 reveal reveal-left" style={`transition-delay: ${i * 200}ms`}>
+                    <div class="w-14 h-14 shrink-0 bg-red-600/20 rounded-2xl flex items-center justify-center text-red-500 border border-red-600/30 shadow-[0_0_15px_rgba(237,28,36,0.2)]">
+                        <i data-feather={item.icon}></i>
+                    </div>
+                    <p class="text-xl md:text-2xl font-light leading-snug pt-2">
+                        {item.text}
+                    </p>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

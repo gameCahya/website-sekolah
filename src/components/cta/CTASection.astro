@@ -1,5 +1,4 @@
 ---
-// src/components/cta/CTASection.astro
 
 interface Props {
   id?: string;
@@ -8,56 +7,67 @@ interface Props {
   primaryButton?: {
     text: string;
     href: string;
-    icon?: string;
   };
   secondaryButton?: {
     text: string;
     href: string;
-    icon?: string;
   };
 }
 
 const {
   id = 'daftar',
   title = 'Bergabunglah Bersama Kami',
-  description = 'Wujudkan masa depan cerah putra-putri Anda dengan pendidikan berkualitas di ABBS Surakarta',
+  description = 'Wujudkan masa depan cerah putra-putri Anda dengan pendidikan berkualitas di SMP ABBS Surakarta',
   primaryButton = {
     text: 'Hubungi Kami',
     href: '/kontak',
-    icon: '📞'
   },
   secondaryButton = {
     text: 'Download Brosur',
     href: '#',
-    icon: '📥'
   }
 } = Astro.props;
 ---
 
-<section id={id} class="py-20 bg-gradient-to-br from-primary-600 via-primary-500 to-tertiary-500 text-white relative overflow-hidden">
-  <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-  <div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary-400/10 rounded-full blur-3xl"></div>
-  
-  <div class="relative max-w-4xl mx-auto px-4 text-center">
-    <h2 class="text-3xl md:text-5xl font-bold mb-6">
-      {title}
-    </h2>
-    <p class="text-xl mb-8 text-primary-100 max-w-2xl mx-auto">
-      {description}
-    </p>
-    <div class="flex gap-4 justify-center flex-wrap">
-      <a 
-        href={primaryButton.href}
-        class="bg-secondary-400 text-dark-700 px-8 py-4 rounded-lg font-bold hover:bg-secondary-300 transition-all shadow-xl text-lg"
-      >
-        {primaryButton.icon && `${primaryButton.icon} `}{primaryButton.text}
-      </a>
-      <a 
-        href={secondaryButton.href}
-        class="bg-white text-primary-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-all shadow-xl text-lg"
-      >
-        {secondaryButton.icon && `${secondaryButton.icon} `}{secondaryButton.text}
-      </a>
+<section id={id} class="py-12 md:py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-secondary-700 via-secondary-600 to-primary-700 p-8 md:p-16 text-center shadow-md">
+      <div class="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/10 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-accent-400/10 blur-3xl"></div>
+      <div class="relative max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 mb-6">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+          </span>
+          <span class="text-white/90 text-xs font-semibold uppercase tracking-[0.15em]">PPDB 2026/2027 Dibuka</span>
+        </div>
+        <span class="font-hand text-accent-300 text-xl rotate-[-2deg] block mb-4">masih ragu? silakan tanya dulu, gratis!</span>
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          {title}
+        </h2>
+        <p class="text-lg md:text-xl text-white/80 mb-10 leading-relaxed">
+          {description}
+        </p>
+        <div class="relative flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href={primaryButton.href}
+            class="w-full sm:w-auto px-8 py-4 bg-accent-500 text-secondary-900 rounded-lg font-bold text-base hover:bg-accent-400 transition-colors"
+          >
+            {primaryButton.text}
+          </a>
+          <a
+            href={secondaryButton.href}
+            class="w-full sm:w-auto px-8 py-4 bg-white/[0.08] text-white border border-white/25 rounded-lg font-semibold text-base hover:bg-white/15 transition-colors"
+          >
+            {secondaryButton.text}
+          </a>
+        </div>
+        <div class="mt-8 flex items-center justify-center gap-2">
+          <svg class="w-4 h-4 text-accent-300/60" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8L12 2z"/></svg>
+          <span class="font-hand text-white/50 text-base rotate-[-1deg]">pendaftaran dibuka sepanjang tahun</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>

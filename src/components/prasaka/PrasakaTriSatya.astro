@@ -1,0 +1,74 @@
+---
+// src/components/prasaka/PrasakaTriSatya.astro
+const satya = [
+    {
+        title: "Kewajiban terhadap Tuhan & Negara",
+        desc: "Menjalankan kewajibanku terhadap Tuhan Yang Maha Esa, Negara Kesatuan Republik Indonesia, dan mengamalkan Pancasila.",
+        icon: "flag",
+    },
+    {
+        title: "Menolong Sesama",
+        desc: "Menolong sesama hidup dan mempersiapkan diri membangun masyarakat.",
+        icon: "heart",
+    },
+    {
+        title: "Menepati Dasa Darma",
+        desc: "Menepati Dasa Darma sebagai pedoman moral dalam setiap tindakan sehari-hari.",
+        icon: "book-open",
+    },
+];
+---
+
+<section class="mb-28">
+    <div class="text-center mb-14 reveal">
+        <div class="flex items-center justify-center gap-3 mb-4">
+            <div class="h-px w-10 rope-divider"></div>
+            <p class="text-[11px] font-bold text-[#8b6914]/60 uppercase tracking-[0.4em]" style="font-family: 'Courier New', monospace;">Janji Pramuka</p>
+            <div class="h-px w-10 rope-divider"></div>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight">
+            Tri <span class="text-gradient-earth">Satya</span>
+        </h2>
+    </div>
+
+    <!-- Pledge quote - journal entry style -->
+    <div class="relative max-w-3xl mx-auto mb-12 reveal">
+        <div class="glass-card-prasaka rounded-2xl p-8 md:p-10 text-center relative overflow-hidden journal-entry">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-[#8b6914]/5 blur-3xl rounded-full"></div>
+            <!-- Tape effect top-left -->
+            <div class="absolute top-3 left-6 w-16 h-5 bg-[#c4a77d]/10 rotate-[-3deg] rounded-sm"></div>
+            <p class="relative text-lg md:text-2xl font-light italic text-[#c3b091]/80 leading-relaxed" style="font-family: 'Courier New', monospace;">
+                &ldquo;Demi kehormatanku aku berjanji akan bersungguh-sungguh&hellip;&rdquo;
+            </p>
+        </div>
+    </div>
+
+    <!-- Rope connector -->
+    <div class="flex justify-center mb-10">
+        <div class="w-px h-16 treasure-path"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto stagger-container">
+        {satya.map((s, i) => (
+            <div class="reveal group relative glass-card-prasaka rounded-2xl p-8 overflow-hidden hover:border-[#8b6914]/40 hover:-translate-y-1 transition-all duration-500">
+                <!-- Corner badge number -->
+                <div class="absolute top-4 right-4 w-8 h-8 scout-badge rounded-full flex items-center justify-center">
+                    <span class="text-[10px] font-black text-[#c4a77d]">{i + 1}</span>
+                </div>
+                <!-- Subtle corner fold -->
+                <div class="absolute top-0 right-0 w-0 h-0 border-t-[40px] border-t-[#8b6914]/10 border-l-[40px] border-l-transparent"></div>
+                <div class="relative z-10">
+                    <div class="w-14 h-14 rounded-2xl scout-badge flex items-center justify-center text-[#c4a77d] mb-6 group-hover:scale-110 transition-transform">
+                        <i data-feather={s.icon} class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold text-[#c3b091] mb-3 group-hover:text-[#c4a77d] transition-colors">
+                        {s.title}
+                    </h3>
+                    <p class="text-[#c3b091]/40 leading-relaxed font-light text-sm">
+                        {s.desc}
+                    </p>
+                </div>
+            </div>
+        ))}
+    </div>
+</section>

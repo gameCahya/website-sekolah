@@ -2,45 +2,48 @@
 import { sanityClient } from "../../lib/sanity";
 
 interface Stat {
-  _id?: string;  // ← Tambah optional
+  _id?: string;
   order: number;
   value: string;
   label: string;
   icon?: string;
-  isActive?: boolean;  // ← Tambah optional
+  isActive?: boolean;
 }
 
 const stats = await sanityClient.fetch<Stat[]>(
   `*[_type == "stats" && isActive == true] | order(order asc) [0...4]`
 );
 
-const defaultStats: Stat[] = [  // ← Tambah type annotation
-  { order: 1, value: '500+', label: 'Siswa Aktif', icon: '👨‍🎓' },
-  { order: 2, value: '50+', label: 'Guru Berpengalaman', icon: '👨‍🏫' },
-  { order: 3, value: '20+', label: 'Prestasi Nasional', icon: '🏆' },
-  { order: 4, value: '15', label: 'Tahun Berdiri', icon: '📅' },
+const defaultStats: Stat[] = [
+  { order: 1, value: '500+', label: 'Siswa Aktif', icon: 'users' },
+  { order: 2, value: '50+', label: 'Guru Berpengalaman', icon: 'award' },
+  { order: 3, value: '20+', label: 'Prestasi', icon: 'star' },
+  { order: 4, value: '15', label: 'Tahun Berdiri', icon: 'calendar' },
 ];
 
 const displayStats = stats.length > 0 ? stats : defaultStats;
 ---
 
-<section class="py-12 bg-white dark:bg-gray-800 shadow-sm">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-      {displayStats.map((stat, index) => (
-        <div>
-          {/* ↑ Hapus 'key' attribute, ganti pakai index di map */}
-          {stat.icon && (
-            <div class="text-3xl mb-2">{stat.icon}</div>
-          )}
-          <div class="text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2">
-            {stat.value}
+<section class="py-12 md:py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center justify-center gap-4 mb-10">
+      <div class="h-px flex-1 max-w-[120px] bg-slate-200 dark:bg-gray-800"></div>
+      <span class="font-hand text-xl text-slate-400 dark:text-gray-500 rotate-[-1deg]">sekilas tentang kami</span>
+      <div class="h-px flex-1 max-w-[120px] bg-slate-200 dark:bg-gray-800"></div>
+    </div>
+    <div class="rounded-2xl bg-white dark:bg-gray-900 border border-slate-200/80 dark:border-gray-800 shadow-sm overflow-hidden">
+      <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-slate-200/70 dark:divide-gray-800">
+        {displayStats.map((stat, index) => (
+          <div class={`px-6 py-8 md:py-10 text-center ${index === 0 ? 'lg:border-l-0' : ''}`}>
+            <div class="font-header text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+              {stat.value}
+            </div>
+            <div class="mt-2 text-sm font-medium text-slate-500 dark:text-gray-400">
+              {stat.label}
+            </div>
           </div>
-          <div class="text-gray-600 dark:text-gray-400">
-            {stat.label}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 </section>

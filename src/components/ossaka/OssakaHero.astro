@@ -1,0 +1,138 @@
+---
+// src/components/ossaka/OssakaHero.astro
+const constellationDots = Array.from({ length: 48 }, (_, i) => ({
+    angle: i * 7.5,
+    major: i % 12 === 0,
+    medium: i % 4 === 0 && i % 12 !== 0,
+}));
+---
+
+<!-- Left-aligned hero for split layout -->
+<div class="flex flex-col items-start text-left">
+    <!-- Logo with constellation rings -->
+    <div class="ossaka-logo-perspective mb-8" style="perspective: 800px;">
+        <div class="relative flex items-center justify-center ossaka-logo-3d">
+            <!-- Glow -->
+            <div class="absolute w-64 h-64 rounded-full bg-indigo-600/10 blur-[100px] animate-celestial-pulse"></div>
+            <div class="absolute w-40 h-40 rounded-full bg-amber-500/8 blur-[60px] animate-celestial-pulse" style="animation-delay: 3s;"></div>
+
+            <!-- Outer constellation ring -->
+            <div class="absolute w-[18rem] h-[18rem] md:w-[20rem] md:h-[20rem] rounded-full animate-constellation-outer">
+                <svg viewBox="0 0 400 400" class="w-full h-full">
+                    <circle cx="200" cy="200" r="190" fill="none" stroke="rgba(199,175,121,0.06)" stroke-width="0.5" stroke-dasharray="3 8" />
+                    <circle cx="200" cy="200" r="176" fill="none" stroke="rgba(99,102,241,0.04)" stroke-width="0.3" />
+                    {constellationDots.map((d) => {
+                        const rad = (d.angle - 90) * (Math.PI / 180);
+                        const r = d.major ? 190 : d.medium ? 188 : 185;
+                        const cx = 200 + r * Math.cos(rad);
+                        const cy = 200 + r * Math.sin(rad);
+                        const size = d.major ? 2.5 : d.medium ? 1.8 : 1;
+                        const op = d.major ? 0.7 : d.medium ? 0.4 : 0.2;
+                        return <circle cx={cx} cy={cy} r={size} fill={`rgba(199,175,121,${op})`} />;
+                    })}
+                </svg>
+            </div>
+
+            <!-- Inner ring -->
+            <div class="absolute w-[13rem] h-[13rem] md:w-[15rem] md:h-[15rem] rounded-full animate-constellation-inner">
+                <svg viewBox="0 0 300 300" class="w-full h-full">
+                    <circle cx="150" cy="150" r="144" fill="none" stroke="rgba(199,175,121,0.08)" stroke-width="0.5" />
+                    {[
+                        { angle: 0, label: '☽' },
+                        { angle: 90, label: '✦' },
+                        { angle: 180, label: '☾' },
+                        { angle: 270, label: '✦' },
+                    ].map((c) => {
+                        const rad = (c.angle - 90) * (Math.PI / 180);
+                        return (
+                            <text x={150 + 130 * Math.cos(rad)} y={150 + 130 * Math.sin(rad)}
+                                text-anchor="middle" dominant-baseline="central"
+                                fill="rgba(199,175,121,0.35)" font-size="12">
+                                {c.label}
+                            </text>
+                        );
+                    })}
+                </svg>
+            </div>
+
+            <!-- Logo disc -->
+            <div class="relative w-36 h-36 md:w-40 md:h-40 rounded-full holo-border p-[3px] shadow-[0_0_50px_rgba(99,102,241,0.1)]">
+                <div class="w-full h-full rounded-full bg-[#0f0c1e]/90 backdrop-blur-md flex items-center justify-center p-5 border border-indigo-500/10">
+                    <img src="/communities/ossaka.png" alt="OSSAKA Logo"
+                        class="w-full h-full object-contain drop-shadow-[0_0_18px_rgba(199,175,121,0.2)]" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Text content — left aligned -->
+    <div>
+        <span class="badge-celestial inline-block px-4 py-1 mb-5 rounded-full text-[10px] font-black tracking-[0.5em] uppercase">
+            Organisasi Siswa Intra Sekolah
+        </span>
+
+        <h1 class="text-6xl md:text-7xl lg:text-8xl font-[900] mb-4 tracking-tighter leading-[0.85]">
+            <span class="text-gradient-executive">OSSAKA</span>
+        </h1>
+
+        <p class="text-base md:text-lg text-indigo-200/25 font-bold tracking-[0.3em] uppercase mb-8 max-w-md">
+            OSIS SMP ABBS Surakarta
+        </p>
+
+        <p class="text-sm text-indigo-200/20 leading-relaxed max-w-md mb-8">
+            Organisasi siswa yang mewadahi aspirasi, mengembangkan potensi, dan menjadi teladan bagi seluruh warga sekolah.
+        </p>
+
+        <!-- Celestial divider -->
+        <div class="flex items-center gap-4">
+            <div class="h-px w-16 gold-line"></div>
+            <div class="text-indigo-400/25 text-xs">✦</div>
+            <div class="h-px w-16 gold-line"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes constellation-outer { to { transform: rotate(360deg); } }
+    .animate-constellation-outer { animation: constellation-outer 55s linear infinite; }
+
+    @keyframes constellation-inner { to { transform: rotate(-360deg); } }
+    .animate-constellation-inner { animation: constellation-inner 40s linear infinite; }
+
+    .ossaka-logo-3d:hover .animate-constellation-outer,
+    .ossaka-logo-3d:hover .animate-constellation-inner {
+        animation-play-state: paused;
+    }
+
+    .ossaka-logo-3d {
+        transform-style: preserve-3d;
+        transition: transform 0.1s ease-out;
+        will-change: transform;
+    }
+</style>
+
+<script>
+    function initHero3DTilt() {
+        const wrapper = document.querySelector('.ossaka-logo-perspective');
+        const logo = document.querySelector('.ossaka-logo-3d');
+        if (!wrapper || !logo) return;
+        let tx = 0, ty = 0, cx = 0, cy = 0;
+        const max = 10;
+        const lerp = (a, b, t) => a + (b - a) * t;
+        function animate() {
+            cx = lerp(cx, tx, 0.07);
+            cy = lerp(cy, ty, 0.07);
+            logo.style.transform = `rotateX(${cy}deg) rotateY(${cx}deg)`;
+            requestAnimationFrame(animate);
+        }
+        wrapper.addEventListener('mousemove', (e) => {
+            const rect = wrapper.getBoundingClientRect();
+            tx = ((e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2)) * max;
+            ty = -((e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2)) * max;
+        });
+        wrapper.addEventListener('mouseleave', () => { tx = 0; ty = 0; });
+        animate();
+    }
+    document.addEventListener('DOMContentLoaded', initHero3DTilt);
+    document.addEventListener('astro:page-load', initHero3DTilt);
+</script>

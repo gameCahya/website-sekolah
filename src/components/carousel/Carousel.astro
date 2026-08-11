@@ -29,8 +29,8 @@ const {
     <!-- Gradient Fades -->
     {showArrows && (
       <>
-        <div class="carousel-fade-left absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent z-10 pointer-events-none hidden md:block"></div>
-        <div class="carousel-fade-right absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white dark:from-gray-800 to-transparent z-10 pointer-events-none hidden md:block"></div>
+        <div class="carousel-fade-left absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-50 dark:from-gray-900 to-transparent z-10 pointer-events-none hidden md:block"></div>
+        <div class="carousel-fade-right absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-50 dark:from-gray-800 to-transparent z-10 pointer-events-none hidden md:block"></div>
       </>
     )}
 
@@ -45,7 +45,7 @@ const {
     {showArrows && (
       <>
         <button
-          class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white w-14 h-14 rounded-full shadow-2xl hover:shadow-primary-500/50 hover:scale-110 transition-all duration-300 z-20 flex items-center justify-center backdrop-blur-sm border border-gray-200 dark:border-gray-700 group hidden md:flex"
+          class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 text-slate-800 dark:text-white w-14 h-14 rounded-full shadow-md hover:shadow-primary-500/30 hover:scale-105 transition-all duration-300 z-20 flex items-center justify-center backdrop-blur-sm border border-slate-200/80 dark:border-gray-700 group hidden md:flex"
           aria-label="Previous slide"
         >
           <svg class="w-6 h-6 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,7 +54,7 @@ const {
         </button>
         
         <button
-          class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white w-14 h-14 rounded-full shadow-2xl hover:shadow-primary-500/50 hover:scale-110 transition-all duration-300 z-20 flex items-center justify-center backdrop-blur-sm border border-gray-200 dark:border-gray-700 group hidden md:flex"
+          class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 text-slate-800 dark:text-white w-14 h-14 rounded-full shadow-md hover:shadow-primary-500/30 hover:scale-105 transition-all duration-300 z-20 flex items-center justify-center backdrop-blur-sm border border-slate-200/80 dark:border-gray-700 group hidden md:flex"
           aria-label="Next slide"
         >
           <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,7 +70,7 @@ const {
     <div class="flex justify-center gap-3 mt-12 carousel-dots">
       {Array.from({ length: itemCount }).map((_, index) => (
         <button
-          class="carousel-dot h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 hover:bg-primary-500 dark:hover:bg-primary-400 transition-all duration-300 cursor-pointer"
+          class="carousel-dot h-2.5 rounded-full bg-slate-300 dark:bg-gray-600 hover:bg-primary-500 dark:hover:bg-primary-400 transition-all duration-300 cursor-pointer"
           data-index={index}
           aria-label={`Go to slide ${index + 1}`}
         />
@@ -80,7 +80,7 @@ const {
 
   <!-- Mobile Swipe Hint -->
   <div class="text-center mt-8 md:hidden">
-    <p class="text-sm text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2">
+    <p class="text-sm text-slate-600 dark:text-gray-400 flex items-center justify-center gap-2">
       <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
       </svg>

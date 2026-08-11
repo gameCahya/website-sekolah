@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Work In Progress">
+	<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+		<div class="text-center px-6">
+			<div class="mb-12">
+				<div class="mb-6">
+					<h1 class="text-9xl font-black text-blue-600 dark:text-blue-400 mb-2">
+						404
+					</h1>
+					<h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-6">
+						Halaman Tidak Ditemukan
+					</h2>
+				</div>
+
+				<div class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-6 rounded mb-8 text-left max-w-md mx-auto">
+					<p class="text-sm font-semibold text-yellow-800 dark:text-yellow-200 flex items-center gap-2 mb-2">
+						🚧 Work In Progress
+					</p>
+					<p class="text-slate-700 dark:text-slate-300">
+						Halaman yang Anda cari sedang dalam tahap pengembangan. Tim kami bekerja keras untuk menyempurnakannya!
+					</p>
+				</div>
+
+				<p class="text-slate-600 dark:text-slate-400 mb-8">
+					Mohon kembali ke halaman sebelumnya atau hubungi administrator jika ada pertanyaan.
+				</p>
+			</div>
+
+			<button 
+				onclick="window.history.back()"
+				class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
+			>
+				← Kembali
+			</button>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	/* Optional: tambahan styling jika diperlukan */
+</style>

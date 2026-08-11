@@ -1,0 +1,66 @@
+---
+interface Props {
+  title: string;
+  location: string;
+  date: string;
+}
+
+const { title, location, date } = Astro.props;
+---
+
+<div class="lg:col-span-12 mb-12 border-b-2 border-[#00f2ff] pb-8 flex flex-col md:flex-row justify-between items-start md:items-end relative">
+    <!-- HUD Corner Details -->
+    <div class="absolute -top-4 -left-4 w-8 h-8 border-t border-l border-[#00f2ff]/30"></div>
+    <div class="absolute -top-4 -right-4 w-8 h-8 border-t border-r border-[#00f2ff]/30"></div>
+
+    <div class="relative z-10">
+        <div class="text-[9px] text-[#00f2ff] opacity-40 mb-2 tracking-[0.5em] uppercase font-bold">
+            System_Status // Archive_2026
+        </div>
+        <h1 class="text-4xl md:text-7xl font-black italic tracking-tighter text-white glow-text mb-4 leading-none">
+            {title}
+        </h1>
+        <div class="flex flex-col md:flex-row md:items-center gap-6">
+            <div class="flex items-center gap-6 text-[10px] tracking-[0.2em] font-mono">
+                <span class="opacity-50 uppercase">Location: {location}</span>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="flex items-center gap-4 mt-4 md:mt-0">
+                <button 
+                    id="tab-overview" 
+                    class="tab-btn active px-4 py-1 border border-[#00f2ff] text-[10px] font-bold uppercase tracking-widest transition-all hover:bg-[#00f2ff]/20"
+                >
+                    Overview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-right hidden md:flex flex-col items-end font-mono text-[9px] opacity-60 mt-6 md:mt-0">
+        <div class="mb-2 flex items-center gap-2">
+            <span class="opacity-40">EST_DATE:</span>
+            <span class="text-white">{date}</span>
+        </div>
+        <div class="mb-3 flex items-center gap-2">
+            <span class="opacity-40">SEC_PROTOCOL:</span>
+            <span class="text-[#00f2ff]">ENCRYPTED_v2</span>
+        </div>
+        <div class="w-48 h-[2px] bg-[#00f2ff]/10 relative overflow-hidden">
+            <div class="absolute inset-0 bg-[#00f2ff] w-full"></div>
+        </div>
+        <div class="mt-1 text-[8px] opacity-30">DATA_INTEGRITY_VERIFIED</div>
+    </div>
+</div>
+
+<style>
+    .glow-text {
+        text-shadow: 0 0 15px rgba(0, 242, 255, 0.8), 0 0 30px rgba(0, 242, 255, 0.4);
+    }
+    .tab-btn.active {
+        background: rgba(0, 242, 255, 0.2);
+        box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+        opacity: 1;
+        border-color: #00f2ff;
+    }
+</style>

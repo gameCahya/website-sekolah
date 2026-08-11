@@ -1,38 +1,150 @@
 ---
-import ThemeToggle from './ThemeToggle.astro';
+import ThemeToggle from "./ThemeToggle.astro";
+import CommunityHover from "../CommunityHover.astro";
+
+const currentYear = new Date().getFullYear();
 ---
 
+<header
+    id="main-header"
+    class="fixed top-0 left-0 z-50 w-full transition-all duration-500"
+>
+    <div
+        id="header-bg"
+        class="px-6 lg:px-10 py-2.5 flex items-center border-b border-transparent w-full transition-all duration-500"
+    >
+        <div class="w-full flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="/" class="group flex items-center">
+                    <img
+                        src="/abbs_logos/logo.png"
+                        alt="SMP ABBS Surakarta Logo"
+                        class="w-36 h-9 object-contain group-hover:scale-105 transition-all duration-300 filter drop-shadow-sm"
+                        height="36"
+                        width="176"
+                    />
+                </a>
+            </div>
 
-<header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
-            🕌
-          </div>
-          <div>
-            <h1 class="text-lg font-bold text-primary-700 dark:text-primary-400">ABBS Surakarta</h1>
-            <p class="text-xs text-gray-600 dark:text-gray-400">Al Abidin Boarding School</p>
-          </div>
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center gap-1">
+                {[
+                    { name: 'Beranda', href: '/' },
+                    { name: 'Tentang', href: '/tentang' },
+                    { name: 'Program', href: '/program' },
+                    { name: 'Berita', href: '/berita' },
+                    { name: 'Kontak', href: '/kontak' },
+                ].map((link) => (
+                    <a
+                        href={link.href}
+                        class="px-4 py-2 text-sm font-semibold text-slate-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                    >
+                        {link.name}
+                    </a>
+                ))}
+                <div class="mx-2 h-6 w-px bg-slate-300/50 dark:bg-gray-700/50"></div>
+                <CommunityHover />
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-3">
+                    <ThemeToggle />
+                    <a
+                        href="/kontak"
+                        class="group relative bg-secondary-500 hover:bg-secondary-600 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 hover:shadow-md hover:shadow-secondary-500/30 active:scale-95 overflow-hidden"
+                    >
+                        PPDB {currentYear}
+                    </a>
+                </div>
+
+                <button
+                    id="menu-toggle"
+                    class="lg:hidden p-2.5 rounded-xl bg-slate-100/50 dark:bg-gray-800/50 text-slate-700 dark:text-gray-200 transition-colors hover:bg-slate-200/50 dark:hover:bg-gray-700/50"
+                    aria-label="Toggle Menu"
+                >
+                    <i data-feather="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
         </div>
-        
-        <nav class="hidden md:flex items-center gap-6">
-          <a href="/" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
-            Beranda
-          </a>
-          <a href="/tentang" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
-            Tentang
-          </a>
-          <a href="/program" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
-            Program
-          </a>
-          <a href="/berita" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
-            Berita
-          </a>
-          <a href="/kontak" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
-            Kontak
-          </a>
-        </nav>
-        
-      <ThemeToggle />
+    </div>
+
+    <!-- Mobile Menu Drawer -->
+    <div
+        id="mobile-menu"
+        class="fixed inset-0 top-0 left-0 w-full h-screen bg-white dark:bg-gray-950 z-[-1] opacity-0 pointer-events-none transition-all duration-300 flex flex-col items-center justify-center gap-6 lg:hidden"
+    >
+        {[
+            { name: 'Beranda', href: '/' },
+            { name: 'Tentang', href: '/tentang' },
+            { name: 'Program', href: '/program' },
+            { name: 'Berita', href: '/berita' },
+            { name: 'Komunitas', href: '/komunitas_siswa' },
+            { name: 'PERSONAL_INNOVATION', href: '/komunitas/the_tinkers?1' },
+            { name: 'Kontak', href: '/kontak' },
+        ].map((link, i) => (
+            <a
+                href={link.href}
+                class="text-2xl font-bold text-slate-800 dark:text-white hover:text-primary-500 transition-all duration-300 hover:translate-x-2"
+                style={`transition-delay: ${i * 50}ms`}
+            >
+                {link.name}
+            </a>
+        ))}
+        <div class="flex items-center gap-4">
+            <ThemeToggle />
+            <a
+                href="/kontak"
+                class="bg-secondary-500 hover:bg-secondary-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors"
+            >
+                Daftar Sekarang
+            </a>
+        </div>
     </div>
 </header>
+
+<div style="height: 60px;"></div>
+
+<script>
+    // Glassmorphism header on scroll
+    const headerBg = document.getElementById('header-bg');
+    let lastScroll = 0;
+
+    const updateHeader = () => {
+        const scrollY = window.scrollY;
+        if (scrollY > 50) {
+            headerBg?.classList.add(
+                'backdrop-blur-xl', 'bg-white/70', 'dark:bg-gray-900/70',
+                'border-b', 'border-primary-200/20', 'dark:border-primary-800/20',
+                'shadow-md', 'shadow-primary-500/5'
+            );
+        } else {
+            headerBg?.classList.remove(
+                'backdrop-blur-xl', 'bg-white/70', 'dark:bg-gray-900/70',
+                'border-b', 'border-primary-200/20', 'dark:border-primary-800/20',
+                'shadow-md', 'shadow-primary-500/5'
+            );
+        }
+        lastScroll = scrollY;
+    };
+
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    updateHeader();
+
+    // Mobile menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let isMenuOpen = false;
+
+    menuToggle?.addEventListener('click', () => {
+        isMenuOpen = !isMenuOpen;
+        if (isMenuOpen) {
+            mobileMenu?.classList.remove('opacity-0', 'pointer-events-none');
+            mobileMenu?.classList.add('opacity-100', 'pointer-events-auto');
+            document.body.style.overflow = 'hidden';
+        } else {
+            mobileMenu?.classList.add('opacity-0', 'pointer-events-none');
+            mobileMenu?.classList.remove('opacity-100', 'pointer-events-auto');
+            document.body.style.overflow = '';
+        }
+    });
+</script>

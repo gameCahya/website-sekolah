@@ -1,5 +1,5 @@
 import type { ImageUrlBuilder } from '@sanity/image-url/lib/types/builder'
-import { string } from "astro:schema"
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
 
 export interface SanityDocument {
   _id: string
@@ -66,3 +66,17 @@ export interface Program extends SanityDocument{
   targetPeserta?: string
 }
 
+export interface TinkersProject {
+  projectName: string
+  studentName: string
+  class: string
+  description?: string
+  docLink?: string
+  status?: 'Completed' | 'In Development' | 'Beta Testing'
+  tags?: string[]
+  type: 'kurikulum' | 'personal'
+}
+
+export interface Tinkers extends SanityDocument {
+  _type: 'tinkers'
+}

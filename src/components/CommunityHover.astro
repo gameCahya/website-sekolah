@@ -1,0 +1,89 @@
+---
+interface Community {
+  name: string;
+  id: string;
+  logo: string;
+  link: string;
+  color: string;
+  invert?: boolean;
+}
+
+const communities: Community[] = [
+  {
+    name: "OSSAKA",
+    id: "osis",
+    logo: "/communities/ossaka.png",
+    link: "/komunitas/ossaka",
+    color: "from-yellow-400 to-yellow-600",
+  },
+  {
+    name: "Meca Knights",
+    id: "pmr",
+    logo: "/communities/meca_knight.png",
+    link: "/komunitas/meca_knights",
+    color: "from-red-400 to-red-600",
+  },
+  {
+    name: "PRASSAKA",
+    id: "dg",
+    logo: "/communities/prasaka.png",
+    link: "/komunitas/prasaka",
+    color: "from-emerald-400 to-emerald-600",
+  },
+  {
+    name: "The Tinkers",
+    id: "tinkers",
+    logo: "/communities/the_tinkers.png",
+    link: "/komunitas/the_tinkers",
+    color: "from-sky-400 to-sky-600",
+    invert: true
+  },
+  {
+    name: "SINAPS",
+    id: "sinaps",
+    logo: "/communities/sinaps.png",
+    link: "/komunitas/sinaps_osn",
+    color: "from-indigo-400 to-indigo-600",
+  },
+];
+---
+
+<div class="group relative">
+  <a
+    href="/komunitas_siswa"
+    class="px-4 py-2 text-sm font-semibold text-slate-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center gap-1"
+  >
+    Komunitas
+    <i data-feather="chevron-down" class="w-3.5 h-3.5"></i>
+  </a>
+
+  <div class="absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[60] min-w-[380px]">
+    <div class="grid grid-cols-2 gap-3 p-5 bg-white dark:bg-gray-950 rounded-2xl shadow-lg border border-slate-200/80 dark:border-gray-800">
+      {
+        communities.map((community) => (
+          <a
+            href={community.link}
+            class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-900 transition-colors group/item"
+          >
+            <div class="w-12 h-12 shrink-0 rounded-xl overflow-hidden bg-gradient-to-br p-0.5">
+              <div class="w-full h-full bg-white dark:bg-gray-950 rounded-[calc(0.75rem-2px)] flex items-center justify-center p-2">
+                <img
+                  src={community.logo}
+                  alt={community.name}
+                  class={`w-full h-full object-contain ${community.invert ? 'dark:invert' : ''}`}
+                />
+              </div>
+            </div>
+            <div>
+                <p class="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Komunitas</p>
+                <p class="text-sm font-bold text-slate-900 dark:text-white group-hover/item:text-primary-600 dark:group-hover/item:text-primary-400 transition-colors">
+                {community.name}
+                </p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>
+

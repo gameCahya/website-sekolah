@@ -1,187 +1,114 @@
 ---
 // src/pages/kontak.astro
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import CTASection from "../components/cta/CTASection.astro";
 ---
 
-<Layout title="Kontak - ABBS Surakarta">
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-br from-primary-600 via-primary-500 to-primary-700 text-white py-16">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">
-        Hubungi Kami
-      </h1>
-      <p class="text-xl text-primary-100 max-w-2xl mx-auto">
-        Ada pertanyaan? Kami siap membantu Anda. Silakan hubungi kami melalui form di bawah ini.
-      </p>
-    </div>
-  </section>
-
-  <!-- Contact Info Cards -->
-  <section class="py-12 bg-gray-50 dark:bg-gray-900">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="grid md:grid-cols-3 gap-6 -mt-20">
-        <!-- Alamat -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border-t-4 border-primary-500">
-          <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center text-2xl mb-4">
-            📍
-          </div>
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Alamat</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            Jl. Contoh No. 123<br>
-            Surakarta, Jawa Tengah<br>
-            57100
-          </p>
+<Layout title="Kontak - SMP ABBS Surakarta">
+    <section class="pt-40 pb-24 text-center bg-[#f8fafc] dark:bg-gray-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <span class="inline-block px-3 py-1 mb-5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 text-xs font-semibold tracking-wider uppercase">
+                Hubungi Kami
+            </span>
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 leading-tight">
+                Kami Siap <span class="font-serif font-normal italic text-primary-600 dark:text-primary-400">Membantu.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Punya pertanyaan tentang pendaftaran atau program kami? Kami di sini untuk membantu Anda menemukan solusi terbaik.
+            </p>
+            <span class="font-hand text-xl text-accent-600 dark:text-accent-400 rotate-[-2deg] block mt-6">jangan sungkan bertanya ya!</span>
         </div>
+    </section>
 
-        <!-- Telepon -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border-t-4 border-tertiary-500">
-          <div class="w-12 h-12 bg-gradient-to-br from-tertiary-500 to-tertiary-600 rounded-xl flex items-center justify-center text-2xl mb-4">
-            📞
-          </div>
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Telepon</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            <a href="tel:+62271000000" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-              (0271) XXX-XXXX
-            </a><br>
-            <a href="https://wa.me/62812345678" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-              WhatsApp: 0812-3456-7890
-            </a>
-          </p>
+    <section class="py-12 md:py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-5">
+                <div class="relative bg-white dark:bg-gray-900 rounded-xl p-6 border border-slate-200/80 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <span class="absolute top-4 right-5 font-serif italic text-2xl text-primary-200 dark:text-primary-900">01</span>
+                    <div class="w-12 h-12 bg-primary-50 dark:bg-primary-900/20 rounded-xl flex items-center justify-center text-primary-600 dark:text-primary-400 mb-4">
+                        <i data-feather="map-pin" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white mb-2">Alamat</h3>
+                    <p class="text-slate-600 dark:text-gray-400 leading-relaxed mb-4 text-sm">
+                        Jl. Tarumanegara III, Banyuanyar, Kec. Banjarsari, Kota Surakarta, Jawa Tengah 57137
+                    </p>
+                    <a href="https://maps.app.goo.gl/nhtZbKCV35aSe5dXA" target="_blank" class="text-sm font-semibold text-primary-600 dark:text-primary-400 flex items-center gap-1">
+                        Petunjuk Arah &rarr;
+                    </a>
+                </div>
+
+                <div class="relative bg-white dark:bg-gray-900 rounded-xl p-6 border border-slate-200/80 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <span class="absolute top-4 right-5 font-serif italic text-2xl text-secondary-200 dark:text-secondary-900">02</span>
+                    <div class="w-12 h-12 bg-secondary-50 dark:bg-secondary-900/20 rounded-xl flex items-center justify-center text-secondary-600 dark:text-secondary-400 mb-4">
+                        <i data-feather="phone" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white mb-2">Telepon</h3>
+                    <p class="text-slate-600 dark:text-gray-400 leading-relaxed mb-4 text-sm">
+                        Layanan informasi dan pendaftaran melalui WhatsApp Center Ms Nourma.
+                    </p>
+                    <a href="https://wa.me/6282242719492" target="_blank" class="text-sm font-semibold text-secondary-600 dark:text-secondary-400 flex items-center gap-1">
+                        Chat WhatsApp &rarr;
+                    </a>
+                </div>
+
+                <div class="relative bg-white dark:bg-gray-900 rounded-xl p-6 border border-slate-200/80 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <span class="absolute top-4 right-5 font-serif italic text-2xl text-accent-400 dark:text-accent-700">03</span>
+                    <div class="w-12 h-12 bg-primary-50 dark:bg-primary-900/20 rounded-xl flex items-center justify-center text-primary-600 dark:text-primary-400 mb-4">
+                        <i data-feather="mail" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white mb-2">Email</h3>
+                    <p class="text-slate-600 dark:text-gray-400 leading-relaxed mb-4 text-sm">
+                        Kirimkan pertanyaan atau dokumen resmi melalui alamat email institusi kami.
+                    </p>
+                    <a href="mailto:smpabbs@alabidin.sch.id" class="text-sm font-semibold text-primary-600 dark:text-primary-400 flex items-center gap-1">
+                        Kirim Email &rarr;
+                    </a>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- Email -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border-t-4 border-secondary-400">
-          <div class="w-12 h-12 bg-gradient-to-br from-secondary-400 to-secondary-500 rounded-xl flex items-center justify-center text-2xl mb-4">
-            ✉️
-          </div>
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Email</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            <a href="mailto:info@abbs-surakarta.sch.id" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-              info@abbs-surakarta.sch.id
-            </a><br>
-            <a href="mailto:pendaftaran@abbs-surakarta.sch.id" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-              pendaftaran@abbs-surakarta.sch.id
-            </a>
-          </p>
+    <section class="py-12 md:py-20 bg-[#f8fafc] dark:bg-white/[0.03]">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <span class="font-hand text-xl text-accent-600 dark:text-accent-400 rotate-[-2deg] block mb-3">ikuti keseruan kami</span>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-10">
+                Ikuti <span class="font-serif font-normal italic text-primary-600 dark:text-primary-400">Update Kami</span>
+            </h2>
+            <div class="flex justify-center gap-6 flex-wrap">
+                {
+                    [
+                        { name: "Instagram", icon: "instagram", href: "https://www.instagram.com/smpabbssurakarta" },
+                        { name: "YouTube", icon: "youtube", href: "https://www.youtube.com/@SMPABBSSURAKARTA" },
+                    ].map((social) => (
+                        <a href={social.href} class="flex flex-col items-center gap-3">
+                            <div class="w-16 h-16 rounded-2xl bg-white dark:bg-gray-900 flex items-center justify-center text-slate-500 border border-slate-200/80 dark:border-gray-800 shadow-sm hover:shadow-md hover:text-primary-600 dark:hover:text-primary-400 hover:border-primary-200 dark:hover:border-primary-800 transition-all duration-300">
+                                <i data-feather={social.icon} class="w-6 h-6" />
+                            </div>
+                            <span class="text-xs font-semibold text-slate-600 dark:text-gray-400 uppercase tracking-wider">{social.name}</span>
+                        </a>
+                    ))
+                }
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Form Section dengan Tally -->
-  <section class="py-16 bg-white dark:bg-gray-800">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          Kirim Pesan
-        </h2>
-        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Isi form di bawah ini dan kami akan segera menghubungi Anda kembali
-        </p>
-      </div>
-
-      <!-- Tally Form Embed -->
-      <div class="bg-white rounded-2xl p-8 shadow-lg">
-        <!-- 
-          GANTI "YOUR-FORM-ID" dengan Form ID dari Tally kamu
-          Contoh: https://tally.so/r/abc123 -> Form ID = abc123
-        -->
-        <iframe 
-          data-tally-src="https://tally.so/embed/WOrRgQ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-          loading="lazy"
-          width="100%"
-          height="500"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-          title="Contact Form"
-          class="rounded-lg"
+    <section class="w-full h-[400px]">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d31642.821748116025!2d110.8052151!3d-7.5364554!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a1545963f8f0b%3A0xd7f3fa0e94db1dd1!2sSMP%20ABBS%20SURAKARTA!5e0!3m2!1sid!2sid!4v1778116822748!5m2!1sid!2sid"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
-        
-        <script>
-          var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
-        </script>
-      </div>
+    </section>
 
-      <!-- Alternative: Button untuk Popup Form -->
-      <!-- Uncomment jika mau pakai popup instead of embed -->
-      <!--
-      <div class="text-center">
-        <button 
-          data-tally-open="YOUR-FORM-ID" 
-          data-tally-emoji-text="👋" 
-          data-tally-emoji-animation="wave"
-          class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-xl transition-all transform hover:-translate-y-0.5"
-        >
-          📝 Buka Form Kontak
-        </button>
-      </div>
-      -->
-    </div>
-  </section>
-
-  <!-- Social Media Section -->
-  <section class="py-16 bg-gray-50 dark:bg-gray-900">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8">
-        Ikuti Kami di Social Media
-      </h2>
-      <div class="flex justify-center gap-4 flex-wrap">
-        <a href="#" class="w-14 h-14 bg-primary-600 hover:bg-primary-700 text-white rounded-full flex items-center justify-center text-2xl transition-all transform hover:scale-110 shadow-lg">
-          📘
-        </a>
-        <a href="#" class="w-14 h-14 bg-tertiary-500 hover:bg-tertiary-600 text-white rounded-full flex items-center justify-center text-2xl transition-all transform hover:scale-110 shadow-lg">
-          📷
-        </a>
-        <a href="#" class="w-14 h-14 bg-secondary-500 hover:bg-secondary-600 text-white rounded-full flex items-center justify-center text-2xl transition-all transform hover:scale-110 shadow-lg">
-          🐦
-        </a>
-        <a href="#" class="w-14 h-14 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center text-2xl transition-all transform hover:scale-110 shadow-lg">
-          📹
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Map Section (Optional) -->
-  <section class="py-0">
-    <div class="w-full h-96 bg-gray-300 dark:bg-gray-700">
-      <!-- 
-        GANTI dengan Google Maps Embed Link kamu
-        Cara: Buka Google Maps -> Cari lokasi -> Share -> Embed a map -> Copy iframe
-      -->
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.0000000000000!2d110.8000000!3d-7.5700000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMzQnMTIuMCJTIDExMMKwNDgnMDAuMCJF!5e0!3m2!1sen!2sid!4v1234567890"
-        width="100%"
-        height="100%"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        class="grayscale hover:grayscale-0 transition-all duration-300"
-      ></iframe>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="py-16 bg-gradient-to-br from-primary-600 via-primary-500 to-tertiary-500 text-white">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">
-        Kunjungi Kami
-      </h2>
-      <p class="text-xl mb-8 text-primary-100">
-        Jadwalkan kunjungan untuk melihat langsung fasilitas dan bertemu dengan tim kami
-      </p>
-      <a href="#" class="inline-block bg-secondary-400 text-dark-700 px-8 py-4 rounded-lg font-bold hover:bg-secondary-300 transition-all shadow-xl text-lg">
-        📅 Jadwalkan Kunjungan
-      </a>
-    </div>
-  </section>
+    <CTASection
+        id="kontak-cta"
+        title="Hubungi Kami"
+        description="Kami siap membantu Anda. Jangan ragu untuk menghubungi kami melalui kanal yang tersedia."
+        primaryButton={{ text: "Chat Langsung", href: "https://wa.me/6282242719492" }}
+        secondaryButton={{ text: "Daftar Sekarang", href: "https://tally.so/r/WOrRgQ" }}
+    />
 </Layout>
-
-<style>
-  /* Custom styling untuk Tally iframe agar match dengan theme */
-  iframe[data-tally-src] {
-    min-height: 500px;
-  }
-</style>

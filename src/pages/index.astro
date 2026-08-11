@@ -1,57 +1,21 @@
 ---
 // src/pages/index.astro
-import Layout from '../layouts/Layout.astro';
-import HeroSection from '../components/hero/HeroSection.astro';
-import StatsSection from '../components/homePage/StatsSection.astro';
-import FeaturesSection from '../components/homePage/FeaturesSection.astro';
-import BeritaSection from '../components/homePage/BeritaSection.astro';
-import CTASection from '../components/cta/CTASection.astro';
-
-// Hero Section Data
-const heroData = {
-  badge: {
-    icon: '🎓',
-    text: 'Sekolah Menengah Pertama'
-  },
-  title: {
-    main: 'Al Abidin Bilingual\nBoarding School',
-    subtitle: 'Bring Excellence Beyond the Limits',
-    description: 'Membentuk generasi unggul dengan pendidikan Islam modern dan bilingual'
-  },
-  buttons: [
-    {
-      text: 'Daftar Sekarang',
-      href: '#daftar',
-      icon: '📝',
-      variant: 'primary' as const
-    },
-    {
-      text: 'Pelajari Lebih Lanjut',
-      href: '#tentang',
-      variant: 'secondary' as const
-    }
-  ]
-};
-
+import Layout from "../layouts/Layout.astro";
+import WelcomeSection from "../components/homePage/WelcomeSection.astro";
+import PrincipalSection from "../components/homePage/PrincipalSection.astro";
+import IdentitySection from "../components/homePage/IdentitySection.astro";
+import StatsSection from "../components/homePage/StatsSection.astro";
+import FeaturesSection from "../components/homePage/FeaturesSection.astro";
+import BeritaSection from "../components/homePage/BeritaSection.astro";
+import CTASection from "../components/cta/CTASection.astro";
 ---
 
-<Layout title="Beranda - ABBS Surakarta">
-  <!-- Hero Section -->
-  <HeroSection 
-    badge={heroData.badge}
-    title={heroData.title}
-    buttons={heroData.buttons}
-        />
-
-  <!-- Stats Section -->
-  <StatsSection />
-
-  <!-- Features Section -->
-  <FeaturesSection />
-
-  <!-- Berita Section -->
-  <BeritaSection />
-
-  <!-- CTA Section -->
-  <CTASection />
+<Layout title="Beranda - SMP ABBS Surakarta">
+    <WelcomeSection />
+    <PrincipalSection />
+    <IdentitySection />
+    <StatsSection />
+    <FeaturesSection />
+    <BeritaSection />
+    <CTASection />
 </Layout>

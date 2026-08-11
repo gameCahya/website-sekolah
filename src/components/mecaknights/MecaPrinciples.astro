@@ -1,0 +1,35 @@
+---
+// src/components/mecaknights/MecaPrinciples.astro
+const principles = [
+    { title: "Kemanusiaan", desc: "Memberikan pertolongan tanpa membedakan korban dan berupaya mencegah serta mengatasi penderitaan sesama manusia." },
+    { title: "Kesamaan", desc: "Tidak membeda-bedakan korban berdasarkan kebangsaan, suku, agama, atau pandangan politik; mendahulukan yang paling membutuhkan." },
+    { title: "Kenetralan", desc: "Tidak memihak atau melibatkan diri dalam pertentangan politik, kesukuan, agama, atau ideologi." },
+    { title: "Kemandirian", desc: "Bersifat mandiri dan menjaga otonomi agar dapat bertindak sesuai prinsip, meski membantu pemerintah dalam bidang kemaisuiaan." },
+    { title: "Kesukarelaan", desc: "Pemberian bantuan atau pelayanan yang dilakukan secara sukarela tanpa didasari oleh keinginan mencari keuntungan apa pun." },
+    { title: "Kesatuan", desc: "Hanya ada satu Palang Merah atau Bulan Sabit Merah di satu negara, yang terbuka untuk semua orang dan melaksanakan tugas di seluruh wilayah." },
+    { title: "Kesemestaan", desc: "Gerakan yang bersifat semesta di mana setiap perhimpunan memiliki hak dan tanggung jawab yang sama dalam menolong sesama di seluruh dunia." }
+];
+---
+
+<!-- 7 Principles Section -->
+<section class="mb-40">
+    <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center reveal">
+        <span class="border-b-2 border-red-600 pb-2">7 Prinsip Dasar</span>
+        <span class="block text-sm font-normal text-purple-300/60 mt-4 tracking-[0.3em] uppercase">Palang Merah</span>
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-container">
+        {principles.map((p, i) => (
+            <div class="reveal glass-card-meca p-8 rounded-3xl relative group hover:scale-[1.02] transition-all duration-500">
+                <div class="absolute -top-4 -left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-xl font-bold shadow-[0_0_15px_rgba(237,28,36,0.5)] z-20">
+                    {i + 1}
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-red-400 group-hover:text-red-300 transition-colors">{p.title}</h3>
+                <p class="text-gray-300 leading-relaxed font-light">{p.desc}</p>
+                <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <i data-feather="star" class="w-4 h-4 text-yellow-400/50"></i>
+                </div>
+            </div>
+        ))}
+    </div>
+</section>

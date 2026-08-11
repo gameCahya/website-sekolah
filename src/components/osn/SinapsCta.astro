@@ -1,0 +1,89 @@
+---
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<div class="page" id={id}>
+  <!-- FRONT: CTA -->
+  <div class="front bg-slate-50 border-l border-slate-300">
+    <div class="p-14 flex flex-col items-center justify-center h-full text-center relative">
+      <!-- Floating particles -->
+      <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-[15%] left-[20%] w-1.5 h-1.5 rounded-full bg-amber-300/20 animate-pulse" style="animation-duration:3s;"></div>
+        <div class="absolute top-[25%] right-[25%] w-1 h-1 rounded-full bg-teal-300/20 animate-pulse" style="animation-duration:4s; animation-delay:1s;"></div>
+        <div class="absolute bottom-[30%] left-[30%] w-1 h-1 rounded-full bg-emerald-300/20 animate-pulse" style="animation-duration:5s; animation-delay:0.5s;"></div>
+      </div>
+
+      <!-- Award icon -->
+      <div class="relative mb-5">
+        <div class="absolute inset-0 bg-amber-500/10 rounded-full blur-xl scale-150"></div>
+        <div class="w-18 h-18 bg-gradient-to-br from-[#004d4d] to-[#002b2b] rounded-full flex items-center justify-center shadow-xl relative z-10" style="width:72px;height:72px;">
+          <i data-feather="award" class="text-white w-9 h-9"></i>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-black text-slate-900 mb-2 uppercase tracking-tighter font-serif">Siap Bersaing?</h2>
+      <p class="text-slate-400 text-[10px] mb-6 max-w-xs uppercase tracking-[0.2em] font-serif font-bold">Perjalanan Dimulai dari Sini.</p>
+
+      <!-- Achievement stats -->
+      <div class="grid grid-cols-3 gap-3 mb-6 w-full max-w-[300px]">
+        <div class="bg-teal-50/80 p-2 rounded-lg border border-teal-100">
+          <p class="text-lg font-black text-teal-700 font-serif">3</p>
+          <p class="text-[7px] text-teal-600/70 uppercase tracking-wider">Bidang</p>
+        </div>
+        <div class="bg-emerald-50/80 p-2 rounded-lg border border-emerald-100">
+          <p class="text-lg font-black text-emerald-700 font-serif">OSN</p>
+          <p class="text-[7px] text-emerald-600/70 uppercase tracking-wider">Nasional</p>
+        </div>
+        <div class="bg-amber-50/80 p-2 rounded-lg border border-amber-100">
+          <p class="text-lg font-black text-amber-700 font-serif">∞</p>
+          <p class="text-[7px] text-amber-600/70 uppercase tracking-wider">Potensi</p>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="flex items-center gap-3 mb-5">
+        <div class="h-px w-10 bg-gradient-to-r from-transparent to-slate-200"></div>
+        <div class="w-1.5 h-1.5 rotate-45 border border-slate-300"></div>
+        <div class="h-px w-10 bg-gradient-to-l from-transparent to-slate-200"></div>
+      </div>
+
+      <div class="flex flex-col gap-3 w-full max-w-[250px]">
+        <a href="https://instagram.com/sinaps_abbs" target="_blank" class="group flex items-center justify-center gap-3 px-7 py-3 bg-gradient-to-r from-[#E1306C] to-[#C13584] text-white rounded-lg shadow-lg shadow-pink-500/20 font-serif font-bold text-[11px] tracking-widest hover:scale-105 hover:shadow-pink-500/30 transition-all duration-300">
+          <i data-feather="instagram" class="w-4 h-4"></i> @SINAPS_ABBS
+        </a>
+        <button onclick="window.flipPage(-6)" class="text-[9px] font-serif italic text-slate-400 hover:text-slate-600 transition-colors uppercase tracking-[0.3em]">Return to Cover</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BACK: End of Archive -->
+  <div class="back border-r border-black/40 shadow-inner relative overflow-hidden" style="background: linear-gradient(160deg, #001a1a 0%, #002b2b 100%);">
+    <div class="absolute inset-0 opacity-[0.04] pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
+    
+    <!-- Floating particles -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute top-[20%] left-[25%] w-1 h-1 rounded-full bg-teal-400/20 animate-pulse" style="animation-duration:4s;"></div>
+      <div class="absolute top-[60%] right-[30%] w-1.5 h-1.5 rounded-full bg-emerald-400/15 animate-pulse" style="animation-duration:5s; animation-delay:1s;"></div>
+      <div class="absolute bottom-[25%] left-[40%] w-1 h-1 rounded-full bg-teal-300/20 animate-pulse" style="animation-duration:3.5s; animation-delay:2s;"></div>
+    </div>
+
+    <div class="p-14 h-full flex flex-col items-center justify-center text-center relative z-10">
+      <div class="relative mb-8">
+        <div class="absolute inset-0 bg-teal-500/5 rounded-full blur-2xl scale-150"></div>
+        <img src="/communities/sinaps.png" alt="SINAPS" class="w-24 opacity-20 grayscale relative z-10" />
+      </div>
+
+      <h2 class="text-xl font-serif font-black mb-2 uppercase tracking-[0.5em] text-white/15 italic">End of Archive</h2>
+      <p class="text-teal-500/10 text-[9px] font-serif tracking-[0.3em] uppercase mb-10">Terima kasih telah membaca</p>
+      
+      <a href="/komunitas_siswa" class="group px-10 py-4 border border-white/10 text-white/25 hover:text-white/60 hover:border-white/25 transition-all duration-500 text-[10px] font-serif italic tracking-[0.4em] uppercase relative overflow-hidden">
+        <div class="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+        <span class="relative z-10">Exit Experience</span>
+      </a>
+    </div>
+  </div>
+</div>

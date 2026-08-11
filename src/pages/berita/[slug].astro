@@ -43,50 +43,59 @@ const relatedBerita = await sanityClient.fetch<Berita[]>(
 );
 
 const icons: Record<string, string> = {
-  akademik: '📚', prestasi: '🏆', kegiatan: '🌍', pengumuman: '📢'
+  akademik: 'book', prestasi: 'star', kegiatan: 'globe', pengumuman: 'megaphone'
 };
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function sanitizeUrl(url: string): string {
+  const trimmed = url.trim();
+  if (/^javascript:/i.test(trimmed)) return '';
+  if (/^data:/i.test(trimmed)) return '';
+  if (/^vbscript:/i.test(trimmed)) return '';
+  return trimmed;
+}
 
 function renderContent(content: any[]): string {
   if (!content) return '';
   return content.map((block: any) => {
     if (block._type === 'block') {
-      // Handle text dengan marks (bold, italic, etc)
       const children = block.children?.map((child: any) => {
-        let text = child.text || '';
-        
-        // Handle marks (bold, italic, underline, etc)
+        let text = escapeHtml(child.text || '');
         if (child.marks && child.marks.length > 0) {
           child.marks.forEach((mark: string) => {
             if (mark === 'strong') text = `<strong>${text}</strong>`;
             if (mark === 'em') text = `<em>${text}</em>`;
             if (mark === 'underline') text = `<u>${text}</u>`;
-            if (mark === 'code') text = `<code class="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm">${text}</code>`;
+            if (mark === 'code') text = `<code class="bg-slate-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm">${text}</code>`;
           });
         }
-        
         return text;
       }).join('') || '';
-      
-      // Handle different block styles
-      if (block.style === 'h1') return `<h1 class="text-3xl font-bold mb-4 mt-8 text-gray-900 dark:text-white">${children}</h1>`;
-      if (block.style === 'h2') return `<h2 class="text-2xl font-bold mb-3 mt-6 text-gray-900 dark:text-white">${children}</h2>`;
-      if (block.style === 'h3') return `<h3 class="text-xl font-bold mb-2 mt-4 text-gray-900 dark:text-white">${children}</h3>`;
-      if (block.style === 'blockquote') return `<blockquote class="border-l-4 border-primary-500 pl-4 italic my-6 text-gray-600 dark:text-gray-400">${children}</blockquote>`;
-      
-      // Handle lists
-      if (block.listItem === 'bullet') return `<li class="ml-6 mb-2 text-gray-700 dark:text-gray-300">${children}</li>`;
-      if (block.listItem === 'number') return `<li class="ml-6 mb-2 text-gray-700 dark:text-gray-300">${children}</li>`;
-      
-      // Default paragraph - PENTING: mb-6 untuk spacing antar paragraph!
-      return `<p class="mb-6 text-gray-700 dark:text-gray-300 leading-relaxed text-justify">${children}</p>`;
+
+      if (block.style === 'h1') return `<h1 class="text-3xl font-bold mb-4 mt-8 text-slate-900 dark:text-white">${children}</h1>`;
+      if (block.style === 'h2') return `<h2 class="text-2xl font-bold mb-3 mt-6 text-slate-900 dark:text-white">${children}</h2>`;
+      if (block.style === 'h3') return `<h3 class="text-xl font-bold mb-2 mt-4 text-slate-900 dark:text-white">${children}</h3>`;
+      if (block.style === 'blockquote') return `<blockquote class="border-l-4 border-primary-500 pl-4 italic my-6 text-slate-600 dark:text-gray-400">${children}</blockquote>`;
+      if (block.listItem === 'bullet') return `<li class="ml-6 mb-2 text-slate-700 dark:text-gray-300">${children}</li>`;
+      if (block.listItem === 'number') return `<li class="ml-6 mb-2 text-slate-700 dark:text-gray-300">${children}</li>`;
+      return `<p class="mb-6 text-slate-700 dark:text-gray-300 leading-relaxed text-justify">${children}</p>`;
     }
-    
+
     if (block._type === 'image' && block.asset) {
       const img = urlFor(block).width(800).url();
-      const caption = block.caption ? `<figcaption class="text-sm text-center text-gray-600 dark:text-gray-400 mt-2 italic">${block.caption}</figcaption>` : '';
-      return `<figure class="my-8"><img src="${img}" alt="${block.alt || ''}" class="rounded-lg w-full shadow-lg" />${caption}</figure>`;
+      const alt = escapeHtml(block.alt || '');
+      const caption = block.caption ? `<figcaption class="text-sm text-center text-slate-600 dark:text-gray-400 mt-2 italic">${escapeHtml(block.caption)}</figcaption>` : '';
+      return `<figure class="my-8"><img src="${img}" alt="${alt}" class="rounded-lg w-full shadow-md" />${caption}</figure>`;
     }
-    
+
     return '';
   }).join('');
 }
@@ -108,68 +117,68 @@ const heroUrl = hasHero ? urlFor(berita.featuredImage).width(1200).height(600).u
     </section>
 
     <article class="max-w-4xl mx-auto px-4 -mt-32 relative z-10">
-      <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 md:p-12 shadow-2xl mb-8">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-10 shadow-sm hover:shadow-md transition-shadow duration-300 mb-8 border border-slate-200/80 dark:border-gray-700">
         <nav class="text-sm mb-6">
           <a href="/" class="text-primary-600 dark:text-primary-400 hover:underline">Beranda</a>
-          <span class="mx-2 text-gray-400">/</span>
+          <span class="mx-2 text-slate-500">/</span>
           <a href="/berita" class="text-primary-600 dark:text-primary-400 hover:underline">Berita</a>
-          <span class="mx-2 text-gray-400">/</span>
-          <span class="text-gray-600 dark:text-gray-400">{berita.title}</span>
+          <span class="mx-2 text-slate-500">/</span>
+          <span class="text-slate-600 dark:text-gray-400">{berita.title}</span>
         </nav>
 
-        <div class="flex items-center gap-4 mb-6">
-          <span class="px-4 py-2 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full font-semibold text-sm">
-            {icons[berita.category]} {berita.category}
+        <div class="flex items-center gap-3 mb-6 flex-wrap">
+          <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-lg font-semibold text-xs">
+            {berita.category}
           </span>
-          <span class="text-gray-500 dark:text-gray-400 text-sm">
-            📅 {formatDate(berita.publishedAt)}
+          <span class="text-slate-600 dark:text-gray-400 text-sm">
+            {formatDate(berita.publishedAt)}
           </span>
         </div>
 
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+        <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
           {berita.title}
         </h1>
 
-        <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8 border-l-4 border-primary-500 pl-6 italic">
-          {berita.excerpt}
+        <p class="font-serif italic text-xl md:text-2xl text-slate-600 dark:text-gray-400 leading-relaxed mb-6 border-l-4 border-primary-500 pl-5 text-balance">
+          "{berita.excerpt}"
         </p>
 
-        <div class="border-t border-gray-200 dark:border-gray-700 mb-8"></div>
+        <div class="border-t border-slate-200/80 dark:border-gray-700 mb-8"></div>
 
         <div class="article-content prose prose-lg max-w-none">
           <Fragment set:html={contentHtml} />
         </div>
 
-        <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Bagikan Artikel</h3>
-          <div class="flex gap-3">
-            <a href={`https://facebook.com/sharer/sharer.php?u=${Astro.url.href}`} target="_blank" rel="noopener" class="w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition">📘</a>
-            <a href={`https://twitter.com/intent/tweet?url=${Astro.url.href}&text=${berita.title}`} target="_blank" rel="noopener" class="w-12 h-12 bg-sky-500 hover:bg-sky-600 text-white rounded-full flex items-center justify-center transition">🐦</a>
-            <a href={`https://wa.me/?text=${berita.title} ${Astro.url.href}`} target="_blank" rel="noopener" class="w-12 h-12 bg-green-600 hover:bg-green-700 text-white rounded-full flex items-center justify-center transition">💬</a>
+        <div class="mt-8 pt-6 border-t border-slate-200/80 dark:border-gray-700">
+          <span class="font-hand text-lg text-slate-600 dark:text-gray-400 rotate-[-1deg] block mb-3">bagikan, boleh banget!</span>
+          <div class="flex gap-2">
+            <a href={`https://facebook.com/sharer/sharer.php?u=${Astro.url.href}`} target="_blank" rel="noopener" class="w-10 h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center justify-center transition-colors"><i data-feather="facebook" class="w-4 h-4"></i></a>
+            <a href={`https://wa.me/?text=${berita.title} ${Astro.url.href}`} target="_blank" rel="noopener" class="w-10 h-10 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center justify-center transition-colors"><i data-feather="message-circle" class="w-4 h-4"></i></a>
           </div>
         </div>
       </div>
 
       {relatedBerita.length > 0 && (
         <section class="mb-16">
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">Berita Terkait</h2>
-          <div class="grid md:grid-cols-3 gap-6">
+          <span class="font-hand text-lg text-accent-600 dark:text-accent-400 rotate-[-1deg] block mb-2">masih penasaran?</span>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Berita Terkait</h2>
+          <div class="grid md:grid-cols-3 gap-4">
             {relatedBerita.map((r) => {
               const hasImg = r.featuredImage?.asset;
               const imgUrl = hasImg ? urlFor(r.featuredImage).width(400).height(250).url() : '';
               return (
-                <article class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+                <article class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-slate-200/80 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow duration-300">
                   {hasImg ? (
-                    <img src={imgUrl} alt={r.title} class="h-40 w-full object-cover" />
-                  ) : (
-                    <div class={`h-40 bg-gradient-to-br ${r.gradientFrom} ${r.gradientTo} flex items-center justify-center text-4xl`}>
-                      {icons[r.category] || '📖'}
+                    <img src={imgUrl} alt={r.title} class="h-36 w-full object-cover" />
+                    ) : (
+                    <div class={`h-36 bg-gradient-to-br ${r.gradientFrom} ${r.gradientTo} flex items-center justify-center`}>
+                      {icons[r.category] ? <i data-feather={icons[r.category]} class="w-8 h-8" /> : <i data-feather="book" class="w-8 h-8" />}
                     </div>
                   )}
                   <div class="p-4">
-                    <div class="text-xs text-gray-500 dark:text-gray-400 mb-2">{formatDate(r.publishedAt)}</div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">{r.title}</h3>
-                    <a href={`/berita/${r.slug.current}`} class="text-primary-600 dark:text-primary-400 font-semibold hover:underline text-sm">Selengkapnya →</a>
+                    <div class="text-xs text-slate-500 dark:text-gray-400 mb-1">{formatDate(r.publishedAt)}</div>
+                    <h3 class="text-base font-bold tracking-tight text-slate-900 dark:text-white mb-2 line-clamp-2">{r.title}</h3>
+                    <a href={`/berita/${r.slug.current}`} class="text-primary-600 dark:text-primary-400 font-semibold text-sm">Selengkapnya &rarr;</a>
                   </div>
                 </article>
               );
@@ -179,22 +188,22 @@ const heroUrl = hasHero ? urlFor(berita.featuredImage).width(1200).height(600).u
       )}
 
       <div class="text-center mb-16">
-        <a href="/berita" class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-bold transition shadow-lg">← Kembali</a>
+        <a href="/berita" class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">← Kembali</a>
       </div>
     </article>
   </div>
 </Layout>
 
 <style>
-  .prose { @apply text-gray-700 dark:text-gray-300; }
-  .prose h1, .prose h2, .prose h3 { @apply text-gray-900 dark:text-white; }
+  .prose { @apply text-slate-700 dark:text-gray-300; }
+  .prose h1, .prose h2, .prose h3 { @apply text-slate-900 dark:text-white tracking-tight; }
   .prose a { @apply text-primary-600 dark:text-primary-400 hover:underline; }
   
   /* Article content spacing */
   .article-content p:last-child { @apply mb-0; }
   .article-content ul, .article-content ol { @apply list-disc ml-6 mb-6 space-y-2; }
   .article-content ol { @apply list-decimal; }
-  .article-content strong { @apply font-bold text-gray-900 dark:text-white; }
+  .article-content strong { @apply font-bold text-slate-900 dark:text-white; }
   .article-content em { @apply italic; }
   .article-content code { @apply font-mono text-sm; }
 </style>

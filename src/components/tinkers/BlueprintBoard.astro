@@ -1,0 +1,173 @@
+---
+import BoardHeader from './BoardHeader.astro';
+import OverviewTab from './OverviewTab.astro';
+import LevelModal from './modals/LevelModal.astro';
+---
+
+<div
+    id="blueprint-board"
+    class="opacity-0 transition-opacity duration-1000 hidden w-full h-full bg-[#001226] text-[#00f2ff] relative overflow-auto p-4 md:p-10"
+    style="font-family: 'JetBrains Mono', 'Fira Code', monospace;"
+>
+    <!-- Futuristic Grid -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <div
+            class="absolute inset-0"
+            style="background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.1) 1px, transparent 1px);
+                background-size: 50px 50px;"
+        >
+        </div>
+        <!-- Scanning Line -->
+        <div
+            class="absolute w-full h-[2px] bg-gradient-to-r from-transparent via-[#00f2ff] to-transparent top-0 opacity-30 scanning-line"
+        >
+        </div>
+    </div>
+
+    <!-- HUD Elements (Corners) -->
+    <div class="absolute top-10 left-10 w-24 h-24 border-t-4 border-l-4 border-[#00f2ff] opacity-40"></div>
+    <div class="absolute top-10 right-10 w-24 h-24 border-t-4 border-r-4 border-[#00f2ff] opacity-40"></div>
+    <div class="absolute bottom-10 left-10 w-24 h-24 border-b-4 border-l-4 border-[#00f2ff] opacity-40"></div>
+    <div class="absolute bottom-10 right-10 w-24 h-24 border-b-4 border-r-4 border-[#00f2ff] opacity-40"></div>
+
+    <!-- Main Content Area -->
+    <div class="relative z-10 max-w-7xl mx-auto py-12">
+        <BoardHeader 
+            title="THE TINKERS" 
+            location="SMP ABBS SURAKARTA" 
+            date="27.04.2026"
+        />
+
+        <div id="overview-content" class="tab-content transition-all duration-500">
+            <OverviewTab />
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <LevelModal />
+
+    <!-- Floating HUD Decorations -->
+    <div class="fixed top-1/4 -right-20 w-64 h-64 border border-[#00f2ff]/10 rounded-full pointer-events-none animate-spin-slow"></div>
+    <div class="fixed -bottom-20 -left-20 w-80 h-80 border border-[#00f2ff]/5 rounded-full pointer-events-none animate-spin-reverse"></div>
+</div>
+
+<script>
+    // Transition from CrtBoot
+    window.addEventListener("boot-finished", () => {
+        const board = document.getElementById("blueprint-board");
+        if (board) {
+            board.classList.remove("hidden");
+            requestAnimationFrame(() => {
+                board.classList.remove("opacity-0");
+            });
+        }
+    });
+
+    // Tab Switching Logic
+    const tabOverview = document.getElementById("tab-overview");
+    const overviewContent = document.getElementById("overview-content");
+
+    if (tabOverview && overviewContent) {
+        // Handle URL tab parameter (overview only now)
+        const search = window.location.search;
+        if (search === '?1') {
+            history.replaceState(null, '', '?0');
+        }
+    }
+
+    // Header Toggle Logic
+    const siteHeader = document.querySelector('header');
+    const toggleHeader = (show: boolean) => {
+        if (siteHeader) {
+            if (show) siteHeader.classList.remove('hide-header');
+            else siteHeader.classList.add('hide-header');
+        }
+    };
+
+    // Shared Modal Logic
+    const setupModals = () => {
+        // Level Modal
+        const levelModal = document.getElementById("level-modal");
+        const levelCloseBtn = document.getElementById("close-modal");
+        const levelCards = document.querySelectorAll(".level-card");
+
+        const modalLvlId = document.getElementById("modal-lvl-id");
+        const modalName = document.getElementById("modal-name");
+        const modalFocus = document.getElementById("modal-focus");
+        const modalActivity = document.getElementById("modal-activity");
+        const modalComp = document.getElementById("modal-comp");
+        const modalPromo = document.getElementById("modal-promo");
+
+        levelCards.forEach((card) => {
+            card.addEventListener("click", () => {
+                const data = (card as HTMLElement).dataset;
+                if (modalLvlId) modalLvlId.textContent = data.lvl || "";
+                if (modalName) modalName.textContent = data.name || "";
+                if (modalFocus) modalFocus.textContent = data.focus || "";
+                if (modalActivity) modalActivity.textContent = data.activity || "";
+                if (modalComp) modalComp.textContent = data.comp || "";
+                if (modalPromo) modalPromo.textContent = data.promo || "";
+
+                if (levelModal) {
+                    levelModal.classList.remove("hidden");
+                    toggleHeader(false);
+                    requestAnimationFrame(() => levelModal.classList.remove("opacity-0"));
+                }
+            });
+        });
+
+        if (levelCloseBtn && levelModal) {
+            levelCloseBtn.addEventListener("click", () => {
+                levelModal.classList.add("opacity-0");
+                toggleHeader(true);
+                setTimeout(() => levelModal.classList.add("hidden"), 300);
+            });
+        }
+    };
+
+    setupModals();
+</script>
+
+<style>
+    #blueprint-board {
+        scrollbar-width: thin;
+        scrollbar-color: #00f2ff transparent;
+    }
+    #blueprint-board::-webkit-scrollbar {
+        width: 4px;
+    }
+    #blueprint-board::-webkit-scrollbar-thumb {
+        background: #00f2ff;
+        box-shadow: 0 0 10px #00f2ff;
+    }
+
+    @keyframes scanning {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+    }
+    .scanning-line {
+        animation: scanning 8s linear infinite;
+    }
+
+    @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    .animate-spin-slow {
+        animation: spin-slow 60s linear infinite;
+    }
+
+    @keyframes spin-reverse {
+        from { transform: rotate(360deg); }
+        to { transform: rotate(0deg); }
+    }
+    .animate-spin-reverse {
+        animation: spin-reverse 90s linear infinite;
+    }
+
+    .tab-content {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+</style>

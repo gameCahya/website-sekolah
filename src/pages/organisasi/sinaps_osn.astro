@@ -1,0 +1,571 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SinapsCover from "../../components/osn/SinapsCover.astro";
+import SinapsIntro from "../../components/osn/SinapsIntro.astro";
+import SinapsIpa from "../../components/osn/SinapsIpa.astro";
+import SinapsIps from "../../components/osn/SinapsIps.astro";
+import SinapsMath from "../../components/osn/SinapsMath.astro";
+import SinapsCta from "../../components/osn/SinapsCta.astro";
+---
+
+<Layout title="SINAPS - Scientific & Intellectual Squad">
+    <main class="min-h-screen flex items-center justify-center p-6 overflow-hidden relative" style="background: radial-gradient(ellipse at 30% 20%, #003333 0%, #001a1a 40%, #000e0e 70%, #000808 100%);">
+        <!-- Animated scanning line -->
+        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div class="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-teal-500/10 to-transparent animate-scan" style="animation-duration: 8s;"></div>
+        </div>
+
+        <!-- Futuristic Sci-Fi Grid and Telemetry HUD -->
+        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-30">
+            <!-- Radial tech rings -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-teal-500/[0.06] rounded-full flex items-center justify-center animate-spin" style="animation-duration: 50s;">
+                <div class="w-[750px] h-[750px] border border-dashed border-emerald-500/[0.04] rounded-full"></div>
+                <div class="w-[550px] h-[550px] border border-teal-500/[0.06] rounded-full flex items-center justify-center animate-spin" style="animation-duration: 25s; animation-direction: reverse;">
+                    <div class="w-[520px] h-[520px] border border-dashed border-teal-500/[0.03] rounded-full"></div>
+                    <div class="w-[280px] h-[280px] border border-emerald-500/[0.06] rounded-full"></div>
+                </div>
+            </div>
+
+            <!-- Vertical & Horizontal HUD lines -->
+            <div class="absolute top-0 bottom-0 left-[12%] w-px bg-gradient-to-b from-transparent via-teal-500/[0.06] to-transparent"></div>
+            <div class="absolute top-0 bottom-0 right-[12%] w-px bg-gradient-to-b from-transparent via-teal-500/[0.06] to-transparent"></div>
+            <div class="absolute left-0 right-0 top-[18%] h-px bg-gradient-to-r from-transparent via-emerald-500/[0.06] to-transparent"></div>
+            <div class="absolute left-0 right-0 bottom-[18%] h-px bg-gradient-to-r from-transparent via-teal-500/[0.06] to-transparent"></div>
+
+            <!-- Sci-Fi Corner Brackets -->
+            <div class="absolute top-8 left-8 w-10 h-10 border-t border-l border-teal-500/15"></div>
+            <div class="absolute top-8 right-8 w-10 h-10 border-t border-r border-teal-500/15"></div>
+            <div class="absolute bottom-8 left-8 w-10 h-10 border-b border-l border-teal-500/15"></div>
+            <div class="absolute bottom-8 right-8 w-10 h-10 border-b border-r border-teal-500/15"></div>
+
+            <!-- Telemetry text blocks -->
+            <div class="absolute top-20 left-[14%] font-mono text-[8px] text-teal-500/15 select-none leading-relaxed">
+                SYS_INIT: SINAPS_V2.1<br>
+                STATUS: OPERATIONAL<br>
+                LOC: 7.2721° S, 110.8328° E
+            </div>
+            <div class="absolute bottom-20 right-[14%] font-mono text-[8px] text-emerald-500/15 select-none text-right leading-relaxed">
+                ACADEMIC_LEVEL: OSN_PREP<br>
+                ALGORITHM: LOGIC_MODULE<br>
+                SECURE_HASH: 0x8FA4B2
+            </div>
+        </div>
+
+        <!-- Glow spotlights -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-80 h-80 bg-teal-500/[0.03] rounded-full blur-[120px] animate-pulse" style="animation-duration: 10s;"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-emerald-500/[0.03] rounded-full blur-[140px] animate-pulse" style="animation-duration: 14s; animation-delay: 3s;"></div>
+        </div>
+
+        <!-- Background Doodles -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <!-- Atom -->
+            <div class="absolute top-10 left-10 w-28 h-28 text-teal-500/[0.04] animate-float" style="animation-duration: 18s;">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                    <ellipse cx="50" cy="50" rx="40" ry="15" transform="rotate(30 50 50)" />
+                    <ellipse cx="50" cy="50" rx="40" ry="15" transform="rotate(90 50 50)" />
+                    <ellipse cx="50" cy="50" rx="40" ry="15" transform="rotate(150 50 50)" />
+                    <circle cx="50" cy="50" r="5" fill="currentColor" />
+                </svg>
+            </div>
+
+            <!-- Math graph -->
+            <div class="absolute top-14 right-14 w-36 h-36 text-teal-500/[0.04] animate-float-slow">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                    <line x1="10" y1="50" x2="90" y2="50" stroke-dasharray="3 3" />
+                    <line x1="50" y1="10" x2="50" y2="90" stroke-dasharray="3 3" />
+                    <path d="M 10 50 Q 30 10, 50 50 T 90 50" />
+                </svg>
+            </div>
+
+            <!-- Compass/Globe -->
+            <div class="absolute bottom-12 right-12 w-28 h-28 text-emerald-500/[0.04] animate-float" style="animation-duration: 22s; animation-delay: 2s;">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                    <circle cx="50" cy="50" r="38" />
+                    <ellipse cx="50" cy="50" rx="38" ry="16" />
+                    <ellipse cx="50" cy="50" rx="16" ry="38" />
+                </svg>
+            </div>
+
+            <!-- DNA -->
+            <div class="absolute bottom-14 left-14 w-20 h-40 text-emerald-500/[0.04] animate-float" style="animation-duration: 25s; animation-delay: 1s;">
+                <svg viewBox="0 0 50 100" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M10 0 Q 40 25, 10 50 Q 40 75, 10 100" />
+                    <path d="M40 0 Q 10 25, 40 50 Q 10 75, 40 100" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Book Container -->
+        <div class="book-container relative shadow-[0_50px_100px_rgba(0,0,0,0.8),_0_0_100px_rgba(13,148,136,0.08)]">
+            <div id="book" class="book relative transition-transform duration-1000 ease-in-out">
+                <!-- 3D Metal Ring Binder -->
+                <div id="binder-rings" class="absolute top-6 bottom-6 left-0 w-0 z-50 pointer-events-none opacity-0 transition-opacity duration-500 flex flex-col justify-around" style="transform: translateZ(10px);">
+                    <div class="ring-metal"></div>
+                    <div class="ring-metal"></div>
+                    <div class="ring-metal"></div>
+                    <div class="ring-metal"></div>
+                    <div class="ring-metal"></div>
+                    <div class="ring-metal"></div>
+                    <div class="ring-metal"></div>
+                    <div class="ring-metal"></div>
+                    <div class="ring-metal"></div>
+                </div>
+                
+                <SinapsCover id="p1" />
+                <SinapsIntro id="p2" />
+                <SinapsIpa id="p3" />
+                <SinapsIps id="p4" />
+                <SinapsMath id="p5" />
+                <SinapsCta id="p6" />
+            </div>
+
+            <!-- Navigation Hints -->
+            <div id="nav-hints" class="absolute -bottom-14 left-1/2 -translate-x-1/2 flex items-center gap-10 text-white/15 text-[9px] font-serif italic tracking-widest uppercase transition-all duration-1000 ease-in-out">
+                <span class="flex items-center gap-2 hover:text-white/30 transition-colors cursor-default"><kbd class="bg-white/5 px-1.5 py-0.5 rounded border border-white/[0.06] text-white/20 text-[8px]">←</kbd> Back</span>
+                <span class="flex items-center gap-2 animate-pulse hover:text-white/30 transition-colors cursor-default"><kbd class="bg-white/5 px-1.5 py-0.5 rounded border border-white/[0.06] text-white/20 text-[8px]">→</kbd> Next</span>
+                <span class="flex items-center gap-2 hover:text-white/30 transition-colors cursor-default"><kbd class="bg-white/5 px-1.5 py-0.5 rounded border border-white/[0.06] text-white/20 text-[8px]">Esc</kbd> Reset</span>
+            </div>
+        </div>
+    </main>
+
+    <style is:global>
+        @import "@fontsource/playfair-display/400.css";
+        @import "@fontsource/playfair-display/900.css";
+        @import "@fontsource/playfair-display/400-italic.css";
+        @import "@fontsource/inter/300.css";
+        @import "@fontsource/inter/400.css";
+        @import "@fontsource/inter/700.css";
+        @import "@fontsource/architects-daughter/400.css";
+
+        .font-hand {
+            font-family: 'Architects Daughter', cursive;
+        }
+
+        /* Scan line animation */
+        @keyframes scan {
+            0% { top: -5%; }
+            100% { top: 105%; }
+        }
+        .animate-scan {
+            animation: scan 8s linear infinite;
+        }
+
+        /* 3D Metal Ring Binder styles */
+        .ring-metal {
+            width: 36px;
+            height: 9px;
+            background: linear-gradient(180deg, #94a3b8 0%, #e2e8f0 30%, #ffffff 50%, #cbd5e1 75%, #475569 100%);
+            border-radius: 9999px;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.5);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+
+        .ring-metal::before, .ring-metal::after {
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 13px;
+            background: #0f172a;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: inset 0 2px 3px rgba(0,0,0,0.9);
+            z-index: -1;
+        }
+
+        .ring-metal::before { left: -3px; }
+        .ring-metal::after { right: -3px; }
+
+        /* Red Notebook Margin Line */
+        .page:not(#p1) .front::after, 
+        #p6 .front::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 42px;
+            width: 1px;
+            background-color: rgba(239, 68, 68, 0.2);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .page:not(#p6) .back::after, 
+        #p1 .back::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 42px;
+            width: 1px;
+            background-color: rgba(239, 68, 68, 0.2);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* Inner creasing gradient shadow */
+        .page:not(#p1) .front::before,
+        #p6 .front::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 18px;
+            background: linear-gradient(to right, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.02) 50%, transparent 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .page:not(#p6) .back::before,
+        #p1 .back::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 18px;
+            background: linear-gradient(to left, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.02) 50%, transparent 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* Background Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            50% { transform: translateY(-15px) translateX(8px) rotate(-2deg); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-float-slow {
+            animation: float-slow 10s ease-in-out infinite;
+        }
+
+        .book-container {
+            width: min(520px, 90vw);
+            height: min(720px, 85vh);
+            perspective: 2500px;
+            transition: all 0.5s ease;
+        }
+
+        @media (min-width: 1200px) {
+            .book-container {
+                width: 580px;
+                height: 780px;
+            }
+        }
+
+        .book {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: left;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .page.active {
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .page.flipped .back {
+            pointer-events: auto;
+        }
+
+        .front, .back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 0 14px 14px 0;
+            overflow: hidden;
+            /* Switch which face shows at the flip's midpoint (0.6s = half of 1.2s)
+               so we never see the mirrored backface bleed through. */
+            transition: visibility 0s linear 0.6s;
+        }
+
+        /* Deterministic face visibility (immune to backface rendering bugs) */
+        .front { visibility: visible; }
+        .back { visibility: hidden; }
+        .page.flipped .front { visibility: hidden; }
+        .page.flipped .back { visibility: visible; }
+
+        .page:not(#p1) .front, 
+        .page:not(#p6) .back,
+        #p1 .back,
+        #p6 .front {
+            background-color: #fdfdfb;
+            background-image: 
+                linear-gradient(#e5e7eb 1px, transparent 1px),
+                linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        #p1 .front {
+            background-color: #002b2b !important;
+            background-image: none !important;
+            border-radius: 4px 14px 14px 4px;
+            overflow: hidden;
+        }
+
+        #p6 .back {
+            background-color: #002b2b !important;
+            background-image: none !important;
+            border-radius: 14px 4px 4px 14px;
+            overflow: hidden;
+        }
+
+        .back {
+            transform: rotateY(180deg);
+            border-radius: 14px 0 0 14px;
+        }
+
+        .flipped {
+            transform: rotateY(-180deg);
+        }
+
+        #p1 { z-index: 6; }
+        #p2 { z-index: 5; }
+        #p3 { z-index: 4; }
+        #p4 { z-index: 3; }
+        #p5 { z-index: 2; }
+        #p6 { z-index: 1; }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+
+    <script>
+        let currentLoc = 1;
+        let numOfPapers = 6;
+        let maxLoc = numOfPapers + 1;
+
+        function playFlipSound() {
+            try {
+                const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+                if (!AudioContextClass) return;
+                const ctx = new AudioContextClass();
+                const bufferSize = ctx.sampleRate * 0.2;
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+                
+                const source = ctx.createBufferSource();
+                source.buffer = buffer;
+                
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.setValueAtTime(1600, ctx.currentTime);
+                filter.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.2);
+                filter.Q.setValueAtTime(2, ctx.currentTime);
+                
+                const gain = ctx.createGain();
+                gain.gain.setValueAtTime(0.001, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.06, ctx.currentTime + 0.03);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+                
+                source.connect(filter);
+                filter.connect(gain);
+                gain.connect(ctx.destination);
+                
+                source.start();
+            } catch (err) {
+                console.warn('Audio Context failed:', err);
+            }
+        }
+
+        function createScienceParticles() {
+            const main = document.querySelector('main');
+            if (!main) return;
+            const container = document.createElement('div');
+            container.className = 'absolute inset-0 overflow-hidden pointer-events-none z-0';
+            for (let i = 0; i < 20; i++) {
+                const orb = document.createElement('div');
+                orb.className = 'absolute rounded-full bg-teal-400/[0.06] blur-[1px] animate-float';
+                const size = Math.random() * 3 + 1.5;
+                orb.style.width = `${size}px`;
+                orb.style.height = `${size}px`;
+                orb.style.left = `${Math.random() * 100}%`;
+                orb.style.top = `${Math.random() * 100}%`;
+                orb.style.animationDuration = `${7 + Math.random() * 10}s`;
+                orb.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(orb);
+            }
+            main.appendChild(container);
+        }
+
+        function init3DParallax() {
+            const container = document.querySelector('.book-container') as HTMLElement;
+            if (!container) return;
+
+            document.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 40;
+                const y = (window.innerHeight / 2 - e.clientY) / 40;
+                container.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
+            });
+
+            document.addEventListener('mouseleave', () => {
+                container.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            });
+        }
+
+        createScienceParticles();
+        init3DParallax();
+
+        function updateBinderRings() {
+            const rings = document.getElementById('binder-rings');
+            if (rings) {
+                if (currentLoc > 1 && currentLoc < maxLoc) {
+                    rings.classList.remove('opacity-0');
+                    rings.classList.add('opacity-100');
+                } else {
+                    rings.classList.remove('opacity-100');
+                    rings.classList.add('opacity-0');
+                }
+            }
+        }
+
+        updateBinderRings();
+
+        function flipPage(target: number) {
+            const book = document.getElementById('book');
+            if (!book) return;
+            
+            playFlipSound();
+            
+            if (target > 0) {
+                if (currentLoc < maxLoc) {
+                    const page = document.getElementById(`p${currentLoc}`);
+                    if (page) {
+                        page.classList.add('flipped');
+                        page.classList.remove('active');
+                        setTimeout(() => {
+                            if (page.classList.contains('flipped')) {
+                                page.style.zIndex = currentLoc.toString();
+                            }
+                        }, 600);
+                    }
+                    
+                    const nextPaper = document.getElementById(`p${currentLoc + 1}`);
+                    if (nextPaper) {
+                        nextPaper.classList.add('active');
+                        (nextPaper as HTMLElement).style.zIndex = "10";
+                    }
+                    
+                    currentLoc++;
+                    book.style.transform = `translateX(50%)`;
+                }
+            } else {
+                if (target === -6) {
+                    const allPages = document.querySelectorAll('.page');
+                    allPages.forEach((page, index) => {
+                        page.classList.remove('flipped');
+                        page.classList.remove('active');
+                        (page as HTMLElement).style.zIndex = (numOfPapers - index).toString();
+                    });
+                    
+                    const p1 = document.getElementById('p1');
+                    if (p1) {
+                        p1.classList.add('active');
+                        p1.style.zIndex = "10";
+                    }
+                    
+                    currentLoc = 1;
+                    book.style.transform = `translateX(0)`;
+                    updateBinderRings();
+                    return;
+                }
+
+                if (currentLoc > 1) {
+                    currentLoc--;
+                    const page = document.getElementById(`p${currentLoc}`);
+                    if (page) {
+                        page.classList.remove('flipped');
+                        page.classList.add('active');
+                        page.style.zIndex = "10";
+                    }
+                    
+                    const nextPaper = document.getElementById(`p${currentLoc + 1}`);
+                    if (nextPaper) {
+                        nextPaper.classList.remove('active');
+                        (nextPaper as HTMLElement).style.zIndex = (numOfPapers - (currentLoc + 1) + 1).toString();
+                    }
+                    
+                    if (currentLoc === 1) {
+                        book.style.transform = `translateX(0)`;
+                    }
+                }
+            }
+            updateBinderRings();
+        }
+
+        (window as any).flipPage = flipPage;
+
+        let touchstartX = 0;
+        let touchendX = 0;
+        const swipeThreshold = 50;
+
+        const bookContainer = document.querySelector('.book-container');
+        if (bookContainer) {
+            bookContainer.addEventListener('touchstart', (e: any) => {
+                touchstartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            bookContainer.addEventListener('touchend', (e: any) => {
+                touchendX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        }
+
+        function handleSwipe() {
+            const diff = touchstartX - touchendX;
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    flipPage(1);
+                } else {
+                    flipPage(-1);
+                }
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowRight') {
+                flipPage(1);
+            } else if (e.code === 'ArrowLeft') {
+                flipPage(-1);
+            } else if (e.code === 'Escape') {
+                flipPage(-6);
+            }
+        });
+    </script>
+</Layout>

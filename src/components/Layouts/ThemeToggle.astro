@@ -1,8 +1,3 @@
----
-// src/components/ThemeToggle.astro
----
-
-<!-- Inline script untuk prevent flash - HARUS di atas HTML -->
 <script is:inline>
   (function() {
     const theme = localStorage.getItem('theme');
@@ -18,13 +13,13 @@
 <button
   id="theme-toggle"
   class="w-10 h-10 rounded-full flex items-center justify-center
-         bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200
-         hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors
+         bg-slate-200 dark:bg-gray-700 text-slate-800 dark:text-gray-200
+         hover:bg-slate-300 dark:hover:bg-gray-600 transition-colors
          focus:outline-none focus:ring-2 focus:ring-blue-500"
   aria-label="Toggle Theme"
 >
-  <span class="sun-icon text-xl">☀️</span>
-  <span class="moon-icon text-xl hidden">🌙</span>
+  <span class="sun-icon text-xl">S</span>
+  <span class="moon-icon text-xl hidden">M</span>
 </button>
 
 <script>
@@ -57,7 +52,6 @@
     updateIcons();
   }
 
-  // Set icon on page load
   document.addEventListener('DOMContentLoaded', () => {
     updateIcons();
     

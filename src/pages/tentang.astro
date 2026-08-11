@@ -1,81 +1,62 @@
 ---
 // src/pages/tentang.astro
-import Layout from '../layouts/Layout.astro';
-import HeroSection from '../components/hero/HeroSection.astro';
-import NilaiSection from '../components/tentang/NilaiSection.astro';
-import CTASection from '../components/cta/CTASection.astro';
-import TeacherCarousel from '../components/tentang/TeacherCarousel.astro';
-// Hero Section Data
-const heroData = {
-  badge: {
-    icon: ' 🕌 ',
-    text: 'Tentang Kami'
-  },
-  title: {
-    main: 'Al Abidin Bilingual\nBoarding School',
-    subtitle: 'Bring Excellence Beyond the Limits',
-    description: ' Lembaga pendidikan Islam modern yang mengintegrasikan kurikulum nasional dengan nilai-nilai keislaman dan kemampuan bilingual'
-  }
-};
-
+import Layout from "../layouts/Layout.astro";
+import CTASection from "../components/cta/CTASection.astro";
+import TeacherCarousel from "../components/tentang/TeacherCarousel.astro";
 ---
 
-<Layout title="Tentang Kami - ABBS Surakarta">
-  <!-- Hero Section -->
-    <HeroSection 
-    badge={heroData.badge}
-    title={heroData.title}
-        />
+<Layout title="Tentang Kami - SMP ABBS Surakarta">
+  <section class="pt-32 pb-20 text-center">
+    <div class="max-w-7xl mx-auto px-6">
+      <span class="font-hand text-xl text-accent-600 dark:text-accent-400 rotate-[-2deg] block mb-4">cerita kami dimulai di sini</span>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
+        Sejarah & <span class="font-serif font-normal italic text-primary-600 dark:text-primary-400">Visi Kami</span>
+      </h1>
+      <p class="text-lg md:text-xl text-slate-600 dark:text-gray-400 max-w-3xl mx-auto">
+        Membangun pondasi keunggulan sejak 2023 untuk mencetak generasi muslim global.
+      </p>
+    </div>
+  </section>
 
-  <!-- Sejarah Singkat -->
-  <section class="py-16 bg-white dark:bg-gray-800">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
+  <section class="py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-            Sejarah Kami
+          <span class="font-hand text-lg text-primary-600 dark:text-primary-400 rotate-[-1deg] block mb-3">berawal dari sebuah mimpi</span>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-8">
+            Warisan <span class="marker font-serif font-normal italic text-primary-600 dark:text-primary-400">Keunggulan</span>
           </h2>
-          <div class="space-y-4 text-gray-600 dark:text-gray-400">
-            <p>
-              SMP Al Abidin Bilingual Boarding School (ABBS) Surakarta didirikan pada tahun 2009 dengan visi menciptakan generasi muslim yang unggul dalam prestasi akademik, berakhlak mulia, dan mampu bersaing di tingkat global.
-            </p>
-            <p>
-              Berawal dari keinginan untuk menyediakan pendidikan berkualitas yang memadukan kurikulum nasional dengan pendidikan agama Islam yang kuat, ABBS terus berkembang menjadi salah satu boarding school terkemuka di Surakarta.
-            </p>
-            <p>
-              Dengan sistem bilingual (Bahasa Indonesia dan Bahasa Inggris), kami mempersiapkan siswa untuk menghadapi tantangan era globalisasi tanpa meninggalkan nilai-nilai keislaman.
-            </p>
+          <div class="space-y-5 text-slate-600 dark:text-gray-400 leading-relaxed">
+            <p class="drop-cap">SMP Al Abidin Bilingual Boarding School (ABBS) Surakarta didirikan pada tahun 2023 dengan visi menciptakan generasi muslim yang unggul dalam prestasi akademik, berakhlak mulia, dan mampu bersaing di tingkat global.</p>
+            <p>Berawal dari keinginan untuk menyediakan pendidikan berkualitas yang memadukan kurikulum nasional dengan pendidikan agama Islam yang kuat, ABBS terus berkembang menjadi salah satu boarding school terkemuka di Surakarta.</p>
+            <p>Dengan sistem bilingual, kami mempersiapkan siswa untuk menghadapi tantangan era globalisasi tanpa meninggalkan nilai-nilai keislaman yang menjadi akar karakter mereka.</p>
           </div>
         </div>
-        <div class="bg-gradient-to-br from-primary-400 to-primary-600 rounded-2xl p-12 text-white shadow-2xl">
-          <div class="space-y-6">
-            <div class="flex items-start gap-4">
-              <div class="text-4xl">📅</div>
-              <div>
-                <div class="font-bold text-lg mb-1">Tahun 2009</div>
-                <div class="text-primary-100">ABBS Surakarta didirikan</div>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="text-4xl">👥</div>
-              <div>
-                <div class="font-bold text-lg mb-1">500+ Siswa</div>
-                <div class="text-primary-100">Alumni sukses di berbagai bidang</div>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="text-4xl">🏆</div>
-              <div>
-                <div class="font-bold text-lg mb-1">Prestasi Gemilang</div>
-                <div class="text-primary-100">Juara berbagai kompetisi nasional</div>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="text-4xl">🌟</div>
-              <div>
-                <div class="font-bold text-lg mb-1">Akreditasi A</div>
-                <div class="text-primary-100">Standar pendidikan terbaik</div>
-              </div>
+        <div>
+          <div class="relative bg-white dark:bg-gray-900 rounded-2xl p-8 border border-slate-200/80 dark:border-gray-800 shadow-sm rotate-[1deg]">
+            <span class="absolute -top-3 right-6 font-hand text-sm text-secondary-700 bg-accent-200 px-3 py-1 rounded-md rotate-[2deg] shadow-sm">angka-angka kami</span>
+            <div class="space-y-8">
+              {
+                [
+                  { year: "2023", label: "Tahun Berdiri", desc: "Awal perjalanan mencetak generasi cemerlang.", icon: "calendar" },
+                  { year: "500+", label: "Siswa Aktif", desc: "Komunitas belajar yang dinamis dan kompetitif.", icon: "users" },
+                  { year: "100+", label: "Prestasi Nasional", desc: "Rekam jejak juara di berbagai kompetisi.", icon: "star" },
+                  { year: "A", label: "Akreditasi", desc: "Standar kualitas pendidikan tertinggi.", icon: "award" },
+                ].map((item, i) => (
+                  <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-primary-50 dark:bg-primary-900/20 flex items-center justify-center text-primary-600 dark:text-primary-400 shrink-0">
+                      <i data-feather={item.icon} class="w-5 h-5" />
+                    </div>
+                    <div class="flex-1 flex items-center justify-between gap-4">
+                      <div>
+                        <div class="font-hand text-xl text-primary-600 dark:text-primary-400 rotate-[-1deg]">{item.label}</div>
+                        <div class="text-sm text-slate-600 dark:text-gray-400">{item.desc}</div>
+                      </div>
+                      <div class="font-serif text-3xl font-semibold text-slate-900 dark:text-white">{item.year}</div>
+                    </div>
+                  </div>
+                ))
+              }
             </div>
           </div>
         </div>
@@ -83,144 +64,93 @@ const heroData = {
     </div>
   </section>
 
-  <!-- Visi Misi -->
-  <section class="py-16 bg-gray-50 dark:bg-gray-900">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          Visi & Misi
-        </h2>
-        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Komitmen kami dalam membentuk generasi unggul dan berakhlak mulia
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        <!-- Visi -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border-t-4 border-primary-500">
-          <div class="flex items-center gap-4 mb-6">
-            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg">
-             🎯
-            </div>
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Visi</h3>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-lg">
+  <section class="py-12 md:py-20 bg-[#f8fafc] dark:bg-white/[0.03]">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="relative bg-white dark:bg-gray-900 rounded-2xl p-8 border border-slate-200/80 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300">
+          <span class="font-serif italic text-4xl text-primary-200 dark:text-primary-900 block mb-4">01</span>
+          <h3 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">Visi</h3>
+          <p class="text-slate-600 dark:text-gray-400 leading-relaxed">
             Menjadi lembaga pendidikan Islam terdepan yang menghasilkan generasi muslim yang berilmu, berakhlak mulia, berprestasi, dan mampu berkomunikasi secara global dengan tetap berpegang teguh pada nilai-nilai keislaman.
           </p>
         </div>
 
-        <!-- Misi -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border-t-4 border-tertiary-500">
-          <div class="flex items-center gap-4 mb-6">
-            <div class="w-16 h-16 bg-gradient-to-br from-tertiary-500 to-tertiary-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg">
-              🚀
-            </div>
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Misi</h3>
-          </div>
-          <ul class="space-y-3 text-gray-600 dark:text-gray-400">
-            <li class="flex items-start gap-3">
-              <span class="text-tertiary-500 text-xl mt-1">✓</span>
-              <span>Menyelenggarakan pendidikan berkualitas dengan kurikulum nasional dan internasional</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-tertiary-500 text-xl mt-1">✓</span>
-              <span>Membentuk karakter islami melalui pendidikan agama yang komprehensif</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-tertiary-500 text-xl mt-1">✓</span>
-              <span>Mengembangkan kemampuan bilingual untuk komunikasi global</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-tertiary-500 text-xl mt-1">✓</span>
-              <span>Memfasilitasi pengembangan bakat dan minat siswa secara optimal</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-tertiary-500 text-xl mt-1">✓</span>
-              <span>Menciptakan lingkungan pembelajaran yang kondusif dan Islami</span>
-            </li>
+        <div class="relative bg-white dark:bg-gray-900 rounded-2xl p-8 border border-slate-200/80 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300">
+          <span class="font-serif italic text-4xl text-secondary-200 dark:text-secondary-900 block mb-4">02</span>
+          <h3 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">Misi</h3>
+          <ul class="space-y-3">
+            {
+              [
+                "Pendidikan berkualitas nasional & internasional",
+                "Pembentukan karakter islami komprehensif",
+                "Pengembangan kemampuan bilingual global",
+                "Fasilitasi bakat & minat siswa secara optimal",
+                "Lingkungan belajar kondusif & Islami",
+              ].map((misi) => (
+                <li class="flex items-start gap-3">
+                  <div class="mt-1 w-4 h-4 rounded-full bg-secondary-100 dark:bg-secondary-900/30 flex items-center justify-center shrink-0">
+                    <i data-feather="check" class="w-2.5 h-2.5 text-secondary-600 dark:text-secondary-400" />
+                  </div>
+                  <span class="text-slate-600 dark:text-gray-400">{misi}</span>
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Nilai-nilai Kami -->
-  <NilaiSection/>
-
-  <!-- Fasilitas -->
-  <section class="py-16 bg-gray-50 dark:bg-gray-900">
-    <div class="max-w-7xl mx-auto px-4">
+  <section class="py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          Fasilitas Lengkap
+        <span class="font-hand text-xl text-accent-600 dark:text-accent-400 rotate-[-2deg] block mb-3">ruang belajar yang menyenangkan</span>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
+          Fasilitas <span class="font-serif font-normal italic text-primary-600 dark:text-primary-400">Terbaik</span>
         </h2>
-        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Sarana dan prasarana modern untuk mendukung proses pembelajaran optimal
+        <p class="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Mendukung ekosistem belajar yang modern, aman, dan nyaman.
         </p>
       </div>
 
-      <div class="grid md:grid-cols-4 gap-6">
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-          <div class="text-5xl mb-3">🏫</div>
-          <h4 class="font-bold text-gray-900 dark:text-white mb-2">Gedung Modern</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Ruang kelas ber-AC dan nyaman</p>
-        </div>
-
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-          <div class="text-5xl mb-3">🕌</div>
-          <h4 class="font-bold text-gray-900 dark:text-white mb-2">Masjid</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Masjid luas untuk ibadah berjamaah</p>
-        </div>
-
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-          <div class="text-5xl mb-3">💻</div>
-          <h4 class="font-bold text-gray-900 dark:text-white mb-2">Lab Komputer</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Komputer modern dengan internet</p>
-        </div>
-
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-          <div class="text-5xl mb-3">🔬</div>
-          <h4 class="font-bold text-gray-900 dark:text-white mb-2">Lab IPA</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Laboratorium lengkap untuk praktikum</p>
-        </div>
-
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-          <div class="text-5xl mb-3">📚</div>
-          <h4 class="font-bold text-gray-900 dark:text-white mb-2">Perpustakaan</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Koleksi buku lengkap dan digital</p>
-        </div>
-
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-          <div class="text-5xl mb-3">🏋️</div>
-          <h4 class="font-bold text-gray-900 dark:text-white mb-2">Lapangan Olahraga</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Basket, futsal, dan voli</p>
-        </div>
-
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-          <div class="text-5xl mb-3">🏠</div>
-          <h4 class="font-bold text-gray-900 dark:text-white mb-2">Asrama</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Asrama nyaman dengan AC</p>
-        </div>
-
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-          <div class="text-5xl mb-3">🍽️</div>
-          <h4 class="font-bold text-gray-900 dark:text-white mb-2">Kantin</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Makanan sehat dan bergizi</p>
-        </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {
+          [
+            { title: "Gedung Modern", desc: "Ruang kelas cerdas ber-AC & multimedia.", icon: "home" },
+            { title: "Rooftop Arena", desc: "Area terbuka untuk kegiatan & festival.", icon: "sun" },
+            { title: "Smart Library", desc: "Akses literasi digital & fisik lengkap.", icon: "book-open" },
+            { title: "Health Cafe", desc: "Kantin sehat dengan nutrisi terjamin.", icon: "coffee" },
+          ].map((item) => (
+            <div class="p-6 bg-white dark:bg-gray-900 rounded-xl border border-slate-200/80 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div class="w-12 h-12 bg-slate-50 dark:bg-gray-800 rounded-xl flex items-center justify-center text-slate-500 mb-4">
+                <i data-feather={item.icon} class="w-5 h-5" />
+              </div>
+              <h4 class="text-lg font-semibold tracking-tight text-slate-900 dark:text-white mb-2">{item.title}</h4>
+              <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- Struktur Organisasi (Optional) -->
-  <TeacherCarousel />
+  <div>
+    <TeacherCarousel />
+  </div>
 
-  <!-- CTA -->
-  <CTASection 
+  <CTASection
     id="kontak-cta"
     title="Bergabunglah dengan Keluarga ABBS"
     description="Jadilah bagian dari generasi unggul yang siap menghadapi tantangan masa depan"
-    primaryButton={{ text: 'Chat WhatsApp', href: '/kontak', icon: '💬' }}
-    secondaryButton={{ text: 'Lihat Program', href: '/program', icon: ' 📚' }}
+    primaryButton={{
+      text: "Chat WhatsApp",
+      href: "/kontak",
+      icon: "message-circle",
+    }}
+    secondaryButton={{
+      text: "Lihat Program",
+      href: "/program",
+      icon: "book",
+    }}
   />
-
 </Layout>

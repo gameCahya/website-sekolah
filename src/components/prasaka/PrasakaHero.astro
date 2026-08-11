@@ -1,0 +1,272 @@
+---
+// src/components/prasaka/PrasakaHero.astro
+// Generate compass tick marks: 72 ticks (every 5 degrees)
+const ticks = Array.from({ length: 72 }, (_, i) => ({
+    angle: i * 5,
+    major: i % 18 === 0,        // every 90° = major
+    medium: i % 6 === 0 && i % 18 !== 0, // every 30° = medium
+}));
+---
+
+<header class="flex flex-col items-center text-center mb-28 reveal">
+    <!-- Compass Logo Badge — 3D perspective wrapper -->
+    <div class="compass-perspective-wrapper" style="perspective: 1000px;">
+        <div class="relative flex items-center justify-center mb-10 compass-container">
+        <!-- Outer glow -->
+        <div class="absolute w-72 h-72 rounded-full bg-emerald-900/20 blur-[80px] animate-prasaka-glow"></div>
+
+        <!-- ========== LAYER 1: Outermost ring — tick marks, slow clockwise ========== -->
+        <div class="absolute w-[22rem] h-[22rem] md:w-[24rem] md:h-[24rem] rounded-full animate-compass-outer">
+            <svg viewBox="0 0 400 400" class="w-full h-full">
+                <!-- Outer circle -->
+                <circle cx="200" cy="200" r="196" fill="none" stroke="rgba(139,105,20,0.15)" stroke-width="1" />
+                <circle cx="200" cy="200" r="180" fill="none" stroke="rgba(139,105,20,0.08)" stroke-width="0.5" />
+                <!-- Tick marks -->
+                {ticks.map((t) => {
+                    const rad = (t.angle - 90) * (Math.PI / 180);
+                    const r1 = t.major ? 180 : t.medium ? 184 : 188;
+                    const r2 = 196;
+                    const x1 = 200 + r1 * Math.cos(rad);
+                    const y1 = 200 + r1 * Math.sin(rad);
+                    const x2 = 200 + r2 * Math.cos(rad);
+                    const y2 = 200 + r2 * Math.sin(rad);
+                    const sw = t.major ? 1.5 : t.medium ? 1 : 0.5;
+                    const op = t.major ? 0.5 : t.medium ? 0.3 : 0.15;
+                    return (
+                        <line
+                            x1={x1} y1={y1} x2={x2} y2={y2}
+                            stroke={`rgba(196,167,125,${op})`}
+                            stroke-width={sw}
+                            stroke-linecap="round"
+                        />
+                    );
+                })}
+                <!-- Degree numbers at major ticks (0, 90, 180, 270) -->
+                {[
+                    { angle: 0, label: '0°', dy: -170 },
+                    { angle: 90, label: '90°', dx: 170 },
+                    { angle: 180, label: '180°', dy: 176 },
+                    { angle: 270, label: '270°', dx: -170 },
+                ].map((l) => {
+                    const rad = (l.angle - 90) * (Math.PI / 180);
+                    const cx = 200 + 168 * Math.cos(rad);
+                    const cy = 200 + 168 * Math.sin(rad);
+                    return (
+                        <text
+                            x={cx} y={cy}
+                            text-anchor="middle"
+                            dominant-baseline="central"
+                            fill="rgba(139,105,20,0.25)"
+                            font-size="8"
+                            font-family="'Courier New', monospace"
+                            font-weight="700"
+                        >
+                            {l.label}
+                        </text>
+                    );
+                })}
+            </svg>
+        </div>
+
+        <!-- ========== LAYER 2: Middle ring — cardinal directions, counter-clockwise ========== -->
+        <div class="absolute w-[17rem] h-[17rem] md:w-[19rem] md:h-[19rem] rounded-full animate-compass-inner">
+            <svg viewBox="0 0 300 300" class="w-full h-full">
+                <!-- Ring border -->
+                <circle cx="150" cy="150" r="146" fill="none" stroke="rgba(90,114,71,0.2)" stroke-width="1.5" stroke-dasharray="4 4" />
+                <circle cx="150" cy="150" r="138" fill="none" stroke="rgba(90,114,71,0.1)" stroke-width="0.5" />
+                <!-- Intercardinal tick marks -->
+                {[45, 135, 225, 315].map((angle) => {
+                    const rad = (angle - 90) * (Math.PI / 180);
+                    const x1 = 150 + 136 * Math.cos(rad);
+                    const y1 = 150 + 136 * Math.sin(rad);
+                    const x2 = 150 + 146 * Math.cos(rad);
+                    const y2 = 150 + 146 * Math.sin(rad);
+                    return (
+                        <line x1={x1} y1={y1} x2={x2} y2={y2}
+                            stroke="rgba(90,114,71,0.25)" stroke-width="1" stroke-linecap="round" />
+                    );
+                })}
+                <!-- Cardinal directions: N E S W -->
+                {[
+                    { label: 'N', angle: 0, color: '#8b6914' },
+                    { label: 'E', angle: 90, color: '#5a7247' },
+                    { label: 'S', angle: 180, color: '#5a7247' },
+                    { label: 'W', angle: 270, color: '#5a7247' },
+                ].map((c) => {
+                    const rad = (c.angle - 90) * (Math.PI / 180);
+                    const cx = 150 + 120 * Math.cos(rad);
+                    const cy = 150 + 120 * Math.sin(rad);
+                    return (
+                        <text
+                            x={cx} y={cy}
+                            text-anchor="middle"
+                            dominant-baseline="central"
+                            fill={c.color}
+                            font-size="14"
+                            font-family="'Courier New', monospace"
+                            font-weight="900"
+                            opacity="0.6"
+                        >
+                            {c.label}
+                        </text>
+                    );
+                })}
+                <!-- Intercardinal labels: NE SE SW NW -->
+                {[
+                    { label: 'NE', angle: 45 },
+                    { label: 'SE', angle: 135 },
+                    { label: 'SW', angle: 225 },
+                    { label: 'NW', angle: 315 },
+                ].map((c) => {
+                    const rad = (c.angle - 90) * (Math.PI / 180);
+                    const cx = 150 + 118 * Math.cos(rad);
+                    const cy = 150 + 118 * Math.sin(rad);
+                    return (
+                        <text
+                            x={cx} y={cy}
+                            text-anchor="middle"
+                            dominant-baseline="central"
+                            fill="rgba(195,176,145,0.2)"
+                            font-size="7"
+                            font-family="'Courier New', monospace"
+                            font-weight="700"
+                        >
+                            {c.label}
+                        </text>
+                    );
+                })}
+            </svg>
+        </div>
+
+        <!-- ========== LAYER 3: Innermost ring — decorative, slow clockwise ========== -->
+        <div class="absolute w-[12rem] h-[12rem] md:w-[13rem] md:h-[13rem] rounded-full animate-compass-innermost">
+            <svg viewBox="0 0 200 200" class="w-full h-full">
+                <circle cx="100" cy="100" r="96" fill="none" stroke="rgba(139,105,20,0.12)" stroke-width="0.5" />
+                <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(196,167,125,0.08)" stroke-width="0.5" stroke-dasharray="2 6" />
+                <!-- Small crosshair at center -->
+                <line x1="100" y1="85" x2="100" y2="92" stroke="rgba(139,105,20,0.15)" stroke-width="0.5" />
+                <line x1="100" y1="108" x2="100" y2="115" stroke="rgba(139,105,20,0.15)" stroke-width="0.5" />
+                <line x1="85" y1="100" x2="92" y2="100" stroke="rgba(139,105,20,0.15)" stroke-width="0.5" />
+                <line x1="108" y1="100" x2="115" y2="100" stroke="rgba(139,105,20,0.15)" stroke-width="0.5" />
+            </svg>
+        </div>
+
+        <!-- ========== Logo disc (static) ========== -->
+        <div class="relative w-40 h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-[#5a7247]/20 to-[#8b6914]/10 p-[3px] shadow-[0_0_40px_rgba(90,114,71,0.2)]">
+            <div class="w-full h-full rounded-full bg-[#1a120b]/80 backdrop-blur-sm flex items-center justify-center p-6 border border-[#8b6914]/15">
+                <img
+                    src="/communities/prasaka.png"
+                    alt="PRASSAKA Logo"
+                    class="w-full h-full object-contain drop-shadow-[0_0_12px_rgba(195,176,145,0.2)]"
+                />
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Badge label -->
+    <span class="inline-block px-5 py-1.5 mb-6 rounded-full border border-[#8b6914]/30 bg-[#8b6914]/10 text-[#c4a77d] text-[11px] font-black tracking-[0.5em] uppercase" style="font-family: 'Courier New', monospace;">
+        Dewan Galang &middot; Gerakan Pramuka
+    </span>
+
+    <h1 class="text-6xl md:text-8xl font-[900] mb-5 tracking-tighter leading-[0.85]">
+        <span class="text-gradient-earth">PRASSAKA</span>
+    </h1>
+
+    <p class="text-base md:text-xl text-[#c3b091]/50 font-bold tracking-[0.35em] uppercase max-w-2xl mx-auto" style="font-family: 'Courier New', monospace;">
+        Pramuka SMP ABBS Surakarta
+    </p>
+
+    <!-- Rope divider with compass icon -->
+    <div class="mt-10 flex justify-center gap-4 items-center">
+        <div class="h-px w-24 rope-divider"></div>
+        <div class="text-[#8b6914]/60"><i data-feather="compass"></i></div>
+        <div class="h-px w-24 rope-divider"></div>
+    </div>
+</header>
+
+<style>
+    /* Layer 1: outermost tick marks — slow clockwise 60s */
+    @keyframes compass-outer {
+        to { transform: rotate(360deg); }
+    }
+    .animate-compass-outer {
+        animation: compass-outer 60s linear infinite;
+    }
+
+    /* Layer 2: cardinal directions — counter-clockwise 45s */
+    @keyframes compass-inner {
+        to { transform: rotate(-360deg); }
+    }
+    .animate-compass-inner {
+        animation: compass-inner 45s linear infinite;
+    }
+
+    /* Layer 3: inner decorative — clockwise 30s */
+    @keyframes compass-innermost {
+        to { transform: rotate(360deg); }
+    }
+    .animate-compass-innermost {
+        animation: compass-innermost 30s linear infinite;
+    }
+
+    /* Hover pause effect */
+    .compass-container:hover .animate-compass-outer,
+    .compass-container:hover .animate-compass-inner,
+    .compass-container:hover .animate-compass-innermost {
+        animation-play-state: paused;
+    }
+
+    /* 3D tilt */
+    .compass-perspective-wrapper {
+        perspective: 1000px;
+    }
+    .compass-container {
+        transform-style: preserve-3d;
+        transition: transform 0.1s ease-out;
+        will-change: transform;
+    }
+</style>
+
+<script>
+    function initCompass3DTilt() {
+        const wrapper = document.querySelector('.compass-perspective-wrapper');
+        const compass = document.querySelector('.compass-container');
+        if (!wrapper || !compass) return;
+
+        let targetX = 0, targetY = 0;
+        let currentX = 0, currentY = 0;
+        const maxTilt = 12;
+        const lerpFactor = 0.08;
+        let rafId = null;
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+
+        function animate() {
+            currentX = lerp(currentX, targetX, lerpFactor);
+            currentY = lerp(currentY, targetY, lerpFactor);
+            compass.style.transform = `rotateX(${currentY}deg) rotateY(${currentX}deg)`;
+            rafId = requestAnimationFrame(animate);
+        }
+
+        wrapper.addEventListener('mousemove', (e) => {
+            const rect = wrapper.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (e.clientX - cx) / (rect.width / 2);
+            const dy = (e.clientY - cy) / (rect.height / 2);
+            targetX = dx * maxTilt;
+            targetY = -dy * maxTilt;
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            targetX = 0;
+            targetY = 0;
+        });
+
+        animate();
+    }
+
+    document.addEventListener('DOMContentLoaded', initCompass3DTilt);
+    document.addEventListener('astro:page-load', initCompass3DTilt);
+</script>

@@ -1,0 +1,146 @@
+---
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+<div class="page" id={id}>
+  <!-- FRONT: Geography -->
+  <div class="front bg-slate-50 border-l border-slate-300 relative overflow-hidden">
+    <!-- Globe doodle -->
+    <div class="absolute top-6 right-6 opacity-[0.06] pointer-events-none">
+      <svg width="70" height="70" viewBox="0 0 80 80" class="stroke-amber-800 fill-none" stroke-width="0.8">
+        <circle cx="40" cy="40" r="32" />
+        <ellipse cx="40" cy="40" rx="32" ry="12" stroke-dasharray="3 3"/>
+        <ellipse cx="40" cy="40" rx="12" ry="32" stroke-dasharray="3 3"/>
+        <line x1="8" y1="40" x2="72" y2="40" stroke-dasharray="2 4"/>
+        <line x1="40" y1="8" x2="40" y2="72" stroke-dasharray="2 4"/>
+        <!-- Equator highlight -->
+        <ellipse cx="40" cy="40" rx="32" ry="4" stroke-width="1.2" opacity="0.5"/>
+      </svg>
+    </div>
+    <!-- Topographic lines -->
+    <div class="absolute bottom-6 left-8 opacity-[0.04] pointer-events-none">
+      <svg width="100" height="50" viewBox="0 0 100 50" class="stroke-amber-800 fill-none" stroke-width="0.8">
+        <path d="M0 40 Q 20 30, 40 35 T 80 25 T 100 30"/>
+        <path d="M0 30 Q 25 20, 50 25 T 100 20"/>
+        <path d="M0 20 Q 30 10, 60 15 T 100 10"/>
+      </svg>
+    </div>
+
+    <div class="absolute bottom-4 right-6 text-[9px] font-serif text-slate-300 italic">— 6 —</div>
+
+    <div class="p-14 h-full flex flex-col relative z-10">
+      <div class="flex items-center gap-3 border-b-4 border-amber-600 pb-3 mb-4">
+        <div class="w-2 h-2 rounded-full bg-amber-600"></div>
+        <h2 class="text-3xl font-black text-amber-950 uppercase tracking-tighter">IPS: Geografi</h2>
+      </div>
+
+      <div class="prose prose-slate prose-sm font-serif space-y-2 flex-1">
+        <h4 class="text-sm font-bold text-amber-800 uppercase tracking-widest">Materi OSN SMP</h4>
+        <div class="text-[11px] text-slate-600 space-y-1.5 leading-relaxed">
+          <ul class="list-none pl-0 space-y-2 mt-2">
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-amber-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-amber-600">1</span></span>
+              <div><strong class="text-amber-900">Litosfer:</strong> <span class="text-slate-500">Struktur interior bumi, tektonik lempeng, vulkanisme, gempa bumi, siklus air.</span></div>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-amber-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-amber-600">2</span></span>
+              <div><strong class="text-amber-900">Atmosfer:</strong> <span class="text-slate-500">Lapisan atmosfer, siklus cuaca, iklim, pemanasan global, El Niño.</span></div>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-amber-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-amber-600">3</span></span>
+              <div><strong class="text-amber-900">Kependudukan:</strong> <span class="text-slate-500">Distribusi penduduk, urbanisasi, migrasi, dampak kepadatan penduduk.</span></div>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-amber-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-amber-600">4</span></span>
+              <div><strong class="text-amber-900">Peta &amp; SIG:</strong> <span class="text-slate-500">Proyeksi peta, interpretasi citra satelit, analisis spasial tematik.</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Geological layers diagram -->
+        <div class="mt-2 p-3 bg-amber-50/60 border border-amber-100 rounded-lg">
+          <p class="text-[9px] font-bold text-amber-700 uppercase tracking-widest mb-2">Lapisan Bumi:</p>
+          <div class="flex flex-col gap-1">
+            <div class="flex items-center gap-2">
+              <div class="w-full h-3 bg-gradient-to-r from-amber-200 to-amber-300 rounded-sm"></div>
+              <span class="text-[9px] text-amber-700 whitespace-nowrap">Kerak</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-full h-4 bg-gradient-to-r from-orange-300 to-orange-400 rounded-sm"></div>
+              <span class="text-[9px] text-orange-700 whitespace-nowrap">Mantel</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-full h-3 bg-gradient-to-r from-red-400 to-red-500 rounded-sm"></div>
+              <span class="text-[9px] text-red-600 whitespace-nowrap">Inti Luar</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-full h-2 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-sm"></div>
+              <span class="text-[9px] text-yellow-600 whitespace-nowrap">Inti Dalam</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 flex justify-end">
+        <button onclick="window.flipPage(4)" class="text-xs font-serif italic text-amber-700 hover:text-amber-900 transition-colors flex items-center gap-2">Next Page <i data-feather="arrow-right" class="w-4 h-4"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BACK: Social Studies -->
+  <div class="back bg-slate-50 border-r border-slate-300 shadow-inner relative overflow-hidden">
+    <div class="absolute bottom-4 left-6 text-[9px] font-serif text-slate-300 italic">— 7 —</div>
+
+    <div class="p-14 h-full flex flex-col relative z-10">
+      <div class="flex items-center gap-3 border-b-4 border-orange-700 pb-3 mb-4">
+        <div class="w-2 h-2 rounded-full bg-orange-700"></div>
+        <h2 class="text-3xl font-black text-orange-950 uppercase tracking-tighter">IPS: Sosial</h2>
+      </div>
+
+      <div class="prose prose-slate prose-sm font-serif space-y-3 flex-1">
+        <div class="text-[11px] text-slate-600 space-y-3 leading-relaxed">
+          <div class="relative">
+            <h4 class="text-sm font-bold text-orange-900 uppercase tracking-widest mb-1.5">Sejarah &amp; Peradaban</h4>
+            <p class="relative pr-16">
+              Kolonialisme di Indonesia, pergerakan nasional, proklamasi, dan sejarah ekonomi nusantara.
+            </p>
+            <div class="absolute top-0 right-0 w-16 rotate-2 pointer-events-none">
+              <p class="font-hand text-[8px] text-orange-700/30 leading-tight">*Hafal timeline!</p>
+            </div>
+          </div>
+          
+          <div class="border-t border-orange-100 pt-3">
+            <h4 class="text-sm font-bold text-orange-900 uppercase tracking-widest mb-1.5">Ekonomi &amp; Sosiologi</h4>
+            <p>Permintaan & penawaran, perilaku konsumen, lembaga keuangan, stratifikasi sosial.</p>
+          </div>
+
+          <!-- Key facts -->
+          <div class="mt-2 p-3 bg-orange-50/60 border border-orange-100 rounded-lg">
+            <p class="text-[9px] font-bold text-orange-700 uppercase tracking-widest mb-2">Yang Harus Dikuasai:</p>
+            <div class="grid grid-cols-2 gap-1 text-[10px] text-orange-800 font-hand">
+              <p>• PPKI & PKO</p>
+              <p>• Sistem Ekonomi</p>
+              <p>• Proklamasi 17 Agustus</p>
+              <p>• BW & VOC</p>
+              <p>• Orde Lama/Baru</p>
+              <p>• Reformasi 1998</p>
+            </div>
+          </div>
+
+          <!-- Sticky note -->
+          <div class="rotate-1 bg-amber-50 p-3 shadow-sm border border-amber-100 mt-1">
+            <div class="absolute -top-2 left-8 w-10 h-2.5 bg-slate-300/20 rounded-sm"></div>
+            <p class="font-hand text-[10px] text-amber-800/60">Jangan lupa: Supply & Demand = Hukum Dasar!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 flex justify-start">
+        <button onclick="window.flipPage(-4)" class="text-xs font-serif italic text-orange-700 hover:text-orange-900 transition-colors flex items-center gap-2"><i data-feather="arrow-left" class="w-4 h-4"></i> Back Page</button>
+      </div>
+    </div>
+  </div>
+</div>

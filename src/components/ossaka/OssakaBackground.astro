@@ -1,0 +1,387 @@
+---
+// src/components/ossaka/OssakaBackground.astro
+---
+
+<!-- Celestial Deep Space Background -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <!-- Nebula glows -->
+    <div class="absolute top-[-20%] left-[-10%] w-[55%] h-[55%] rounded-full bg-indigo-900/20 blur-[160px] animate-celestial-pulse"></div>
+    <div class="absolute bottom-[-20%] right-[-10%] w-[45%] h-[45%] rounded-full bg-violet-900/15 blur-[140px] animate-celestial-pulse" style="animation-delay: 5s;"></div>
+    <div class="absolute top-[30%] right-[20%] w-[25%] h-[25%] rounded-full bg-amber-500/5 blur-[100px] animate-celestial-pulse" style="animation-delay: 3s;"></div>
+
+    <!-- Starfield (CSS) -->
+    <div class="ossaka-stars absolute inset-0"></div>
+    <div class="ossaka-stars-twinkle absolute inset-0"></div>
+
+    <!-- Constellation grid lines -->
+    <svg class="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <pattern id="constellation-grid" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+                <circle cx="0" cy="0" r="1" fill="rgba(199,175,121,0.5)" />
+                <circle cx="120" cy="0" r="1" fill="rgba(199,175,121,0.5)" />
+                <circle cx="0" cy="120" r="1" fill="rgba(199,175,121,0.5)" />
+                <circle cx="120" cy="120" r="1" fill="rgba(199,175,121,0.5)" />
+                <line x1="0" y1="0" x2="120" y2="120" stroke="rgba(199,175,121,0.15)" stroke-width="0.3" />
+                <line x1="120" y1="0" x2="0" y2="120" stroke="rgba(199,175,121,0.15)" stroke-width="0.3" />
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#constellation-grid)" />
+    </svg>
+
+    <!-- Subtle paper texture (elegant document feel) -->
+    <div class="absolute inset-0 opacity-[0.015]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E');"></div>
+</div>
+
+<!-- Floating celestial particles -->
+<div id="ossaka-particles" class="fixed inset-0 pointer-events-none z-0"></div>
+
+<!-- Scroll progress bar (top, celestial gradient) -->
+<div id="ossaka-scroll-progress" class="fixed top-0 left-0 h-[2px] bg-gradient-to-r from-indigo-500 via-violet-400 to-amber-400 z-50" style="width: 0%;"></div>
+
+<style is:global>
+    /* Elegant clipboard glass card */
+    .glass-card-ossaka {
+        background: rgba(15, 12, 30, 0.75);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(199, 175, 121, 0.1);
+        box-shadow:
+            0 8px 40px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(199, 175, 121, 0.06),
+            inset 0 -1px 0 rgba(99, 102, 241, 0.04);
+        position: relative;
+        overflow: hidden;
+        transform-style: preserve-3d;
+        will-change: transform;
+    }
+    .glass-card-ossaka::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(199, 175, 121, 0.3), transparent);
+    }
+    /* Mouse-follow radial highlight */
+    .glass-card-ossaka::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(199, 175, 121, 0.06),
+            rgba(99, 102, 241, 0.02),
+            transparent);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .glass-card-ossaka:hover::after { opacity: 1; }
+
+    /* Tilt states */
+    .glass-card-ossaka.tilt-active { transition: transform 0.12s ease-out, box-shadow 0.12s ease-out; }
+    .glass-card-ossaka.tilt-reset { transition: transform 0.6s cubic-bezier(0.23,1,0.32,1), box-shadow 0.6s ease; }
+
+    /* Text gradient — elegant gold */
+    .text-gradient-executive {
+        background: linear-gradient(135deg, #c7af79, #f0d78c, #b8960c, #c7af79);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: celestial-shimmer 6s linear infinite;
+    }
+    @keyframes celestial-shimmer { to { background-position: 200% center; } }
+
+    /* Gold accent line */
+    .gold-line {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(199,175,121,0.4), transparent);
+    }
+
+    /* Celestial pulse */
+    @keyframes celestial-pulse {
+        0%, 100% { opacity: 0.4; transform: scale(1); }
+        50% { opacity: 0.65; transform: scale(1.06); }
+    }
+    .animate-celestial-pulse { animation: celestial-pulse 8s ease-in-out infinite; }
+
+    /* Star twinkle */
+    .ossaka-stars {
+        background-image:
+            radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 25% 45%, rgba(255,255,255,0.4), transparent),
+            radial-gradient(1.5px 1.5px at 40% 10%, rgba(199,175,121,0.7), transparent),
+            radial-gradient(1px 1px at 55% 70%, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1px 1px at 70% 25%, rgba(255,255,255,0.3), transparent),
+            radial-gradient(1.5px 1.5px at 85% 55%, rgba(199,175,121,0.6), transparent),
+            radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.4), transparent),
+            radial-gradient(1px 1px at 60% 40%, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1px 1px at 90% 85%, rgba(199,175,121,0.5), transparent),
+            radial-gradient(1px 1px at 35% 95%, rgba(255,255,255,0.3), transparent),
+            radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 5% 55%, rgba(255,255,255,0.4), transparent),
+            radial-gradient(1.5px 1.5px at 50% 85%, rgba(199,175,121,0.4), transparent),
+            radial-gradient(1px 1px at 95% 30%, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1px 1px at 20% 65%, rgba(255,255,255,0.3), transparent),
+            radial-gradient(1px 1px at 75% 50%, rgba(199,175,121,0.5), transparent),
+            radial-gradient(1px 1px at 45% 20%, rgba(255,255,255,0.4), transparent),
+            radial-gradient(1px 1px at 65% 90%, rgba(255,255,255,0.5), transparent);
+    }
+    .ossaka-stars-twinkle {
+        animation: star-twinkle 4s ease-in-out infinite;
+        background-image:
+            radial-gradient(1.5px 1.5px at 18% 32%, rgba(199,175,121,0.8), transparent),
+            radial-gradient(1px 1px at 62% 18%, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1.5px 1.5px at 78% 68%, rgba(199,175,121,0.6), transparent),
+            radial-gradient(1px 1px at 32% 78%, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 88% 42%, rgba(199,175,121,0.5), transparent),
+            radial-gradient(1px 1px at 48% 58%, rgba(255,255,255,0.5), transparent),
+            radial-gradient(1.5px 1.5px at 8% 92%, rgba(199,175,121,0.7), transparent),
+            radial-gradient(1px 1px at 58% 8%, rgba(255,255,255,0.6), transparent);
+    }
+    @keyframes star-twinkle {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 1; }
+    }
+
+    /* Particle float */
+    @keyframes celestial-float {
+        0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+        25% { transform: translateY(-25px) translateX(8px) scale(1.1); opacity: 0.7; }
+        50% { transform: translateY(-40px) translateX(-4px) scale(0.9); opacity: 0.4; }
+        75% { transform: translateY(-18px) translateX(12px) scale(1.15); opacity: 0.8; }
+    }
+
+    /* Holographic border (celestial shimmer) */
+    @keyframes celestial-holo {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .holo-border {
+        position: relative;
+    }
+    .holo-border::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg,
+            rgba(99,102,241,0.4), rgba(199,175,121,0.5),
+            rgba(139,92,246,0.3), rgba(199,175,121,0.4),
+            rgba(99,102,241,0.3));
+        background-size: 300% 300%;
+        animation: celestial-holo 8s ease infinite;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+
+    /* Neon glow on hover */
+    .celestial-glow {
+        transition: box-shadow 0.5s ease, border-color 0.5s ease;
+    }
+    .celestial-glow:hover {
+        box-shadow:
+            0 0 25px rgba(99,102,241,0.12),
+            0 0 60px rgba(139,92,246,0.06),
+            inset 0 0 30px rgba(199,175,121,0.03);
+        border-color: rgba(199,175,121,0.25);
+    }
+
+    /* Clipboard tab */
+    .clipboard-tab {
+        position: relative;
+        background: rgba(15, 12, 30, 0.6);
+        border: 1px solid rgba(199,175,121,0.1);
+        border-bottom: none;
+        border-radius: 12px 12px 0 0;
+        padding: 8px 20px;
+    }
+    .clipboard-tab::after {
+        content: '';
+        position: absolute;
+        bottom: -1px; left: 0; right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(199,175,121,0.4), transparent);
+    }
+    .clipboard-tab::before {
+        content: '';
+        position: absolute;
+        top: -8px; left: 50%; transform: translateX(-50%);
+        width: 40px; height: 8px;
+        background: rgba(199,175,121,0.15);
+        border-radius: 8px 8px 0 0;
+        border: 1px solid rgba(199,175,121,0.1);
+        border-bottom: none;
+    }
+
+    /* Official stamp seal */
+    .official-seal {
+        width: 60px; height: 60px;
+        border-radius: 50%;
+        border: 2px solid rgba(199,175,121,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+    .official-seal::before {
+        content: '';
+        position: absolute;
+        inset: 4px;
+        border-radius: 50%;
+        border: 1px solid rgba(199,175,121,0.15);
+    }
+
+    /* Badge pill */
+    .badge-celestial {
+        background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(199,175,121,0.08));
+        border: 1px solid rgba(199,175,121,0.2);
+        color: #c7af79;
+    }
+
+    /* Document ruled lines */
+    .doc-rules {
+        background-image: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 31px,
+            rgba(199,175,121,0.06) 31px,
+            rgba(199,175,121,0.06) 32px
+        );
+    }
+</style>
+
+<script>
+    /* ===== MOUSE TRACKING ===== */
+    let mouseX = -1000, mouseY = -1000;
+    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+    /* ===== PARTICLES ===== */
+    function initParticles() {
+        const container = document.getElementById('ossaka-particles');
+        if (!container || container.children.length > 0) return;
+        const particles = [];
+
+        // Star dust particles (25)
+        for (let i = 0; i < 25; i++) {
+            const p = document.createElement('div');
+            p.className = 'absolute rounded-full pointer-events-none';
+            const size = 1 + Math.random() * 2.5;
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            p.style.width = `${size}px`;
+            p.style.height = `${size}px`;
+            p.style.top = `${y}%`;
+            p.style.left = `${x}%`;
+            const isGold = Math.random() > 0.6;
+            p.style.background = isGold
+                ? `rgba(199, 175, 121, ${0.4 + Math.random() * 0.4})`
+                : `rgba(255, 255, 255, ${0.3 + Math.random() * 0.4})`;
+            p.style.boxShadow = isGold
+                ? `0 0 ${4 + Math.random() * 4}px rgba(199, 175, 121, 0.5)`
+                : `0 0 ${3 + Math.random() * 3}px rgba(255, 255, 255, 0.3)`;
+            p.style.animation = `celestial-float ${10 + Math.random() * 14}s ease-in-out infinite ${Math.random() * 7}s`;
+            p.style.willChange = 'transform, opacity, filter';
+            container.appendChild(p);
+            particles.push({ el: p, x: x / 100, y: y / 100 });
+        }
+
+        // Constellation connector particles (6 pairs)
+        for (let i = 0; i < 6; i++) {
+            const p = document.createElement('div');
+            p.className = 'absolute pointer-events-none';
+            const size = 2 + Math.random() * 2;
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            p.style.width = `${size}px`;
+            p.style.height = `${size}px`;
+            p.style.top = `${y}%`;
+            p.style.left = `${x}%`;
+            p.style.borderRadius = '50%';
+            p.style.background = 'rgba(199, 175, 121, 0.6)';
+            p.style.boxShadow = '0 0 8px rgba(199, 175, 121, 0.5), 0 0 16px rgba(99, 102, 241, 0.2)';
+            p.style.animation = `celestial-float ${14 + Math.random() * 10}s ease-in-out infinite ${Math.random() * 8}s`;
+            p.style.willChange = 'transform, opacity, filter';
+            container.appendChild(p);
+            particles.push({ el: p, x: x / 100, y: y / 100 });
+        }
+
+        // Mouse reactive
+        const mouseRadius = 130;
+        function update() {
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            for (const p of particles) {
+                const px = p.x * vw;
+                const py = p.y * vh;
+                const dx = px - mouseX;
+                const dy = py - mouseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < mouseRadius && mouseX > 0) {
+                    const force = (1 - dist / mouseRadius) * 18;
+                    const angle = Math.atan2(dy, dx);
+                    p.el.style.transform = `translate(${Math.cos(angle) * force}px, ${Math.sin(angle) * force}px)`;
+                    p.el.style.filter = `brightness(${1 + (1 - dist / mouseRadius) * 0.8})`;
+                } else {
+                    p.el.style.transform = '';
+                    p.el.style.filter = '';
+                }
+            }
+            requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+    }
+
+    /* ===== SCROLL PROGRESS ===== */
+    function initScrollProgress() {
+        const bar = document.getElementById('ossaka-scroll-progress');
+        if (!bar) return;
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            bar.style.width = docHeight > 0 ? `${(scrollTop / docHeight) * 100}%` : '0%';
+        }, { passive: true });
+    }
+
+    /* ===== 3D CARD TILT ===== */
+    function initCardTilt() {
+        const cards = document.querySelectorAll('.glass-card-ossaka');
+        const maxTilt = 8;
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+                const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+                const mx = ((e.clientX - rect.left) / rect.width) * 100;
+                const my = ((e.clientY - rect.top) / rect.height) * 100;
+                card.style.setProperty('--mouse-x', `${mx}%`);
+                card.style.setProperty('--mouse-y', `${my}%`);
+                card.classList.remove('tilt-reset');
+                card.classList.add('tilt-active');
+                card.style.transform = `perspective(600px) rotateX(${-dy * maxTilt}deg) rotateY(${dx * maxTilt}deg) scale3d(1.02,1.02,1.02)`;
+                card.style.boxShadow = `${-dx * 12}px ${dy * 12}px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(199,175,121,0.08)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('tilt-active');
+                card.classList.add('tilt-reset');
+                card.style.transform = '';
+                card.style.boxShadow = '';
+                card.style.setProperty('--mouse-x', '50%');
+                card.style.setProperty('--mouse-y', '50%');
+            });
+        });
+    }
+
+    function initAll() {
+        initParticles();
+        initScrollProgress();
+        initCardTilt();
+    }
+    document.addEventListener('DOMContentLoaded', initAll);
+    document.addEventListener('astro:page-load', initAll);
+</script>

@@ -46,69 +46,45 @@ try {
 
 // Fallback data
 const defaultTeachers: Teacher[] = [
-  {
-    _id: "1",
-    name: "Drs. H. Ahmad Fauzi, M.Pd",
-    position: "Kepala Sekolah",
-    description: "Memimpin dan mengkoordinasikan seluruh kegiatan sekolah",
-    order: 1
-  },
-  {
-    _id: "2",
-    name: "Dra. Siti Nurjanah, M.Pd",
-    position: "Wakil Kepala Kurikulum",
-    subject: "Bahasa Indonesia",
-    description: "Mengatur dan mengembangkan kurikulum sekolah",
-    order: 2
-  },
-  {
-    _id: "3",
-    name: "Drs. Muhammad Rizki, S.Pd",
-    position: "Wakil Kepala Kesiswaan",
-    subject: "Pendidikan Agama Islam",
-    description: "Membina dan mengembangkan potensi siswa",
-    order: 3
-  },
-  {
-    _id: "4",
-    name: "Sri Wahyuni, S.Pd",
-    position: "Guru Matematika",
-    subject: "Matematika",
-    description: "Pengajar berpengalaman lebih dari 10 tahun",
-    order: 4
-  },
-  {
-    _id: "5",
-    name: "John Anderson, B.Ed",
-    position: "Native English Teacher",
-    subject: "English",
-    description: "Mengembangkan kemampuan bahasa Inggris siswa",
-    order: 5
-  },
-  {
-    _id: "6",
-    name: "Dr. Bambang Sutrisno, M.Sc",
-    position: "Guru IPA",
-    subject: "Biologi & Kimia",
-    description: "Lulusan S3 dengan pengalaman riset internasional",
-    order: 6
-  },
-  {
-    _id: "7",
-    name: "Fatimah Az-Zahra, S.Pd.I",
-    position: "Guru Tahfidz",
-    subject: "Al-Qur'an & Tahfidz",
-    description: "Hafidzah 30 juz dengan sanad muttashil",
-    order: 7
-  },
-  {
-    _id: "8",
-    name: "Rudi Hartono, S.Kom",
-    position: "Guru TIK",
-    subject: "Teknologi Informasi",
-    description: "Spesialis programming dan web development",
-    order: 8
-  }
+  { _id: "1", name: "Mr. Arif Hidayat, M.Pd.", position: "Kepala Sekolah", order: 1 },
+  { _id: "2", name: "Muamar Fariq Salafy, S.Pd, Gr.", position: "Wakasek Kurikulum", subject: "ICT", order: 2 },
+  { _id: "3", name: "Asnia Novitasari AM, M.E", position: "Wakasek Kesiswaan", subject: "PAI", order: 3 },
+  { _id: "4", name: "Hari Rohmah, S.Pd", position: "Guru", subject: "Matematika", order: 4 },
+  { _id: "5", name: "Wafda Salsabila, S.Pd.", position: "Guru", subject: "Matematika", order: 5 },
+  { _id: "6", name: "Siti Robiatul Adawiyah, S.Si.", position: "Guru", subject: "Matematika", order: 6 },
+  { _id: "7", name: "Adila Rahmah, M.Pd", position: "Guru", subject: "Matematika", order: 7 },
+  { _id: "8", name: "Scundy Nourma Pratiwi, S.Pd., M.Pd", position: "Guru", subject: "IPA", order: 8 },
+  { _id: "9", name: "Binti Qoeroti, S.Pd., M.Si", position: "Guru", subject: "IPA", order: 9 },
+  { _id: "10", name: "Ramadanti Prativi, S.Pd", position: "Guru", subject: "IPA", order: 10 },
+  { _id: "11", name: "Fitri Nur Kolifah, S.Pd., Gr.", position: "Guru", subject: "IPA", order: 11 },
+  { _id: "12", name: "Fatma Roudhotul Rafida Kolis, S.Pd., Gr.", position: "Guru", subject: "IPA, ICT", order: 12 },
+  { _id: "13", name: "Joko Ariyanto, ST., Gr.", position: "Guru", subject: "ICT", order: 13 },
+  { _id: "14", name: "Ifan Destya Adi Tama, S. Pd", position: "Guru", subject: "ICT", order: 14 },
+  { _id: "15", name: "Musfiq Amrulloh, S.Pd", position: "Guru", subject: "ICT", order: 15 },
+  { _id: "16", name: "Febri Cahya Syahputra, S.Pd., M.Pd.", position: "Guru", subject: "ICT", order: 16 },
+  { _id: "17", name: "Aulia Qisthi Rosyada, S.Pd", position: "Guru", subject: "ICT", order: 17 },
+  { _id: "18", name: "Charlieta Nova Putri Fedito, S.Pd", position: "Guru", subject: "ICT", order: 18 },
+  { _id: "19", name: "Siti Khoimah, S.Pd., Gr.", position: "Guru", subject: "IPS", order: 19 },
+  { _id: "20", name: "Yona Puspa Ningtias, S.Pd", position: "Guru", subject: "IPS, PKn", order: 20 },
+  { _id: "21", name: "Danang Dwi Pambudi, S.Pd., Gr.", position: "Guru", subject: "PKn", order: 21 },
+  { _id: "22", name: "Sharih Shadri, S.S., Gr.", position: "Guru", subject: "Bahasa Inggris", order: 22 },
+  { _id: "23", name: "Farida Nur Hidayati, S.Pd", position: "Guru", subject: "Bahasa Inggris", order: 23 },
+  { _id: "24", name: "Hang Sakti Abdullah, S.Pd", position: "Guru", subject: "Bahasa Inggris", order: 24 },
+  { _id: "25", name: "Syarah Karina Putri, S.Pd.", position: "Guru", subject: "Bahasa Indonesia", order: 25 },
+  { _id: "26", name: "Isti Qomah Nurul Izzati, S.Pd", position: "Guru", subject: "Bahasa Indonesia", order: 26 },
+  { _id: "27", name: "Iin Indah Saputri, S.Pd", position: "Guru", subject: "Bahasa Indonesia", order: 27 },
+  { _id: "28", name: "Daffa Danendra Rizqi Nugraha, S.Pd", position: "Guru", subject: "PJOK", order: 28 },
+  { _id: "29", name: "Arvino Nurvieri Kusuma, S.Pd", position: "Guru", subject: "PJOK", order: 29 },
+  { _id: "30", name: "Siti Sirril Inayah", position: "Guru", subject: "Qur'an", order: 30 },
+  { _id: "31", name: "Ida Aryani S, Sos", position: "Guru", subject: "Qur'an", order: 31 },
+  { _id: "32", name: "Muhammad Fahmi Aziz, S.Psi", position: "Guru", subject: "Qur'an", order: 32 },
+  { _id: "33", name: "Ahmad Bayu Abdullah, M.Pd", position: "Guru", subject: "Qur'an", order: 33 },
+  { _id: "34", name: "Siti Zamrotun Rizqiah, S.Pd.I", position: "Guru", subject: "Qur'an", order: 34 },
+  { _id: "35", name: "Syahrul Abdi Narotama, S.Ag", position: "Guru", subject: "Qur'an", order: 35 },
+  { _id: "36", name: "Andi wijayanto, S.Pd", position: "Guru", subject: "Qur'an", order: 36 },
+  { _id: "37", name: "Muhammad Syafiq, S.Pd.", position: "Guru", subject: "PAI, Qur'an", order: 37 },
+  { _id: "38", name: "Amien Nur Wicaksono, S.Ag", position: "Guru", subject: "PAI, Qur'an", order: 38 },
+  { _id: "39", name: "Yoki Wirawan, S.Pd", position: "Guru", subject: "IFE, Qur'an", order: 39 }
 ];
 
 const displayTeachers = teachers.length > 0 ? teachers : defaultTeachers;
@@ -124,24 +100,21 @@ const sortedTeachers = [...displayTeachers].sort((a, b) => {
 });
 
 // Get color scheme for variety
-type ColorScheme = 'primary' | 'secondary' | 'tertiary';
+type ColorScheme = 'primary' | 'secondary' | 'accent';
 const getColorScheme = (index: number): ColorScheme => {
-  const schemes: ColorScheme[] = ['primary', 'secondary', 'tertiary'];
+  const schemes: ColorScheme[] = ['primary', 'secondary', 'accent'];
   return schemes[index % 3];
 };
 ---
 
-<section class="py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+<section class="py-12 md:py-20 bg-[#f8fafc] dark:bg-white/[0.03] overflow-hidden">
   <div class="max-w-7xl mx-auto px-4">
     <!-- Header -->
     <div class="text-center mb-16">
-      <div class="inline-block mb-4 px-4 py-2 bg-primary-100 dark:bg-primary-900/30 rounded-full text-sm font-semibold text-primary-600 dark:text-primary-400">
-        👥 Team
-      </div>
-      <h2 class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
         {title}
       </h2>
-      <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+      <p class="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
         {subtitle}
       </p>
     </div>

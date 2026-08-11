@@ -20,18 +20,16 @@ interface Feature {
   isActive?: boolean;
 }
 
-// Fetch features dari Sanity
 const features = await sanityClient.fetch<Feature[]>(
   `*[_type == "features" && isActive == true] | order(order asc) [0...6]`
 );
 
-// Fallback kalau belum ada data di Sanity
 const defaultFeatures: Feature[] = [
   {
     order: 1,
     title: 'Kurikulum Bilingual',
     description: 'Pembelajaran dwi bahasa (Indonesia & Inggris) dengan metode modern dan interaktif',
-    icon: '📚',
+    icon: 'book',
     borderColor: 'border-primary-500',
     gradientFrom: 'from-primary-500',
     gradientTo: 'to-primary-600',
@@ -40,16 +38,16 @@ const defaultFeatures: Feature[] = [
     order: 2,
     title: 'Pendidikan Islam',
     description: 'Pemahaman agama yang kuat dengan tahfidz Al-Qur\'an dan akhlak mulia',
-    icon: '🕌',
-    borderColor: 'border-tertiary-500',
-    gradientFrom: 'from-tertiary-500',
-    gradientTo: 'to-tertiary-600',
+    icon: 'home',
+    borderColor: 'border-accent-500',
+    gradientFrom: 'from-accent-500',
+    gradientTo: 'to-accent-600',
   },
   {
     order: 3,
     title: 'Boarding School',
     description: 'Asrama nyaman dengan pengawasan 24 jam dan pembinaan karakter terpadu',
-    icon: '🏠',
+    icon: 'home',
     borderColor: 'border-secondary-400',
     gradientFrom: 'from-secondary-400',
     gradientTo: 'to-secondary-500',
@@ -58,7 +56,7 @@ const defaultFeatures: Feature[] = [
     order: 4,
     title: 'Teknologi Modern',
     description: 'Fasilitas IT lengkap dengan pembelajaran berbasis teknologi digital',
-    icon: '💻',
+    icon: 'monitor',
     borderColor: 'border-primary-500',
     gradientFrom: 'from-primary-500',
     gradientTo: 'to-primary-600',
@@ -67,16 +65,16 @@ const defaultFeatures: Feature[] = [
     order: 5,
     title: 'Ekstrakurikuler',
     description: 'Beragam kegiatan untuk mengembangkan bakat dan minat siswa',
-    icon: '⚽',
-    borderColor: 'border-tertiary-500',
-    gradientFrom: 'from-tertiary-500',
-    gradientTo: 'to-tertiary-600',
+    icon: 'zap',
+    borderColor: 'border-accent-500',
+    gradientFrom: 'from-accent-500',
+    gradientTo: 'to-accent-600',
   },
   {
     order: 6,
     title: 'Prestasi Gemilang',
     description: 'Track record juara di berbagai kompetisi tingkat regional hingga nasional',
-    icon: '🏆',
+    icon: 'star',
     borderColor: 'border-secondary-400',
     gradientFrom: 'from-secondary-400',
     gradientTo: 'to-secondary-500',
@@ -86,31 +84,67 @@ const defaultFeatures: Feature[] = [
 const displayFeatures = features.length > 0 ? features : defaultFeatures;
 ---
 
-<section id="tentang" class="py-16 bg-gray-50 dark:bg-gray-900">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        Keunggulan ABBS Surakarta
+<section id="tentang" class="py-12 md:py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-2xl mb-12 md:mb-16">
+      <span class="font-hand text-xl text-primary-600 dark:text-accent-400 rotate-[-2deg] block mb-3">kenapa harus kami?</span>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+        Kenapa <span class="font-serif font-normal italic text-primary-600 dark:text-primary-400">ABBS?</span>
       </h2>
-      <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-        Fasilitas dan program unggulan untuk mengembangkan potensi siswa secara maksimal
+      <p class="text-slate-600 dark:text-gray-400 mt-4 leading-relaxed max-w-xl">
+        Fasilitas dan program unggulan yang dirancang untuk membekali siswa dengan kompetensi masa depan.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8">
-      {displayFeatures.map((feature) => (
-        <div class={`bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border-t-4 ${feature.borderColor}`}>
-          <div class={`w-16 h-16 bg-gradient-to-br ${feature.gradientFrom} ${feature.gradientTo} rounded-2xl flex items-center justify-center text-3xl mb-4 shadow-lg`}>
-            {feature.icon}
+    <div class="grid md:grid-cols-3 gap-5">
+      {displayFeatures.map((feature, index) => {
+        const isLarge = index === 0;
+        return isLarge ? (
+          <div class="group relative md:col-span-2 md:row-span-2 rounded-2xl p-7 md:p-10 overflow-hidden flex flex-col justify-between bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-primary-950/30 dark:via-gray-900 dark:to-secondary-950/30 border border-slate-200/80 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div class="pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full bg-primary-500/10 dark:bg-primary-400/10 blur-3xl"></div>
+            <div class="pointer-events-none absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-secondary-500/10 dark:bg-secondary-400/10 blur-3xl"></div>
+
+            <div class="relative">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-600/10 dark:bg-primary-400/10 text-primary-700 dark:text-primary-300 text-xs font-semibold tracking-wide mb-6">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary-500 dark:bg-primary-400"></span>
+                Program Unggulan
+              </span>
+              <div class={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradientFrom} ${feature.gradientTo} flex items-center justify-center text-white shadow-md mb-6`}>
+                <i data-feather={feature.icon} class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">
+                {feature.title}
+              </h3>
+              <p class="text-slate-600 dark:text-gray-400 leading-relaxed max-w-md">
+                {feature.description}
+              </p>
+            </div>
+
+            <div class="relative mt-10">
+              <a href="/program" class="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 dark:text-primary-400 transition-colors">
+                Jelajahi Program
+                <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M13 7l5 5m0 0l-5 5m5-5H6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </a>
+              <span class="pointer-events-none absolute -bottom-6 right-0 font-serif italic text-6xl text-slate-600 dark:text-slate-400 select-none">01</span>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
-            {feature.title}
-          </h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            {feature.description}
-          </p>
-        </div>
-      ))}
+        ) : (
+          <div class="group relative bg-white dark:bg-gray-900 rounded-2xl p-6 border border-slate-200/80 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <span class="absolute top-5 right-6 font-serif italic text-2xl text-slate-600 dark:text-slate-400">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <div class={`w-11 h-11 rounded-xl bg-gradient-to-br ${feature.gradientFrom} ${feature.gradientTo} flex items-center justify-center text-white shadow-sm mb-4`}>
+              <i data-feather={feature.icon} class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-base font-bold tracking-tight text-slate-900 dark:text-white mb-2">
+              {feature.title}
+            </h3>
+            <p class="text-slate-600 dark:text-gray-400 leading-relaxed text-sm">
+              {feature.description}
+            </p>
+          </div>
+        );
+      })}
     </div>
   </div>
 </section>

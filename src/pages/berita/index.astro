@@ -32,147 +32,135 @@ const allBerita = await sanityClient.fetch<Berita[]>(
 
 // Categories for filtering
 const categories = [
-  { value: 'all', label: 'Semua', icon: '📚' },
-  { value: 'akademik', label: 'Akademik', icon: '📖' },
-  { value: 'prestasi', label: 'Prestasi', icon: '🏆' },
-  { value: 'kegiatan', label: 'Kegiatan', icon: '🌍' },
-  { value: 'pengumuman', label: 'Pengumuman', icon: '📢' },
+  { value: 'all', label: 'Semua', icon: 'book' },
+  { value: 'akademik', label: 'Akademik', icon: 'book' },
+  { value: 'prestasi', label: 'Prestasi', icon: 'star' },
+  { value: 'kegiatan', label: 'Kegiatan', icon: 'globe' },
+  { value: 'pengumuman', label: 'Pengumuman', icon: 'megaphone' },
 ];
 
 const categoryIcons: Record<string, string> = {
-  'akademik': '📚',
-  'prestasi': '🏆',
-  'kegiatan': '🌍',
-  'pengumuman': '📢',
+  'akademik': 'book',
+  'prestasi': 'star',
+  'kegiatan': 'globe',
+  'pengumuman': 'megaphone',
 };
 ---
 
 <Layout title="Berita & Kegiatan - ABBS Surakarta">
-  <!-- Hero Section -->
-  <section class="relative bg-gradient-to-br from-primary-600 via-primary-500 to-primary-700 text-white overflow-hidden">
-    <div class="absolute top-0 right-0 w-64 h-64 bg-secondary-400/10 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-tertiary-500/10 rounded-full blur-3xl"></div>
-    
-    <div class="relative max-w-7xl mx-auto px-4 py-20 md:py-32">
-      <div class="text-center">
-        <div class="inline-block mb-4 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold">
-          📰 Berita & Kegiatan
-        </div>
-        <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-          Berita & Kegiatan ABBS
-        </h1>
-        <p class="text-xl md:text-2xl mb-2 text-primary-100 font-light">
-          Update Terkini Seputar Aktivitas Sekolah
-        </p>
-        <p class="text-lg mb-8 text-primary-100 max-w-2xl mx-auto">
-          Ikuti perkembangan prestasi, kegiatan, dan pengumuman terbaru dari ABBS Surakarta
-        </p>
-      </div>
+  <section class="pt-32 pb-20 text-center">
+    <div class="max-w-7xl mx-auto px-6">
+      <span class="font-hand text-xl text-accent-600 dark:text-accent-400 rotate-[-2deg] block mb-4">yang sedang terjadi di sekolah</span>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
+        Kabar <span class="font-serif font-normal italic text-primary-600 dark:text-primary-400">Terbaru</span>
+      </h1>
+      <p class="text-lg md:text-xl text-slate-600 dark:text-gray-400 max-w-3xl mx-auto">
+        Ikuti perkembangan prestasi, kegiatan, dan pengumuman terbaru dari ekosistem pendidikan ABBS Surakarta.
+      </p>
     </div>
   </section>
 
-  <!-- Filter Categories -->
-  <section class="py-8 bg-gray-50 dark:bg-gray-900 sticky top-[73px] z-40 border-b border-gray-200 dark:border-gray-700">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="flex gap-3 overflow-x-auto pb-2 hide-scrollbar" id="category-filters">
+  <section class="sticky top-[80px] z-40 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-y border-slate-200/80 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex gap-2 overflow-x-auto py-3 justify-center hide-scrollbar" id="category-filters">
         {categories.map((cat) => (
           <button
-            class="category-filter whitespace-nowrap px-6 py-3 rounded-full font-semibold transition-all shrink-0"
+            class="category-filter whitespace-nowrap px-5 py-2 rounded-lg font-semibold text-sm transition-colors uppercase tracking-wider border"
             data-category={cat.value}
           >
-            {cat.icon} {cat.label}
+            {cat.label}
           </button>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Berita Grid -->
-  <section class="py-16 bg-white dark:bg-gray-800">
-    <div class="max-w-7xl mx-auto px-4">
-      <div id="berita-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+  <section class="py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div id="berita-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {allBerita.map((berita) => (
           <article 
-            class="berita-card bg-gray-50 dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1"
+            class="berita-card flex flex-col bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-slate-200/80 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300"
             data-category={berita.category}
           >
-            {berita.featuredImage ? (
-              <img
-                src={urlFor(berita.featuredImage).width(600).height(400).url()}
-                alt={berita.title}
-                class="h-48 w-full object-cover"
-              />
-            ) : (
-              <div class={`h-48 bg-gradient-to-br ${berita.gradientFrom} ${berita.gradientTo} flex items-center justify-center text-6xl`}>
-                {categoryIcons[berita.category] || '📖'}
+            <div class="relative h-48 overflow-hidden">
+              {berita.featuredImage ? (
+                <img
+                  src={urlFor(berita.featuredImage).width(600).height(400).url()}
+                  alt={berita.title}
+                  class="w-full h-full object-cover"
+                />
+              ) : (
+                <div class={`w-full h-full bg-gradient-to-br ${berita.gradientFrom} ${berita.gradientTo} flex items-center justify-center`}>
+                  <i data-feather={categoryIcons[berita.category] || "book"} class="w-8 h-8 text-white/50" />
+                </div>
+              )}
+              <div class="absolute top-3 left-3">
+                <span class="px-2.5 py-1 bg-white/90 dark:bg-gray-900/90 rounded-lg text-[10px] font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-400">
+                  {berita.category}
+                </span>
               </div>
-            )}
-            
-            <div class="p-6">
-              <div class="flex items-center gap-2 mb-3">
-                <span class="text-xs px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full font-semibold">
-                  {categoryIcons[berita.category]} {berita.category}
-                </span>
-                <span class="text-xs text-gray-500 dark:text-gray-400">
-                  {formatDate(berita.publishedAt)}
-                </span>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col">
+              <div class="text-xs text-slate-400 dark:text-gray-500 mb-2">
+                {formatDate(berita.publishedAt)}
               </div>
               
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+              <h3 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white mb-2 leading-snug line-clamp-2">
                 {berita.title}
               </h3>
               
-              <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+              <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-4 line-clamp-3">
                 {berita.excerpt}
               </p>
               
-              <a 
-                href={`/berita/${berita.slug.current}`}
-                class="text-primary-600 dark:text-primary-400 font-semibold hover:underline inline-flex items-center gap-2 group"
-              >
-                Baca Selengkapnya 
-                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
+              <div class="mt-auto pt-4 border-t border-slate-100 dark:border-gray-800/50">
+                <a 
+                  href={`/berita/${berita.slug.current}`}
+                  class="text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-primary-600 transition-colors"
+                >
+                  Selengkapnya &rarr;
+                </a>
+              </div>
             </div>
           </article>
         ))}
       </div>
 
-      <!-- Empty State -->
-      <div id="empty-state" class="hidden text-center py-16">
-        <div class="text-6xl mb-4">🔍</div>
-        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          Tidak Ada Berita
-        </h3>
-        <p class="text-gray-600 dark:text-gray-400">
-          Tidak ada berita dalam kategori ini
-        </p>
+      <div id="empty-state" class="hidden text-center py-20">
+        <div class="w-16 h-16 bg-slate-50 dark:bg-gray-900 rounded-2xl flex items-center justify-center mx-auto mb-6 text-slate-400">
+          <i data-feather="search" class="w-6 h-6" />
+        </div>
+        <h3 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">Tidak Ada Berita</h3>
+        <p class="text-slate-600 dark:text-gray-400">Maaf, tidak ada berita yang ditemukan dalam kategori ini.</p>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
   .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
 
   .category-filter {
-    @apply bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300;
-    @apply hover:bg-primary-100 dark:hover:bg-primary-900/30;
-    @apply hover:text-primary-600 dark:hover:text-primary-400;
+    @apply bg-white dark:bg-gray-900 text-slate-500 dark:text-gray-500 border-slate-200/80 dark:border-gray-800;
   }
 
   .category-filter.active {
-    @apply bg-primary-600 dark:bg-primary-500 text-white;
+    @apply bg-primary-600 text-white border-primary-600 shadow-md shadow-primary-500/20;
+  }
+
+  .category-filter:not(.active):hover {
+    @apply border-primary-600 text-primary-600;
   }
 </style>
+
 
 <script>
   // Filter functionality

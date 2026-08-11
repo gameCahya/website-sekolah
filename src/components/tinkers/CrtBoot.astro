@@ -1,0 +1,310 @@
+---
+
+---
+
+<div
+    id="monitor-wrapper"
+    class="fixed inset-0 z-[999] bg-[#050505] flex items-center justify-center overflow-hidden"
+>
+    <div
+        id="crt-container"
+        class="relative w-full h-full flex flex-col items-center justify-center crt-curvature"
+    >
+        <div class="pointer-events-none absolute inset-0 z-50 crt-overlay">
+        </div>
+        <div class="absolute inset-0 scanlines pointer-events-none z-40"></div>
+
+        <div
+            id="boot-frame"
+            class="absolute flex flex-col items-center justify-center overflow-hidden opacity-0 w-full h-full"
+        >
+            <!-- Central Startup Logo (Moved outside cmd-window) -->
+            <img 
+                id="startup-logo"
+                src="/communities/the_tinkers.png" 
+                alt="The Tinkers Logo"
+                class="absolute w-48 md:w-64 opacity-0 pointer-events-none z-50 filter brightness(0) invert(1) drop-shadow-[0_0_20px_rgba(0,242,255,0.8)]"
+            />
+
+            <div
+                id="cmd-window"
+                class="w-full h-full flex items-center justify-center opacity-0 crt-content relative z-20 transition-opacity duration-700"
+            >
+                <div
+                    class="absolute inset-0 bg-black shadow-[inset_0_0_100px_rgba(0,0,0,0.9)]"
+                >
+                </>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const bootFrame = document.getElementById("boot-frame");
+    const cmdWindow = document.getElementById("cmd-window");
+    const wrapper = document.getElementById("monitor-wrapper");
+    const logo = document.getElementById("startup-logo");
+
+    function finishBoot() {
+        if (wrapper) {
+            wrapper.style.transition = "opacity 0.4s ease-out";
+            wrapper.style.opacity = "0";
+
+            window.dispatchEvent(new CustomEvent("boot-finished"));
+
+            setTimeout(() => {
+                wrapper.style.display = "none";
+            }, 400);
+        }
+    }
+
+    async function runBoot() {
+        if (!bootFrame || !cmdWindow || !wrapper || !logo) return;
+
+        // 1. Initial Delay (500ms)
+        await new Promise((r) => setTimeout(r, 500));
+
+        // 2. CRT Power-On Visuals (1200ms)
+        bootFrame.classList.add("animate-crt-turn-on");
+
+        // Trigger Logo Entrance
+        setTimeout(() => {
+            logo.classList.add("logo-entrance-glitch");
+            logo.style.opacity = "1";
+        }, 500);
+
+        await new Promise((r) => setTimeout(r, 1200));
+
+        // 4. Stable Power-On State
+        bootFrame.classList.remove("animate-crt-turn-on");
+        bootFrame.style.opacity = "1";
+        bootFrame.style.backgroundColor = "#050505";
+        bootFrame.classList.add("crt-flicker", "crt-turn-on-flash");
+        cmdWindow.style.opacity = "1";
+
+        // 5. Pause to see the glitchy logo (1300ms)
+        await new Promise((r) => setTimeout(r, 1300));
+
+        // 6. Power-Off/Transition Effect (500ms)
+        bootFrame.classList.remove("crt-flicker");
+        cmdWindow.style.opacity = "0";
+        bootFrame.classList.add("animate-crt-turn-off");
+
+        setTimeout(() => {
+            finishBoot(); // This triggers the final hand-off at 3500ms
+        }, 500);
+    }
+
+    window.addEventListener("load", runBoot);
+</script>
+
+<style>
+    /* Crazy Logo Animations */
+    .logo-entrance-glitch {
+        animation: 
+            logoDrop 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards,
+            logoCrazyGlitch 1s step-end infinite 0.8s;
+    }
+
+    @keyframes logoDrop {
+        0% {
+            transform: translateY(-120%) scaleY(3) scaleX(0.5);
+            filter: brightness(10) blur(20px);
+            opacity: 0;
+        }
+        60% {
+            transform: translateY(20%) scaleY(0.5) scaleX(1.5);
+            filter: brightness(2) blur(5px);
+            opacity: 1;
+        }
+        80% {
+            transform: translateY(-10%) scaleY(1.2) scaleX(0.9);
+        }
+        100% {
+            transform: translateY(0) scaleY(1) scaleX(1);
+            filter: brightness(1) blur(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes logoCrazyGlitch {
+        0% { 
+            clip-path: inset(20% 0 50% 0); 
+            transform: translate(-10px, 5px) skew(15deg); 
+            filter: brightness(0) invert(1) hue-rotate(90deg);
+        }
+        10% { 
+            clip-path: inset(10% 0 80% 0); 
+            transform: translate(15px, -10px) scale(1.1); 
+            filter: brightness(1) invert(0) contrast(2); /* Normal state flash */
+        }
+        20% { 
+            clip-path: inset(50% 0 10% 0); 
+            transform: translate(-20px, 15px) skew(-10deg); 
+            filter: brightness(0) invert(1) contrast(5);
+        }
+        30% { 
+            clip-path: inset(0 30% 0 40%); 
+            transform: translate(5px, 5px) scale(0.9);
+            filter: brightness(0) invert(1) sepia(1) hue-rotate(180deg);
+        }
+        40% { 
+            clip-path: inset(80% 0 5% 0); 
+            transform: translate(-15px, -5px) skew(20deg);
+            filter: brightness(1) invert(0); /* Normal state flash */
+        }
+        50% { 
+            clip-path: inset(10% 0 10% 0); 
+            transform: translate(10px, 10px) scaleX(1.5);
+            filter: brightness(0) invert(1) hue-rotate(-90deg);
+        }
+        60% { 
+            clip-path: inset(40% 40% 40% 40%); 
+            transform: translate(-5px, -15px);
+            filter: brightness(2) invert(0); /* Normal state flash */
+        }
+        70% { 
+            clip-path: inset(0 0 0 0); 
+            transform: translate(0) scale(1);
+            filter: brightness(0) invert(1);
+        }
+        100% { 
+            clip-path: inset(0 0 0 0); 
+            transform: translate(0);
+            filter: brightness(0) invert(1);
+        }
+    }
+
+    .crt-curvature {
+        position: relative;
+    }
+
+    .animate-crt-turn-on {
+        animation: crtTurnOn 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    @keyframes crtTurnOn {
+        0% {
+            transform: scale(0.001, 0.001);
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow:
+                0 0 20px 10px #fff,
+                0 0 50px 20px #00f2ff;
+            opacity: 0;
+        }
+        15% {
+            transform: scale(0.002, 0.002);
+            background: #ffffff;
+            border-radius: 50%;
+            opacity: 1;
+            box-shadow:
+                0 0 30px 15px #fff,
+                0 0 80px 30px #00f2ff;
+        }
+        40% {
+            transform: scale(1, 0.002);
+            background: #ffffff;
+            border-radius: 0;
+            box-shadow:
+                0 0 40px 20px #fff,
+                0 0 100px 40px #00f2ff;
+        }
+        60% {
+            transform: scale(1, 1);
+            background: #050505;
+            box-shadow: none;
+        }
+        100% {
+            transform: scale(1, 1);
+            background: #050505;
+            box-shadow: none;
+            opacity: 1;
+        }
+    }
+
+    .animate-crt-turn-off {
+        animation: crtTurnOff 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        background: #ffffff !important;
+    }
+
+    @keyframes crtTurnOff {
+        0% {
+            transform: scale(1, 1);
+            opacity: 1;
+            box-shadow: none;
+        }
+        30% {
+            transform: scale(1, 0.002);
+            opacity: 1;
+            box-shadow:
+                0 0 40px 20px #fff,
+                0 0 100px 40px #00f2ff;
+        }
+        80% {
+            transform: scale(0.002, 0.002);
+            border-radius: 50%;
+            opacity: 1;
+            box-shadow:
+                0 0 30px 15px #fff,
+                0 0 80px 30px #00f2ff;
+        }
+        100% {
+            transform: scale(0.001, 0.001);
+            border-radius: 50%;
+            opacity: 0;
+        }
+    }
+
+    .crt-turn-on-flash {
+        animation: flashScreen 0.8s ease-out;
+    }
+    @keyframes flashScreen {
+        0% {
+            filter: brightness(3) contrast(1.5) hue-rotate(-20deg);
+        }
+        50% {
+            filter: brightness(1.5) contrast(1.2);
+        }
+        100% {
+            filter: brightness(1) contrast(1);
+        }
+    }
+
+    .crt-overlay {
+        background: radial-gradient(
+            circle at center,
+            transparent 40%,
+            rgba(0, 0, 0, 0.4) 85%,
+            rgba(0, 0, 0, 0.8) 100%
+        );
+        box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+    }
+
+    .crt-flicker {
+        animation: flicker 0.15s infinite;
+    }
+    @keyframes flicker {
+        0% {
+            opacity: 0.97;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0.99;
+        }
+    }
+
+    .scanlines {
+        background: linear-gradient(
+            to bottom,
+            transparent,
+            transparent 50%,
+            rgba(0, 242, 255, 0.05) 50%,
+            rgba(0, 242, 255, 0.05)
+        );
+        background-size: 100% 4px;
+        opacity: 0.4;
+    }
+</style>

@@ -1,0 +1,154 @@
+---
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+<div class="page" id={id}>
+  <!-- FRONT: Physics -->
+  <div class="front bg-slate-50 border-l border-slate-300 relative overflow-hidden">
+    <!-- Pendulum doodle -->
+    <div class="absolute top-6 right-6 opacity-[0.06] pointer-events-none rotate-6">
+      <svg width="80" height="90" viewBox="0 0 80 90" class="stroke-teal-900 fill-none" stroke-width="1">
+        <line x1="40" y1="5" x2="40" y2="12" stroke-dasharray="2 2"/>
+        <line x1="40" y1="12" x2="22" y2="60" />
+        <line x1="40" y1="12" x2="58" y2="60" stroke-dasharray="3 3"/>
+        <circle cx="22" cy="65" r="6" />
+        <path d="M 18 78 Q 40 72, 62 78" stroke-dasharray="2 2"/>
+      </svg>
+    </div>
+    <!-- Formulas -->
+    <div class="absolute bottom-6 left-10 opacity-[0.06] font-hand text-[9px] text-teal-900 space-y-0.5 pointer-events-none">
+      <p>F = ma</p>
+      <p>E = ½mv²</p>
+      <p>P = W/t</p>
+      <p>V = IR</p>
+    </div>
+
+    <div class="absolute bottom-4 right-6 text-[9px] font-serif text-slate-300 italic">— 4 —</div>
+
+    <div class="p-14 h-full flex flex-col relative z-10">
+      <div class="flex items-center gap-3 border-b-4 border-teal-500 pb-3 mb-4">
+        <div class="w-2 h-2 rounded-full bg-teal-500"></div>
+        <h2 class="text-3xl font-black text-teal-950 uppercase tracking-tighter">IPA: Fisika</h2>
+      </div>
+
+      <div class="prose prose-slate prose-sm font-serif space-y-2 flex-1">
+        <h4 class="text-sm font-bold text-teal-800 uppercase tracking-widest relative inline-block">
+          Materi OSN SMP
+          <svg class="absolute -bottom-1 left-0 w-full h-2 opacity-40" viewBox="0 0 100 10" preserveAspectRatio="none">
+            <path d="M0 5 Q 25 0, 50 5 T 100 5" stroke="#0d9488" stroke-width="2" fill="none" />
+          </svg>
+        </h4>
+        <div class="text-[11px] text-slate-600 space-y-1.5 leading-relaxed">
+          <ul class="list-none pl-0 space-y-2 mt-2">
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-teal-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-teal-600">1</span></span>
+              <div><strong class="text-teal-900">Mekanika:</strong> <span class="text-slate-500">Gerak lurus beraturan & berubah beraturan, Hukum Newton, Usaha-Energi, Momentum.</span></div>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-teal-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-teal-600">2</span></span>
+              <div><strong class="text-teal-900">Optik &amp; Gelombang:</strong> <span class="text-slate-500">Pembiasan cahaya, lensa tipis, interferensi, difraksi, bunyi.</span></div>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-teal-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-teal-600">3</span></span>
+              <div><strong class="text-teal-900">Listrik &amp; Magnet:</strong> <span class="text-slate-500">Hukum Ohm, rangkaian campuran, daya, energi listrik, induksi elektromagnetik.</span></div>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-yellow-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-yellow-600">4</span></span>
+              <div><strong class="text-teal-900">Suhu &amp; Kalor:</strong> <span class="bg-yellow-200/40 px-1 rounded text-slate-600">Pemuaian, kalor jenis, perpindahan kalor, mesin Carnot.</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Formula cheat sheet box -->
+        <div class="mt-2 p-3 bg-teal-50/60 border border-teal-100 rounded-lg">
+          <p class="text-[9px] font-bold text-teal-700 uppercase tracking-widest mb-2">Rumus Penting:</p>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-[10px] text-teal-800 font-hand">
+            <p>v = v₀ + at</p>
+            <p>s = v₀t + ½at²</p>
+            <p>F = ma</p>
+            <p>P = F/A</p>
+            <p>V = IR</p>
+            <p>P = VI</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 flex justify-end">
+        <button onclick="window.flipPage(3)" class="text-xs font-serif italic text-teal-700 hover:text-teal-900 transition-colors flex items-center gap-2">Next Page <i data-feather="arrow-right" class="w-4 h-4"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BACK: Biology -->
+  <div class="back bg-slate-50 border-r border-slate-300 shadow-inner relative overflow-hidden">
+    <!-- DNA helix doodle -->
+    <div class="absolute bottom-6 right-6 opacity-[0.06] pointer-events-none -rotate-6">
+      <svg width="45" height="90" viewBox="0 0 45 90" class="stroke-emerald-800 fill-none" stroke-width="1.5">
+        <path d="M10 0 Q 35 12, 10 25 Q 35 37, 10 50 Q 35 62, 10 75" />
+        <path d="M35 0 Q 10 12, 35 25 Q 10 37, 35 50 Q 10 62, 35 75" />
+        <line x1="15" y1="8" x2="30" y2="8" stroke-dasharray="2 2"/>
+        <line x1="15" y1="25" x2="30" y2="25" stroke-dasharray="2 2"/>
+        <line x1="15" y1="42" x2="30" y2="42" stroke-dasharray="2 2"/>
+        <line x1="15" y1="58" x2="30" y2="58" stroke-dasharray="2 2"/>
+      </svg>
+    </div>
+    <!-- Cell doodle -->
+    <div class="absolute top-8 right-8 opacity-[0.05] pointer-events-none">
+      <svg width="60" height="60" viewBox="0 0 60 60" class="stroke-emerald-800 fill-none" stroke-width="1">
+        <ellipse cx="30" cy="30" rx="25" ry="20"/>
+        <circle cx="30" cy="30" r="8" stroke-dasharray="2 2"/>
+        <circle cx="30" cy="30" r="3" fill="currentColor" opacity="0.3"/>
+      </svg>
+    </div>
+
+    <div class="absolute bottom-4 left-6 text-[9px] font-serif text-slate-300 italic">— 5 —</div>
+
+    <div class="p-14 h-full flex flex-col relative z-10">
+      <div class="flex items-center gap-3 border-b-4 border-emerald-500 pb-3 mb-4">
+        <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+        <h2 class="text-3xl font-black text-emerald-950 uppercase tracking-tighter">IPA: Biologi</h2>
+      </div>
+      
+      <div class="prose prose-slate prose-sm font-serif space-y-2 flex-1">
+        <h4 class="text-sm font-bold text-emerald-800 uppercase tracking-widest">Materi OSN SMP</h4>
+        <div class="text-[11px] text-slate-600 space-y-1.5 leading-relaxed">
+          <ul class="list-none pl-0 space-y-2 mt-2">
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-emerald-600">1</span></span>
+              <div><strong class="text-emerald-900">Sel &amp; Jaringan:</strong> <span class="text-slate-500">Struktur organel sel tumbuhan & hewan, metabolisme, transport membran.</span></div>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-emerald-600">2</span></span>
+              <div><strong class="text-emerald-900">Sistem Organ:</strong> <span class="text-slate-500">Peredaran darah, pernapasan, pencernaan, ekskresi, koordinasi.</span></div>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-emerald-600">3</span></span>
+              <div><strong class="text-emerald-900">Genetika:</strong> <span class="text-slate-500">Hukum Mendel, pewarisan sifat, struktur DNA & RNA, rekombinasi DNA.</span></div>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="w-4 h-4 rounded bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5"><span class="text-[8px] font-bold text-emerald-600">4</span></span>
+              <div><strong class="text-emerald-900">Ekologi:</strong> <span class="text-slate-500">Ekosistem, rantai makanan, siklus biogeokimia, biodiversitas.</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Key concept box -->
+        <div class="mt-2 p-3 bg-emerald-50/60 border border-emerald-100 rounded-lg">
+          <p class="text-[9px] font-bold text-emerald-700 uppercase tracking-widest mb-2">Konsep Kunci:</p>
+          <div class="space-y-1 text-[10px] text-emerald-800 font-hand">
+            <p>• DNA → RNA → Protein (Pusat Sentra)</p>
+            <p>• Fotosintesis: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</p>
+            <p>• Mitokondria = "Powerhouse of the cell"</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 flex justify-start">
+        <button onclick="window.flipPage(-3)" class="text-xs font-serif italic text-emerald-700 hover:text-emerald-900 transition-colors flex items-center gap-2"><i data-feather="arrow-left" class="w-4 h-4"></i> Back Page</button>
+      </div>
+    </div>
+  </div>
+</div>

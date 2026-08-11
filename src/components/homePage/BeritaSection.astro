@@ -24,23 +24,12 @@ interface Berita {
   isFeatured?: boolean;
 }
 
-// Fetch berita yang featured dari Sanity
 const beritaList = await sanityClient.fetch<Berita[]>(
   `*[_type == "berita" && isPublished == true && isFeatured == true] | order(publishedAt desc) [0...3] {
-    _id,
-    title,
-    slug,
-    publishedAt,
-    excerpt,
-    featuredImage,
-    category,
-    gradientFrom,
-    gradientTo,
-    isFeatured
+    _id, title, slug, publishedAt, excerpt, featuredImage, category, gradientFrom, gradientTo, isFeatured
   }`
 );
 
-// Fallback data
 const defaultBerita: Berita[] = [
   {
     title: 'Penerimaan Siswa Baru 2025/2026',
@@ -57,8 +46,8 @@ const defaultBerita: Berita[] = [
     publishedAt: '2024-12-20',
     excerpt: 'Siswa ABBS meraih juara 1 kompetisi tahfidz tingkat nasional',
     category: 'Prestasi',
-    gradientFrom: 'from-tertiary-400',
-    gradientTo: 'to-tertiary-600',
+    gradientFrom: 'from-secondary-400',
+    gradientTo: 'to-secondary-600',
   },
   {
     title: 'English Camp 2024',
@@ -66,74 +55,82 @@ const defaultBerita: Berita[] = [
     publishedAt: '2024-12-15',
     excerpt: 'Kegiatan peningkatan kemampuan bahasa Inggris dengan native speaker',
     category: 'Kegiatan',
-    gradientFrom: 'from-secondary-400',
-    gradientTo: 'to-secondary-500',
+    gradientFrom: 'from-accent-400',
+    gradientTo: 'to-accent-600',
   },
 ];
 
 const displayBerita = beritaList.length > 0 ? beritaList : defaultBerita;
 
-// Helper format tanggal
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString('id-ID', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
+    day: 'numeric', month: 'long', year: 'numeric',
   });
 }
-
-// Icon mapping untuk kategori
-const categoryIcons: Record<string, string> = {
-  'akademik': '📚',
-  'prestasi': '🏆',
-  'kegiatan': '🌍',
-  'pengumuman': '📢',
-};
 ---
 
-<section class="py-16 bg-white dark:bg-gray-800">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        Berita & Kegiatan Terbaru
-      </h2>
-      <p class="text-gray-600 dark:text-gray-400">
-        Update terkini seputar kegiatan dan prestasi ABBS Surakarta
-      </p>
+<section class="py-12 md:py-20 bg-slate-50 dark:bg-[#0a0a0a]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      <div>
+        <span class="font-hand text-xl text-primary-600 dark:text-accent-400 rotate-[-2deg] block mb-3">catatan terbaru</span>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">
+          Berita & <span class="font-serif font-normal italic text-primary-600 dark:text-primary-400">Kegiatan</span>
+        </h2>
+        <p class="text-slate-600 dark:text-gray-400">
+          Kabar terbaru seputar prestasi, inovasi, dan aktivitas komunitas kami.
+        </p>
+      </div>
+      <div class="mt-6 md:mt-0">
+        <a href="/berita" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-gray-900 border border-slate-200/80 dark:border-gray-800 rounded-lg text-sm font-semibold hover:border-primary-500 transition-colors">
+          Lihat Semua
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8m9 0v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8">
-      {displayBerita.map((berita) => (
-        <article class="bg-gray-50 dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-          {/* Featured Image atau Gradient Placeholder */}
-          {berita.featuredImage ? (
-            <img
-              src={builder.image(berita.featuredImage).width(600).height(400).url()}
-              alt={berita.title}
-              class="h-48 w-full object-cover"
-            />
-          ) : (
-            <div class={`h-48 bg-gradient-to-br ${berita.gradientFrom} ${berita.gradientTo} flex items-center justify-center text-6xl`}>
-              {categoryIcons[berita.category] || '📖'}
+    <div class="grid md:grid-cols-3 gap-5">
+      {displayBerita.map((berita, index) => (
+        <article class={`flex flex-col bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-slate-200/80 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300 ${index === 0 ? 'md:col-span-2 md:flex-row' : ''}`}>
+          <div class={`relative overflow-hidden ${index === 0 ? 'md:w-3/5 md:h-auto' : 'h-48'}`}>
+            {berita.featuredImage ? (
+              <img
+                src={builder.image(berita.featuredImage).width(800).height(600).url()}
+                alt={berita.title}
+                class="w-full h-full object-cover"
+              />
+            ) : (
+              <div class={`w-full h-full bg-gradient-to-br ${berita.gradientFrom} ${berita.gradientTo} flex items-center justify-center`}>
+                <span class="font-serif italic text-4xl text-white/40">
+                  {berita.category.charAt(0).toUpperCase()}
+                </span>
+              </div>
+            )}
+            <div class="absolute top-3 left-3">
+              <span class="px-2.5 py-1 rounded-lg bg-white/90 dark:bg-gray-900/90 text-[10px] font-semibold uppercase tracking-[0.1em] text-slate-900 dark:text-white">
+                {berita.category}
+              </span>
             </div>
-          )}
-          
-          <div class="p-6">
-            <div class="text-sm text-primary-600 dark:text-primary-400 font-semibold mb-2">
+          </div>
+
+          <div class={`p-5 flex-1 flex flex-col ${index === 0 ? 'md:w-2/5' : ''}`}>
+            <div class="text-xs text-slate-400 dark:text-gray-500 mb-2">
               {formatDate(berita.publishedAt)}
             </div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+            <h3 class={`font-bold tracking-tight text-slate-900 dark:text-white mb-2 leading-snug ${index === 0 ? 'text-xl md:text-2xl' : 'text-base'}`}>
               {berita.title}
             </h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">
+            <p class="text-slate-600 dark:text-gray-400 mb-4 text-sm leading-relaxed line-clamp-3">
               {berita.excerpt}
             </p>
-            <a 
-              href={`/berita/${berita.slug.current}`}
-              class="text-primary-600 dark:text-primary-400 font-semibold hover:underline inline-flex items-center gap-2"
-            >
-              Baca Selengkapnya →
-            </a>
+            <div class="mt-auto">
+              <a
+                href={`/berita/${berita.slug.current}`}
+                class="text-sm font-semibold text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >
+                Baca Artikel &rarr;
+              </a>
+            </div>
           </div>
         </article>
       ))}

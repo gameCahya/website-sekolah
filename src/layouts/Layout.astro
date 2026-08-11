@@ -1,33 +1,72 @@
 ---
 // src/layouts/Layout.astro
-import '../styles/global.css';
-import HeaderSection from '../components/Layouts/HeaderSection.astro';
-import FooterSection from '../components/Layouts/FooterSection.astro';
+import "../styles/global.css";
+import HeaderSection from "../components/Layouts/HeaderSection.astro";
+import FooterSection from "../components/Layouts/FooterSection.astro";
 
 interface Props {
-  title?: string;
+    title?: string;
 }
 
-const { title = 'ABBS Surakarta' } = Astro.props;
+const { title = "SMP ABBS Surakarta" } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-  </head>
-  <body class="min-h-screen bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300">
-    
-    <HeaderSection />
-    
-    <main>
-      <slot />
-    </main>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+        <link rel="icon" type="image/png" sizes="any" href="/abbs_logos/favicon.png" />
+        <link rel="apple-touch-icon" href="/abbs_logos/favicon.png" />
+    </head>
+    <body
+        class="min-h-screen bg-[#f8fafc] text-slate-900 dark:bg-[#0a0a0a] dark:text-gray-100 selection:bg-primary-500/30 selection:text-primary-900 dark:selection:text-primary-100 transition-colors duration-300"
+    >
+        <HeaderSection />
 
-    <FooterSection />
-    
-  </body>
+        <main>
+            <slot />
+        </main>
+
+        <FooterSection />
+
+        <script>
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -60px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            const observeAll = () => {
+                document.querySelectorAll('.reveal, .reveal-up, .reveal-fade, .reveal-scale-up, .reveal-left, .reveal-right')
+                    .forEach(el => observer.observe(el));
+            };
+
+            document.addEventListener('DOMContentLoaded', observeAll);
+            document.addEventListener('astro:page-load', observeAll);
+        </script>
+
+        <script>
+            import feather from "feather-icons";
+
+            const replaceIcons = () => {
+                if (feather && feather.replace) {
+                    feather.replace();
+                }
+            };
+
+            replaceIcons();
+            document.addEventListener('astro:page-load', replaceIcons);
+        </script>
+    </body>
 </html>
+

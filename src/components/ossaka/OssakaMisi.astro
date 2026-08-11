@@ -1,0 +1,99 @@
+---
+// src/components/ossaka/OssakaMisi.astro
+const misi = [
+    {
+        title: "Menegakkan Integritas",
+        desc: "Menjunjung tinggi integritas, disiplin, dan tanggung jawab dalam setiap kepengurusan dan kegiatan OSIS.",
+        icon: "shield",
+    },
+    {
+        title: "Wadah Aspirasi Siswa",
+        desc: "Menjadikan OSIS sebagai jembatan yang menampung, menyalurkan, dan memperjuangkan aspirasi seluruh siswa.",
+        icon: "message-square",
+    },
+    {
+        title: "Mengembangkan Potensi",
+        desc: "Mengembangkan minat, bakat, dan karakter positif siswa melalui program yang kreatif dan bermanfaat.",
+        icon: "trending-up",
+    },
+    {
+        title: "OSIS yang Dipercaya",
+        desc: "Membangun OSIS yang aktif, transparan, dan dipercaya oleh seluruh siswa serta warga sekolah.",
+        icon: "users",
+    },
+];
+---
+
+<!-- Horizontal scroll misi — completely different from PRASSAKA's vertical logbook -->
+<div>
+    <!-- Header row: left label + right scroll hint -->
+    <div class="flex items-end justify-between mb-10 reveal">
+        <div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="h-px w-10 gold-line"></div>
+                <p class="text-[11px] font-bold text-indigo-300/30 uppercase tracking-[0.4em]">Misi</p>
+                <div class="h-px w-10 gold-line"></div>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-black tracking-tight">
+                Langkah <span class="text-gradient-executive">Nyata</span> Kami
+            </h2>
+        </div>
+        <div class="hidden md:flex items-center gap-2 text-indigo-300/15">
+            <span class="text-[10px] uppercase tracking-widest font-bold">Scroll</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Horizontal scroll container -->
+    <div class="misi-scroll flex gap-5 overflow-x-auto pb-4 -mx-2 px-2 snap-x snap-mandatory">
+        {misi.map((m, i) => (
+            <div class="reveal group glass-card-ossaka celestial-glow rounded-2xl p-7 md:p-8 min-w-[300px] md:min-w-[340px] snap-center shrink-0 hover:-translate-y-1 transition-all duration-500 relative overflow-hidden" style={`transition-delay: ${i * 80}ms`}>
+                <!-- Document number -->
+                <div class="absolute top-4 right-5">
+                    <span class="text-[9px] font-bold text-indigo-300/12 uppercase tracking-widest">Art. {i + 1}</span>
+                </div>
+                <!-- Watermark -->
+                <div class="absolute -bottom-6 -right-6 text-[6rem] font-black text-indigo-500/[0.03] leading-none select-none group-hover:text-indigo-500/[0.06] transition-colors duration-500">
+                    {String(i + 1).padStart(2, '0')}
+                </div>
+                <!-- Top accent -->
+                <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                <div class="relative z-10">
+                    <!-- Icon -->
+                    <div class="relative mb-5 inline-block">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/15 to-violet-600/10 border border-indigo-500/15 flex items-center justify-center text-indigo-300/50 group-hover:text-amber-300/70 group-hover:border-amber-500/20 group-hover:shadow-[0_0_20px_rgba(199,175,121,0.1)] transition-all duration-300">
+                            <i data-feather={m.icon} class="w-5 h-5"></i>
+                        </div>
+                        <div class="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-amber-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+
+                    <h3 class="text-lg md:text-xl font-bold text-indigo-100/55 mb-3 group-hover:text-indigo-100/85 transition-colors duration-300">
+                        {m.title}
+                    </h3>
+                    <p class="text-indigo-200/22 leading-relaxed font-light text-sm">
+                        {m.desc}
+                    </p>
+                </div>
+
+                <!-- Bottom connector dot (between cards) -->
+                {i < misi.length - 1 && (
+                    <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-2 h-2 rounded-full bg-amber-500/20 hidden md:block z-20"></div>
+                )}
+            </div>
+        ))}
+    </div>
+
+    <!-- Bottom celestial seal -->
+    <div class="flex justify-center mt-12">
+        <div class="flex items-center gap-4">
+            <div class="h-px w-16 gold-line"></div>
+            <div class="official-seal">
+                <span class="text-[7px] font-black text-indigo-300/20 uppercase tracking-widest text-center leading-tight">SEKRETARIAT<br>OSIS</span>
+            </div>
+            <div class="h-px w-16 gold-line"></div>
+        </div>
+    </div>
+</div>
